@@ -1,0 +1,20 @@
+CATCOOLER CONCEPT — V2.3 PAINEL COM ROLAGEM TOTAL
+
+Problemas corrigidos:
+- botões Editar, Salvar, Cancelar, Restaurar este item e Testar este ponto NÃO ficam mais fixos;
+- os botões passam a rolar junto com todo o conteúdo;
+- no PC, o painel agora recebe uma altura real definida entre topo e rodapé da janela;
+- a área interna passa a ser a única região rolável;
+- ao rolar sobre o painel, a página atrás permanece bloqueada;
+- no mobile/tablet, o painel continua como bottom-sheet, mas todo o conteúdo pode ser rolado até o final;
+- modo minimizado preservado.
+
+LAYOUT PRINCIPAL E POSIÇÕES DAS LÂMPADAS: não alterados.
+
+Substituir:
+1. app.css
+2. index.html
+3. Catcooler_onepage_interativo_editavel.html
+4. sw.js
+
+O app.js da V2.2 continua válido e não precisa ser substituído nesta correção.
