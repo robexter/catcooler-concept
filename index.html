@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111b">
+<meta name="application-name" content="catcooler concept">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="catcooler concept">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css">
+<title>Catcooler Concept U-39</title></head>
+<body>
+<header class="topbar">
+  <div class="brand"><img src="icon-192.png" alt=""><div><h1>Catcooler Concept U-39</h1><small>Treinamento interativo — Catcooler / tubulão</small></div></div>
+  <div class="actions">
+    <button class="btn primary hidden" id="installBtn" onclick="installApp()">📲 Instalar App</button>
+    <button class="btn" onclick="openQuiz()">Quiz rápido</button>
+    <button class="btn" onclick="exportJSON()">Exportar</button>
+    <label class="btn" for="importFile">Importar</label>
+    <input id="importFile" type="file" accept="application/json" class="hidden" onchange="importJSON(event)">
+  </div>
+</header>
+
+<main class="app">
+<section class="hero">
+  <div>
+    <span class="kicker">U39 CATCOOLER CONCEPT</span>
+    <h2>Treinamento interativo do sistema Catcooler</h2>
+    <p>Explore os equipamentos, malhas de controle, ar de processo, V-12 de emergência e lógica de segurança diretamente sobre a tela do processo. Clique nas lâmpadas para abrir a explicação técnica e utilize o modo edição para complementar o conteúdo.</p>
+  </div>
+  <img src="icon-512.png" alt="">
+</section>
+
+<section class="card">
+  <div class="cardhead"><h2>Catcooler — clique nas lâmpadas para abrir as explicações</h2><button class="btn" onclick="document.documentElement.requestFullscreen?.()">Tela cheia</button></div>
+  <div class="mapwrap"><div class="stage"><img src="catcooler_u39.png" alt="Tela do catcooler">
+<button class="hotspot" data-key="xv808" data-category="safety" style="left:22.6%;top:13.0%"><span class="bulb">💡</span><span class="lamp-label">XV-808</span></button>
+<button class="hotspot" data-key="f3982" data-category="equip" style="left:58.8%;top:15.2%"><span class="bulb">💡</span><span class="lamp-label">F-3982</span></button>
+<button class="hotspot" data-key="hbflevel" data-category="control" style="left:48.0%;top:24.2%"><span class="bulb">💡</span><span class="lamp-label">Nível HBF → F-3982</span></button>
+<button class="hotspot" data-key="c3901ab" data-category="equip" style="left:46.5%;top:41.7%"><span class="bulb">💡</span><span class="lamp-label">C-3901A/B</span></button>
+<button class="hotspot" data-key="tic39031" data-category="control" style="left:57.5%;top:88.5%"><span class="bulb">💡</span><span class="lamp-label">TIC-39031</span></button>
+<button class="hotspot" data-key="arj3901" data-category="air" style="left:12.4%;top:68.8%"><span class="bulb">💡</span><span class="lamp-label">AR J-3901</span></button>
+<button class="hotspot" data-key="arj3982" data-category="air" style="left:13.1%;top:79.6%"><span class="bulb">💡</span><span class="lamp-label">AR J-3982</span></button>
+<button class="hotspot" data-key="v12emerg" data-category="steam" style="left:12.6%;top:76.0%"><span class="bulb">💡</span><span class="lamp-label">V-12 EMERG.</span></button>
+</div></div>
+  <div class="toolbar">
+    <input class="search" id="search" placeholder="Buscar por TAG ou termo: F-3982, drum, HBF, J-3901, V-12...">
+    <button class="btn" onclick="searchTag()">Buscar</button>
+    <button class="btn danger" onclick="resetAll()">Restaurar padrão</button>
+  </div>
+  <div class="chips">
+    <button class="chip active" data-filter="all">Todos</button>
+    <button class="chip" data-filter="equip">Equipamentos</button>
+    <button class="chip" data-filter="control">Controles</button>
+    <button class="chip" data-filter="air">Ar</button>
+    <button class="chip" data-filter="steam">Vapor</button>
+    <button class="chip" data-filter="safety">Segurança</button>
+  </div>
+</section>
+
+<aside class="card side" id="detailPanel">
+  <div class="empty" id="empty">
+    <h2>💡 Entenda melhor</h2>
+    Clique em uma lâmpada sobre a tela do catcooler para abrir a explicação técnica.<br><br>
+    Ao selecionar outro item, o painel troca automaticamente para o novo conteúdo.<br><br>
+    <strong>Edição local:</strong> ative “Editar” para alterar textos. As alterações ficam salvas somente neste aparelho/navegador.
+  </div>
+  <section class="info" id="info">
+    <div class="infotop">
+      <div><h2 id="infoTitle"></h2><div class="badges"><span class="badge" id="infoTag"></span><span class="badge" id="infoCat"></span></div></div>
+      <div class="panel-actions"><span class="edit-state" id="editState">✏️ EDIÇÃO</span><button class="iconbtn" onclick="togglePanelMinimize()">−</button><button class="iconbtn" onclick="minimize()">×</button></div>
+    </div>
+    <div class="edit-banner hidden" id="editModeBanner">✏️ Modo edição ativo — alterações ficam somente neste dispositivo até serem exportadas.</div>
+    <div class="info-scroll">
+      <div class="editbar">
+        <button class="btn primary" id="editBtn" onclick="toggleEdit()">✏️ Editar</button>
+        <button class="btn green" onclick="saveCurrentAndExit()">💾 Salvar</button>
+        <button class="btn" onclick="cancelEdit()">Cancelar</button>
+        <button class="btn danger" onclick="restoreCurrent()">Restaurar este item</button>
+      </div>
+      <div class="local-note">💾 <strong>Alterações salvas somente neste dispositivo.</strong> Use “Exportar” no topo para gerar uma cópia dos dados editados.</div>
+      <div class="section"><h3>Função / objetivo</h3><div class="editable" id="fieldFunction"></div></div>
+      <div class="section"><h3>Como funciona no processo</h3><div class="editable" id="fieldProcess"></div></div>
+      <div class="section"><h3>Impacto / atenção operacional</h3><div class="editable" id="fieldImpact"></div></div>
+      <div class="section"><h3>Fórmulas / relações químicas</h3><div class="editable formula" id="fieldFormula"></div></div>
+      <div class="section"><h3>Observações / o que acompanhar no CIC</h3><div class="editable" id="fieldObs"></div></div>
+      <div class="section"><h3>Vídeo / material complementar</h3><div class="media-row"><input id="videoUrl" placeholder="Cole aqui a URL do vídeo"><button class="btn" onclick="openVideo()">Abrir</button></div></div>
+      <div class="section note">Material de treinamento. Para manobras reais, prevalecem procedimentos, permissivos, intertravamentos, limites de projeto e orientações operacionais vigentes da unidade.</div>
+    </div>
+  </section>
+</aside>
+
+<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V1.0</span></small></div></footer>
+</main>
+
+<aside class="drawer" id="quizDrawer"><div class="drawer-head"><strong>Quiz rápido — Catcooler</strong><button class="btn" onclick="document.getElementById('quizDrawer').classList.remove('open')">Fechar</button></div><div class="drawer-body"><div id="quizBody"></div><button class="btn primary" onclick="gradeQuiz()">Corrigir quiz</button><div class="qresult hidden" id="quizResult"></div></div></aside>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body></html>

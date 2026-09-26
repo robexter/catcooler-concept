@@ -1,0 +1,82 @@
+{
+  "f3982": {
+    "title": "F-3982 — Tubulão / steam drum do catcooler",
+    "tag": "F-3982",
+    "category": "equip",
+    "function": "O F-3982 é o tubulão do sistema de geração de vapor do catcooler. Sua função é separar água e vapor, manter inventário de água de alimentação e fornecer volume de segurança para geração estável de vapor.",
+    "process": "A água de alimentação entra no tubulão. O calor removido do catalisador nos catcoolers é transferido para a água, promovendo ebulição. A mistura água-vapor retorna ao tubulão, onde ocorre a separação: o vapor segue para consumo/exportação e a água recircula no circuito.",
+    "impact": "Nível baixo reduz a reserva hidráulica e compromete a geração de vapor. Nível alto favorece arraste de água para a linha de vapor. O objetivo é manter nível estável e boa separação água-vapor.",
+    "formula": "H₂O(l) → H₂O(v)\n\ndM/dt = F_HBF − F_vapor − F_purgas\n\nQ = ṁ·Cp·ΔT\nou\nQ = ṁ_vapor·λ",
+    "obs": "Acompanhar nível, tendência de vapor gerado, diferença entre HBF e vapor produzido e coerência com a carga térmica."
+  },
+  "c3901ab": {
+    "title": "C-3901A / C-3901B — Catcoolers",
+    "tag": "C-3901A/B",
+    "category": "equip",
+    "function": "Os catcoolers removem o excesso de calor do regenerador D-3904. Ao mesmo tempo, recuperam essa energia para gerar vapor no circuito do F-3982.",
+    "process": "Parte do catalisador quente do regenerador circula pelos catcoolers. O calor é transferido indiretamente para a água do circuito. O catalisador retorna mais frio ao regenerador e o sistema produz vapor útil para a unidade.",
+    "impact": "Remoção insuficiente de calor eleva a temperatura do regenerador. Remoção excessiva pode derrubar a temperatura além do desejado. O equilíbrio térmico é essencial para estabilidade e integridade.",
+    "formula": "Q = U·A·ΔTlm\n\nQ = ṁ_cat·Cp_cat·(T_entrada − T_saida)\n\nC + O₂ → CO₂ + calor\n2C + O₂ → 2CO + calor",
+    "obs": "Operacionalmente, os catcoolers controlam a temperatura do regenerador e recuperam energia na forma de vapor."
+  },
+  "tic39031": {
+    "title": "TIC-39031 — Controle de temperatura",
+    "tag": "TIC-39031",
+    "category": "control",
+    "function": "Mantém a temperatura associada ao sistema catcooler/regenerador no valor desejado, modulando a intensidade de remoção de calor.",
+    "process": "O controlador compara PV e SP. A partir do desvio, ajusta a variável manipulada do sistema do catcooler, aumentando ou reduzindo a remoção de calor conforme a necessidade.",
+    "impact": "Temperatura alta indica remoção de calor insuficiente ou maior carga térmica. Temperatura baixa indica remoção excessiva. O controle evita excursões térmicas e estabiliza o balanço energético.",
+    "formula": "e(t) = SP − PV\n\nSe PV > SP → aumentar resfriamento\nSe PV < SP → reduzir resfriamento",
+    "obs": "Acompanhar PV, SP, MV e a coerência entre a resposta do controlador e a tendência da temperatura."
+  },
+  "arj3901": {
+    "title": "AR proveniente do J-3901",
+    "tag": "AR J-3901",
+    "category": "air",
+    "function": "É a principal fonte de ar de suporte do sistema, ajudando na fluidização, aeração e sustentação operacional do circuito associado ao regenerador/catcooler.",
+    "process": "Esse ar ajuda a manter mobilidade do catalisador, estabilidade hidráulica e, quando aplicável, contribui com o ambiente de combustão do sistema.",
+    "impact": "Redução desse ar pode prejudicar fluidização e circulação. Excesso pode alterar hidráulica, ΔP e distribuição de fluxo.",
+    "formula": "Função predominantemente operacional/hidráulica.\n\nQuando associado à combustão:\nC + O₂ → CO₂ + calor",
+    "obs": "Pensar no AR do J-3901 como ar principal de suporte ao sistema."
+  },
+  "arj3982": {
+    "title": "AR proveniente do J-3982",
+    "tag": "AR J-3982",
+    "category": "air",
+    "function": "Atua como fonte auxiliar/complementar de ar para o sistema do catcooler, ajudando no ajuste fino da aeração/fluidização.",
+    "process": "Ele reforça a operação do circuito quando necessário, contribuindo para manter circulação do catalisador, aeração dos pontos específicos e estabilidade da troca térmica.",
+    "impact": "Sua indisponibilidade reduz flexibilidade operacional e pode comprometer o ajuste fino do sistema.",
+    "formula": "Função predominantemente operacional.\n\nMaior aeração → melhor mobilidade do leito/catalisador, respeitados os limites do sistema.",
+    "obs": "Pensar no J-3982 como apoio ao sistema, principalmente para estabilidade e reforço operacional."
+  },
+  "v12emerg": {
+    "title": "V-12 Emergência",
+    "tag": "V-12 EMERG.",
+    "category": "steam",
+    "function": "É o vapor utilitário de emergência usado para contingência, partida ou suporte operacional.",
+    "process": "No catcooler/regenerador, pode ser usado para purga, suporte temporário, aquecimento e preservação de condição operacional quando alguma utilidade principal não estiver disponível.",
+    "impact": "Sua disponibilidade aumenta segurança e flexibilidade da manobra. Em eventos de falha ajuda a preservar o sistema e facilitar a retomada.",
+    "formula": "Q ≈ ṁ_vapor·(h_saida − h_entrada)",
+    "obs": "Encarar o V-12 emergência como utilidade estratégica para cenários anormais."
+  },
+  "hbflevel": {
+    "title": "Controle de nível do HBF para o F-3982",
+    "tag": "LIC/FIC HBF → F-3982",
+    "category": "control",
+    "function": "Mantém o nível do tubulão F-3982 dentro da faixa segura, ajustando a vazão de HBF para compensar a geração de vapor e as variações de inventário.",
+    "process": "O nível medido no tubulão é comparado ao SP. A lógica de controle aumenta HBF quando a geração de vapor tende a baixar o nível e reduz HBF quando a geração cai, evitando sobre-elevação.",
+    "impact": "Nível baixo compromete a segurança térmica e a reserva de água. Nível alto pode causar arraste de água para o vapor. É importante interpretar o fenômeno de shrink/swell típico de tubulão.",
+    "formula": "dM/dt = F_HBF − F_vapor − F_purgas\n\nShrink/swell: mudanças rápidas na ebulição alteram o nível aparente.",
+    "obs": "Interpretar tendência de nível junto com carga térmica e vapor produzido."
+  },
+  "xv808": {
+    "title": "XV-808 — válvula que fecha no intertravamento total da GV-3901",
+    "tag": "XV-808",
+    "category": "safety",
+    "function": "É uma válvula de isolamento de segurança. Em caso de intertravamento total da GV-3901, fecha automaticamente para isolar o sistema.",
+    "process": "Ao ocorrer o intertravamento total, a lógica de proteção comanda o fechamento da XV-808 para bloquear fluxo indevido, evitar reversão, perda de inventário ou transferência indesejada de energia/pressão.",
+    "impact": "Protege a caldeira/tubulão e evita agravamento do evento, separando o sistema em falha do restante da malha operacional.",
+    "formula": "Conceito operacional:\nIntertravamento total → XV-808 fecha → sistema é isolado",
+    "obs": "A XV-808 deve ser entendida como barreira de segurança da GV-3901."
+  }
+}

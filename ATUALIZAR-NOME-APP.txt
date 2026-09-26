@@ -1,0 +1,10 @@
+CATCOOLER CONCEPT — ATUALIZAÇÃO DO NOME DO APP
+
+Nome que deverá aparecer após instalação:
+catcooler concept
+
+Substitua no GitHub:
+1. manifest.json
+2. index.html
+3. Catcooler_onepage_interativo_editavel.html
+4. sw.js
