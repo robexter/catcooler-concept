@@ -20,9 +20,161 @@ function resetAll(){if(!confirm("Restaurar o conteúdo padrão e apagar as ediç
 function filterCategory(c){$$(".hotspot").forEach(h=>h.classList.toggle("hidden",c!=="all"&&h.dataset.category!==c));$$(".chip").forEach(ch=>ch.classList.toggle("active",ch.dataset.filter===c))}
 function searchTag(){const q=$("#search").value.trim().toLowerCase();if(!q)return;const hit=Object.entries(data).find(([k,v])=>[v.tag,v.title,v.function,v.process,v.impact,v.obs].filter(Boolean).join(" ").toLowerCase().includes(q));if(hit){const h=document.querySelector(`.hotspot[data-key="${hit[0]}"]`);filterCategory("all");selectItem(hit[0],h);toast(`Encontrado: ${hit[1].tag}`)}else toast("Nenhum ponto encontrado para essa busca")}
 function openVideo(){const url=$("#videoUrl").value.trim();if(!url)return toast("Informe uma URL de vídeo");window.open(url,"_blank","noopener")}
-const quiz=[{q:"Qual é a função principal do F-3982?",a:["Separar água e vapor e manter inventário do sistema","Comprimir ar de combustão","Injetar fosfato no regenerador","Resfriar óleo de lavagem"],c:0},{q:"Os C-3901A/B têm como objetivo:",a:["Remover calor do regenerador e gerar vapor","Aumentar o coke no catalisador","Reduzir vazão de HBF","Controlar o nível do drum sem troca térmica"],c:0},{q:"Se a temperatura controlada pelo TIC-39031 subir acima do SP, a tendência esperada é:",a:["Aumentar a remoção de calor do sistema","Fechar todas as purgas","Parar a geração de vapor","Aumentar nível do drum manualmente"],c:0},{q:"O V-12 de emergência é importante porque:",a:["Serve como utilidade de contingência/purga/suporte","É a principal água de alimentação","Substitui permanentemente o ar do J-3901","Controla sozinho o regenerador"],c:0},{q:"A XV-808 fecha em intertravamento total da GV-3901 para:",a:["Isolar o sistema e protegê-lo","Aumentar a carga térmica","Elevar automaticamente o nível do drum","Abrir passagem de retorno"],c:0}];
-function openQuiz(){const box=$("#quizBody");box.innerHTML="";quiz.forEach((x,i)=>{const div=document.createElement("div");div.className="q";div.innerHTML=`<h4>${i+1}. ${x.q}</h4>`+x.a.map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${a}</label>`).join("");box.appendChild(div)});$("#quizResult").classList.add("hidden");$("#quizDrawer").classList.add("open")}
-function gradeQuiz(){let score=0;quiz.forEach((x,i)=>{const s=document.querySelector(`input[name="q${i}"]:checked`);if(s&&+s.value===x.c)score++});const r=$("#quizResult");r.textContent=`Resultado: ${score}/${quiz.length} acertos`;r.classList.remove("hidden")}
+const quiz=[
+{
+q:"Durante a operação do sistema Catcooler, qual descrição representa melhor a função do F-3982?",
+a:[
+{t:"Regular a circulação de catalisador entre o D-3904 e os catcoolers, usando o nível como variável principal.",f:"A circulação de catalisador está associada ao circuito dos catcoolers; o F-3982 atua no circuito de água/vapor, não como regulador direto da circulação de catalisador."},
+{t:"Separar a mistura água-vapor, manter inventário de água e fornecer volume para geração estável de vapor.",f:"O F-3982 funciona como tubulão do circuito de geração de vapor, separando água e vapor e mantendo o inventário necessário ao sistema."},
+{t:"Controlar a pressão do HBF antes dos catcoolers e isolar automaticamente a GV-3901 em qualquer desvio.",f:"O HBF alimenta o circuito e existem elementos de proteção específicos; a função principal do F-3982 não é atuar como válvula de isolamento nem como controlador primário de pressão."},
+{t:"Resfriar diretamente os gases do regenerador e condensar o vapor antes do retorno ao circuito de água.",f:"A remoção de calor ocorre principalmente pela troca térmica associada ao catalisador nos catcoolers; o F-3982 não é um condensador de gases do regenerador."}
+],c:1
+},
+{
+q:"Qual alternativa descreve com maior precisão a função conjunta dos C-3901A e C-3901B?",
+a:[
+{t:"Transferir calor do circuito de água para o catalisador, elevando sua temperatura antes do retorno ao D-3904.",f:"O sentido térmico esperado é o oposto: o catalisador quente cede calor ao circuito de água/vapor."},
+{t:"Atuar principalmente como vasos de separação, retirando vapor da água antes do retorno ao F-3982.",f:"A separação água-vapor é função do tubulão F-3982; os C-3901A/B são os equipamentos de remoção de calor."},
+{t:"Remover calor do catalisador associado ao D-3904 e transferi-lo ao circuito de água para geração de vapor.",f:"Essa é a função central dos catcoolers: retirar energia térmica do sistema do regenerador e recuperá-la na geração de vapor."},
+{t:"Controlar diretamente o nível do F-3982 por variação da pressão de ar proveniente do J-3982.",f:"O nível é controlado pelo balanço de água/vapor; os catcoolers influenciam a carga térmica, mas não são o elemento direto de controle de nível."}
+],c:2
+},
+{
+q:"Se a PV do TIC-39031 permanecer acima do SP e o restante do sistema estiver disponível, qual resposta é coerente com a finalidade desse controle?",
+a:[
+{t:"Reduzir a remoção de calor para aumentar gradualmente a temperatura até que a PV se aproxime do SP.",f:"Com a PV acima do SP, reduzir a remoção de calor tenderia a agravar o desvio de temperatura."},
+{t:"Manter a remoção de calor constante e corrigir o desvio apenas aumentando a vazão de HBF para o F-3982.",f:"A vazão de HBF participa do balanço do tubulão, mas não substitui a ação térmica esperada do controle de temperatura."},
+{t:"Transferir o controle para o V-12 de emergência, mantendo inalterada a atuação normal dos catcoolers.",f:"O V-12 de emergência é uma utilidade de contingência e não é a resposta normal do controlador de temperatura."},
+{t:"Aumentar a remoção de calor do sistema, de modo a conduzir a PV de volta em direção ao SP.",f:"Quando a temperatura medida está acima do valor desejado, a ação coerente é aumentar a remoção de calor, respeitando a lógica e os limites reais da unidade."}
+],c:3
+},
+{
+q:"Considerando as funções descritas para as duas fontes de ar, qual relação entre J-3901 e J-3982 é a mais adequada?",
+a:[
+{t:"O J-3901 fornece o ar principal de suporte, enquanto o J-3982 atua como fonte auxiliar ou complementar para ajuste operacional.",f:"Essa relação representa o papel principal/complementar adotado no material da one page."},
+{t:"O J-3982 fornece o ar principal de suporte e o J-3901 deve ser usado somente quando houver indisponibilidade do primeiro.",f:"Essa alternativa inverte os papéis definidos no material de treinamento."},
+{t:"Os dois sistemas devem operar sempre com a mesma vazão, pois qualquer diferença entre eles indica falha de controle.",f:"Fontes principal e auxiliar não precisam ter vazões idênticas; suas funções e necessidades operacionais podem ser diferentes."},
+{t:"O J-3901 atua apenas na partida e o J-3982 assume integralmente a aeração durante a operação normal.",f:"O conteúdo da one page não define o J-3901 apenas como ar de partida nem o J-3982 como substituto integral em operação normal."}
+],c:0
+},
+{
+q:"Em uma condição anormal que exija suporte de utilidade, qual uso está mais alinhado à função do V-12 de emergência?",
+a:[
+{t:"Assumir continuamente a função normal do ar do J-3901 durante toda a campanha da unidade.",f:"O V-12 é uma utilidade de contingência e não deve ser interpretado como substituto contínuo da fonte normal de ar."},
+{t:"Auxiliar em purga, suporte temporário e preservação de condição operacional durante uma contingência.",f:"Esse é o papel de suporte atribuído ao V-12 de emergência no material da one page."},
+{t:"Controlar diretamente o nível do F-3982, aumentando ou reduzindo sua vazão conforme a indicação do LIC.",f:"O controle de nível do tubulão é associado ao balanço de HBF e vapor; o V-12 não é o elemento normal desse controle."},
+{t:"Regular a temperatura do D-3904 substituindo a atuação do TIC-39031 sempre que houver desvio de PV.",f:"O V-12 não substitui a malha normal de controle de temperatura; sua função é de contingência/suporte."}
+],c:1
+},
+{
+q:"A geração de vapor aumenta rapidamente e o nível indicado do F-3982 sobe momentaneamente. Qual interpretação é mais consistente antes de uma intervenção agressiva no HBF?",
+a:[
+{t:"Tratar a elevação como ganho real e permanente de massa no tubulão e reduzir imediatamente o HBF ao mínimo.",f:"Uma elevação rápida pode conter componente de swell; agir como se todo o aumento fosse inventário real pode levar a correção excessiva."},
+{t:"Assumir falha do transmissor de nível sempre que o vapor gerado aumentar e manter o HBF fixo até estabilizar.",f:"O aumento de vapor pode produzir resposta dinâmica real do nível; não é adequado classificar automaticamente a indicação como falha."},
+{t:"Considerar o efeito de swell e avaliar nível, geração de vapor e tendência do controle em conjunto antes de corrigir o inventário.",f:"No tubulão, mudanças rápidas de ebulição podem alterar o nível aparente; a interpretação conjunta evita correções precipitadas."},
+{t:"Interpretar a elevação do nível como prova de redução da ebulição e aumentar o HBF para restabelecer a geração de vapor.",f:"O nível aparente pode subir justamente com aumento de ebulição; aumentar HBF sem avaliar o balanço pode agravar o nível alto."}
+],c:2
+},
+{
+q:"Qual é o objetivo operacional do fechamento da XV-808 quando ocorre o intertravamento total da GV-3901?",
+a:[
+{t:"Manter uma passagem mínima para preservar a circulação, reduzindo a abertura para aproximadamente metade do curso.",f:"Em um intertravamento total, a lógica descrita é de isolamento; uma abertura parcial não representa a função de barreira indicada."},
+{t:"Redirecionar automaticamente o fluxo para o V-12 de emergência, mantendo o circuito principal conectado.",f:"A XV-808 é tratada como elemento de isolamento, não como válvula de transferência automática para o V-12."},
+{t:"Aumentar o inventário do F-3982 antes de parar a geração de vapor, evitando queda de nível durante o evento.",f:"A função de segurança da XV-808 não é elevar o inventário do tubulão, e sim isolar o sistema em condição de trip total."},
+{t:"Isolar o sistema para limitar fluxos ou transferências indesejadas e evitar agravamento da condição de falha.",f:"O fechamento da XV-808 funciona como barreira de segurança no intertravamento total da GV-3901."}
+],c:3
+},
+{
+q:"No balanço simplificado do F-3982, se a vazão de HBF permanecer menor que a soma da vazão de vapor gerado com as purgas, qual tendência de inventário é esperada?",
+a:[
+{t:"O inventário tende a aumentar, porque a maior geração de vapor eleva permanentemente a massa retida no tubulão.",f:"Se as saídas de massa superam a entrada, o inventário total tende a cair, mesmo que o nível aparente possa sofrer efeitos transitórios."},
+{t:"O inventário tende a diminuir, pois as saídas de massa superam a alimentação de HBF.",f:"Pelo balanço dM/dt = F_HBF − F_vapor − F_purgas, uma soma de saídas maior que a entrada produz tendência negativa de inventário."},
+{t:"O inventário permanece constante, porque a mudança de fase não altera o balanço global de massa do sistema.",f:"A mudança de fase não cria massa; porém, se a vazão que sai supera a que entra, o inventário não permanece constante."},
+{t:"A tendência do inventário depende somente da temperatura do TIC-39031, independentemente das vazões de entrada e saída.",f:"A temperatura influencia a geração de vapor, mas o inventário é determinado pelo balanço de massa entre entradas e saídas."}
+],c:1
+},
+{
+q:"Mantendo aproximadamente constantes a vazão de catalisador e o seu Cp, o que indica um aumento do ΔT do catalisador através do catcooler?",
+a:[
+{t:"Maior remoção de calor do catalisador, pois Q cresce com ṁ·Cp·ΔT.",f:"Com vazão e Cp aproximadamente constantes, um ΔT maior representa maior quantidade de calor removida do catalisador."},
+{t:"Menor remoção de calor, porque um ΔT maior indica menor aproximação térmica entre os dois circuitos.",f:"Na relação Q = ṁ·Cp·ΔT, mantendo os demais termos constantes, Q aumenta com o ΔT."},
+{t:"A mesma remoção de calor, porque o ΔT não participa do balanço energético quando existe geração de vapor.",f:"O ΔT do catalisador participa diretamente do balanço de energia e continua relevante mesmo com mudança de fase no lado da água."},
+{t:"Apenas aumento de pressão no F-3982, sem relação direta com a energia transferida pelo catcooler.",f:"O ΔT do catalisador é uma medida diretamente relacionada à energia cedida pelo catalisador no trocador."}
+],c:0
+},
+{
+q:"Durante uma mesma condição de carga térmica, a temperatura do regenerador começa a subir enquanto a contribuição térmica dos catcoolers diminui. Qual diagnóstico inicial é mais coerente?",
+a:[
+{t:"A remoção de calor pelo sistema pode estar insuficiente, devendo-se avaliar circulação, troca térmica e variáveis associadas ao catcooler.",f:"Se a carga térmica permanece semelhante e a temperatura sobe com menor contribuição dos catcoolers, a hipótese de remoção de calor insuficiente é coerente."},
+{t:"A remoção de calor provavelmente aumentou além do necessário, sendo esperado que a temperatura do regenerador também aumente.",f:"Maior remoção de calor tenderia a reduzir, e não elevar, a temperatura para a mesma carga térmica."},
+{t:"O comportamento comprova nível excessivamente alto no F-3982, mesmo sem observar a tendência do LIC ou da geração de vapor.",f:"A temperatura do regenerador isoladamente não comprova nível alto no tubulão; é preciso correlacionar as variáveis."},
+{t:"O comportamento indica necessariamente excesso de ar do J-3982, independentemente da circulação de catalisador e da troca térmica.",f:"Uma única tendência não permite concluir necessariamente excesso de ar auxiliar; a avaliação deve considerar o conjunto das variáveis."}
+],c:0
+}
+];
+
+let quizRender=[];
+
+function shuffledOptions(item){
+  const arr=item.a.map((opt,idx)=>({opt,originalIndex:idx}));
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function openQuiz(){
+  const box=$("#quizBody");
+  box.innerHTML="";
+  quizRender=quiz.map((item,i)=>({item,shown:shuffledOptions(item)}));
+  quizRender.forEach(({item,shown},i)=>{
+    const div=document.createElement("div");
+    div.className="q";
+    div.dataset.qindex=i;
+    div.innerHTML=`<h4>${i+1}. ${item.q}</h4>`+
+      shown.map((entry,j)=>`<label><input type="radio" name="q${i}" value="${entry.originalIndex}"> <span class="option-letter">${String.fromCharCode(65+j)}</span> ${entry.opt.t}</label>`).join("")+
+      `<div class="qfeedback hidden" id="qfb${i}"></div>`;
+    box.appendChild(div);
+  });
+  const r=$("#quizResult");
+  r.classList.add("hidden");
+  r.textContent="";
+  $("#quizDrawer").classList.add("open");
+}
+
+function gradeQuiz(){
+  let score=0, answered=0;
+  quizRender.forEach(({item,shown},i)=>{
+    const card=document.querySelector(`.q[data-qindex="${i}"]`);
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const fb=$("#qfb"+i);
+    card.querySelectorAll("label").forEach(l=>l.classList.remove("answer-correct","answer-wrong"));
+    if(!selected){
+      fb.textContent="Questão não respondida.";
+      fb.className="qfeedback unanswered";
+      return;
+    }
+    answered++;
+    const chosen=+selected.value;
+    const isCorrect=chosen===item.c;
+    if(isCorrect)score++;
+    const selectedLabel=selected.closest("label");
+    selectedLabel.classList.add(isCorrect?"answer-correct":"answer-wrong");
+    const correctRadio=[...card.querySelectorAll('input[type="radio"]')].find(r=>+r.value===item.c);
+    if(correctRadio)correctRadio.closest("label").classList.add("answer-correct");
+    fb.textContent=item.a[chosen].f;
+    fb.className="qfeedback "+(isCorrect?"correct":"wrong");
+  });
+
+  const pct=Math.round((score/quiz.length)*100);
+  const omitted=quiz.length-answered;
+  let level=pct>=90?"Excelente domínio":pct>=75?"Bom domínio":pct>=60?"Domínio parcial":"Revisão recomendada";
+  const r=$("#quizResult");
+  r.innerHTML=`<strong>${score}/${quiz.length} acertos — ${pct}%</strong><br>${level}${omitted?` • ${omitted} não respondida(s)`:''}`;
+  r.classList.remove("hidden");
+}
+
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("#installBtn").classList.remove("hidden")});
 window.addEventListener("appinstalled",()=>{deferredPrompt=null;$("#installBtn").textContent="✓ App instalado";toast("Catcooler Concept U-39 instalado")});
 async function installApp(){if(deferredPrompt){deferredPrompt.prompt();const choice=await deferredPrompt.userChoice;if(choice.outcome==="accepted")$("#installBtn").textContent="✓ Instalando...";deferredPrompt=null;return}const ua=navigator.userAgent||"";if(/iphone|ipad|ipod/i.test(ua))alert("No iPhone/iPad: toque em Compartilhar e escolha “Adicionar à Tela de Início”.");else alert("Se a janela de instalação não abrir, use o menu do navegador e escolha “Instalar app” ou “Adicionar à tela inicial”.")}

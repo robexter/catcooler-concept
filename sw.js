@@ -1,4 +1,4 @@
-const CACHE_NAME='catcooler-concept-v2-nome-app';
+const CACHE_NAME='catcooler-concept-v3-quiz-refinado';
 const APP_ASSETS=['./','./index.html','./Catcooler_onepage_interativo_editavel.html','./manifest.json','./app.css','./app.js','./catcooler_u39.png','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(APP_ASSETS)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));self.clients.claim()});

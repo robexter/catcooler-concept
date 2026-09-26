@@ -1,0 +1,20 @@
+CATCOOLER CONCEPT — V1.1 QUIZ REFINADO
+
+Substituir:
+1. app.js
+2. app.css
+3. index.html
+4. Catcooler_onepage_interativo_editavel.html
+5. sw.js
+
+Melhorias:
+- 10 questões em vez de 5;
+- alternativas tecnicamente próximas e do mesmo domínio;
+- distribuição das respostas corretas entre A/B/C/D;
+- embaralhamento das alternativas a cada abertura do quiz;
+- feedback individual por questão;
+- destaque visual da resposta escolhida e da correta após a correção;
+- resultado em acertos + percentual + nível de domínio;
+- indicação de questões não respondidas;
+- dificuldade progressiva, incluindo interpretação de shrink/swell e balanços de massa/energia;
+- cache do PWA atualizado.
