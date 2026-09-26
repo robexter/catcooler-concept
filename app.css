@@ -123,3 +123,96 @@ button,input{font:inherit} .hidden{display:none!important}
   .media-file-card{grid-template-columns:1fr}
   .media-file-actions{justify-content:flex-start}
 }
+
+
+/* =========================================================
+   V2.2 — Correção de rolagem do painel flutuante
+   O HMI e as coordenadas das lâmpadas permanecem congelados.
+   ========================================================= */
+
+/* O painel precisa ter uma altura efetivamente limitada para que
+   o miolo (.info-scroll) possa se tornar a área rolável. */
+.side{
+  max-height:calc(100dvh - 94px);
+  min-height:0;
+  overscroll-behavior:contain;
+}
+
+/* Mantém cabeçalho/banner fixos e entrega o espaço restante ao conteúdo. */
+.info{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:100%;
+  overflow:hidden;
+}
+.infotop,
+.edit-banner{
+  flex:0 0 auto;
+}
+
+/* Esta passa a ser a única área de rolagem do painel. */
+.info-scroll{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  scrollbar-gutter:stable;
+}
+
+/* Evita que gestos de rolagem no painel sejam repassados para a tela atrás. */
+.side.open{
+  overscroll-behavior:contain;
+}
+.side.open .info-scroll{
+  pointer-events:auto;
+}
+
+/* Melhora o comportamento em celulares/tablets, onde o painel funciona
+   como um bottom-sheet e precisa de altura definida para rolar internamente. */
+@media(max-width:820px){
+  .side{
+    height:min(78dvh,calc(100dvh - 16px));
+    max-height:calc(100dvh - 16px);
+    min-height:280px;
+    left:8px;
+    right:8px;
+    bottom:8px;
+    top:auto;
+  }
+  .side.minimized{
+    height:66px;
+    min-height:66px;
+    max-height:66px;
+  }
+  .info{
+    height:100%;
+    min-height:0;
+  }
+  .info-scroll{
+    height:auto;
+    min-height:0;
+    padding-bottom:max(22px,env(safe-area-inset-bottom));
+  }
+}
+
+/* Em telas muito baixas, preserva acesso ao conteúdo sem extrapolar o viewport. */
+@media(max-height:560px){
+  .side{
+    top:8px;
+    bottom:8px;
+    height:auto;
+    max-height:none;
+  }
+}
+
+
+/* Em telas touch, impede a página atrás de se mover enquanto o painel está expandido. */
+@media(max-width:820px){
+  body.detail-panel-open{
+    overflow:hidden;
+  }
+}

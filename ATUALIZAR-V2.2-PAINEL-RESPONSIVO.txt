@@ -1,0 +1,21 @@
+CATCOOLER CONCEPT — V2.2 PAINEL FLUTUANTE RESPONSIVO
+
+Correção:
+- o painel flutuante agora possui rolagem interna própria;
+- ao deslizar dentro do painel, a página que está atrás não deve mais receber o gesto;
+- cabeçalho do painel permanece visível;
+- conteúdo técnico, vídeos e arquivos podem ser rolados até o final;
+- melhoria para celular/tablet com 100dvh e safe-area;
+- suporte a rolagem suave em iPhone/iPad;
+- overscroll bloqueado para evitar scroll chaining.
+
+LAYOUT PRINCIPAL E HOTSPOTS: preservados.
+
+Substituir no GitHub:
+1. app.css
+2. index.html
+3. Catcooler_onepage_interativo_editavel.html
+4. app.js
+5. sw.js
+
+Reforço mobile: enquanto o painel estiver expandido, a rolagem da página de fundo é bloqueada; ao minimizar/fechar, é liberada novamente.
