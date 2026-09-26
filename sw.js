@@ -1,5 +1,5 @@
-const CACHE_NAME='catcooler-concept-v23-panel-full-scroll';
-const APP_ASSETS=['./','./index.html','./Catcooler_onepage_interativo_editavel.html','./manifest.json','./app.css','./app.js','./catcooler_u39.png','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
+const CACHE_NAME='catcooler-concept-v24-scroll-real';
+const APP_ASSETS=['./','./index.html','./Catcooler_onepage_interativo_editavel.html','./manifest.json','./app.css?v=24','./app.js?v=24','./catcooler_u39.png','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(APP_ASSETS)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));self.clients.claim()});
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const isHTML=event.request.mode==='navigate'||event.request.destination==='document'||event.request.url.endsWith('/index.html')||event.request.url.endsWith('Catcooler_onepage_interativo_editavel.html');if(isHTML){event.respondWith(fetch(event.request).then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(event.request,copy));return r}).catch(()=>caches.match(event.request).then(r=>r||caches.match('./index.html'))));return}event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(r=>{const copy=r.clone();caches.open(CACHE_NAME).then(c=>c.put(event.request,copy));return r})))});

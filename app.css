@@ -327,3 +327,109 @@ body.detail-panel-open{
     height:66px;
   }
 }
+
+
+/* =========================================================
+   V2.4 — SCROLL REAL DO PAINEL (PC + MOBILE)
+   O próprio painel é o container rolável.
+   Cabeçalho fica acessível; botões rolam com o conteúdo.
+   ========================================================= */
+
+html:has(#detailPanel.open),
+body:has(#detailPanel.open){
+  overflow:hidden!important;
+}
+
+#detailPanel.side{
+  top:78px!important;
+  right:16px!important;
+  bottom:16px!important;
+  height:auto!important;
+  max-height:none!important;
+  min-height:0!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+
+/* O conteúdo deixa de ser um segundo container de scroll.
+   Assim não há disputa entre rolagem do painel e rolagem da página. */
+#detailPanel .info{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  flex:0 0 auto!important;
+}
+
+#detailPanel .info-scroll{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  flex:none!important;
+}
+
+/* Só o cabeçalho de identificação fica disponível no topo.
+   A barra Editar/Salvar/Cancelar/Restaurar/Testar rola normalmente. */
+#detailPanel .infotop{
+  position:sticky!important;
+  top:0!important;
+  z-index:20!important;
+}
+
+#detailPanel .editbar{
+  position:static!important;
+  top:auto!important;
+  bottom:auto!important;
+  z-index:auto!important;
+  transform:none!important;
+}
+
+/* Estado minimizado */
+#detailPanel.side.minimized{
+  bottom:auto!important;
+  height:66px!important;
+  min-height:66px!important;
+  max-height:66px!important;
+  overflow:hidden!important;
+}
+
+/* Mobile / tablet */
+@media(max-width:820px){
+  #detailPanel.side{
+    top:auto!important;
+    left:8px!important;
+    right:8px!important;
+    bottom:8px!important;
+    width:auto!important;
+    height:min(82dvh,calc(100dvh - 16px))!important;
+    max-height:calc(100dvh - 16px)!important;
+    min-height:280px!important;
+    overflow-y:auto!important;
+  }
+  #detailPanel .info-scroll{
+    padding-bottom:max(28px,env(safe-area-inset-bottom))!important;
+  }
+  #detailPanel.side.minimized{
+    height:66px!important;
+    min-height:66px!important;
+    max-height:66px!important;
+  }
+}
+
+/* Telas baixas / modo paisagem */
+@media(max-height:560px){
+  #detailPanel.side{
+    top:8px!important;
+    bottom:8px!important;
+    height:auto!important;
+    max-height:none!important;
+  }
+  #detailPanel.side.minimized{
+    bottom:auto!important;
+    height:66px!important;
+  }
+}

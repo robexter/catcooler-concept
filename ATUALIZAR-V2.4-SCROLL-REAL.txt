@@ -1,0 +1,18 @@
+CATCOOLER CONCEPT — V2.4 SCROLL REAL DO PAINEL
+
+Causa encontrada na versão online:
+- o index.html já estava em V2.3;
+- porém o app.css publicado ainda mantinha a regra antiga:
+  .editbar { position: sticky; ... }
+- por isso os botões continuavam presos.
+
+Correção V2.4:
+- o próprio painel flutuante passa a ser o único container de rolagem;
+- Editar, Salvar, Cancelar, Restaurar este item e Testar este ponto rolam junto com o conteúdo;
+- apenas o cabeçalho do painel permanece acessível;
+- funciona em PC e mobile;
+- a página atrás fica bloqueada enquanto o painel estiver aberto;
+- cache-busting app.css?v=24 e app.js?v=24;
+- estilo de segurança embutido no HTML para evitar que cache antigo mantenha o erro.
+
+LAYOUT PRINCIPAL E HOTSPOTS: não alterados.
