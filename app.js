@@ -6,20 +6,185 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1700)}
 function saveCurrent(){if(!currentKey)return;const d=data[currentKey];d.function=$("#fieldFunction").innerText.trim();d.process=$("#fieldProcess").innerText.trim();d.impact=$("#fieldImpact").innerText.trim();d.formula=$("#fieldFormula").innerText.trim();d.obs=$("#fieldObs").innerText.trim();d.video=$("#videoUrl").value.trim();localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
 function loadFields(d){$("#infoTitle").textContent=d.title;$("#infoTag").textContent=d.tag;$("#infoCat").textContent=d.category.toUpperCase();$("#fieldFunction").innerText=d.function;$("#fieldProcess").innerText=d.process;$("#fieldImpact").innerText=d.impact;$("#fieldFormula").innerText=d.formula;$("#fieldObs").innerText=d.obs;$("#videoUrl").value=d.video||""}
-function selectItem(k,h=null){if(currentKey&&currentKey!==k)saveCurrent();currentKey=k;$$(".hotspot").forEach(x=>x.classList.remove("active"));if(h)h.classList.add("active");$("#empty").classList.add("hidden");$("#info").style.display="flex";loadFields(data[k]);editing=false;syncEditable();const p=$("#detailPanel");if(p){p.classList.remove("minimized");p.classList.add("open")}}
+function selectItem(k,h=null){if(currentKey&&currentKey!==k)saveCurrent();currentKey=k;$$(".hotspot").forEach(x=>x.classList.remove("active"));if(h)h.classList.add("active");$("#empty").classList.add("hidden");$("#info").style.display="flex";loadFields(data[k]);editing=false;syncEditable();const p=$("#detailPanel");if(p){p.classList.remove("minimized");p.classList.add("open")}renderEquipmentMedia();showStorageEstimate()}
 function syncEditable(){$$(".editable").forEach(el=>el.contentEditable=editing?"true":"false");$("#videoUrl").disabled=!editing;$("#editBtn").textContent=editing?"✓ Concluir edição":"✏️ Editar";$("#editState").classList.toggle("show",editing);$("#editModeBanner").classList.toggle("hidden",!editing)}
 function toggleEdit(){editing=!editing;syncEditable();toast(editing?"Modo edição ativado":"Edição encerrada")}
 function saveCurrentAndExit(){if(!currentKey)return;saveCurrent();editing=false;syncEditable();toast("Alterações salvas neste dispositivo")}
 function cancelEdit(){if(!currentKey)return;loadFields(data[currentKey]);editing=false;syncEditable();toast("Alterações não salvas descartadas")}
 function restoreCurrent(){if(!currentKey)return;if(!confirm("Restaurar este item para o conteúdo original?"))return;data[currentKey]=JSON.parse(JSON.stringify(DEFAULT_DATA[currentKey]));localStorage.setItem(STORAGE_KEY,JSON.stringify(data));loadFields(data[currentKey]);editing=false;syncEditable();toast("Item restaurado para o conteúdo original")}
 function togglePanelMinimize(){const p=$("#detailPanel");if(p)p.classList.toggle("minimized")}
-function minimize(){if(currentKey)saveCurrent();currentKey=null;editing=false;syncEditable();$("#info").style.display="none";$("#empty").classList.remove("hidden");$$(".hotspot").forEach(x=>x.classList.remove("active"));const p=$("#detailPanel");if(p){p.classList.remove("open","minimized")}}
+function minimize(){if(currentKey)saveCurrent();currentKey=null;editing=false;syncEditable();$("#info").style.display="none";$("#empty").classList.remove("hidden");$$(".hotspot").forEach(x=>x.classList.remove("active"));const p=$("#detailPanel");if(p){p.classList.remove("open","minimized")}clearMediaObjectUrls();closeVideoPreview()}
 function exportJSON(){if(currentKey)saveCurrent();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="catcooler-concept-u39-dados.json";a.click();URL.revokeObjectURL(a.href)}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);localStorage.setItem(STORAGE_KEY,JSON.stringify(data));toast("Dados importados");if(currentKey)selectItem(currentKey,document.querySelector(`.hotspot[data-key="${currentKey}"]`))}catch(e){alert("Arquivo JSON inválido.")}};r.readAsText(f);ev.target.value=""}
 function resetAll(){if(!confirm("Restaurar o conteúdo padrão e apagar as edições locais?"))return;data=structuredClone(DEFAULT_DATA);localStorage.setItem(STORAGE_KEY,JSON.stringify(data));minimize();toast("Conteúdo restaurado")}
 function filterCategory(c){$$(".hotspot").forEach(h=>h.classList.toggle("hidden",c!=="all"&&h.dataset.category!==c));$$(".chip").forEach(ch=>ch.classList.toggle("active",ch.dataset.filter===c))}
 function searchTag(){const q=$("#search").value.trim().toLowerCase();if(!q)return;const hit=Object.entries(data).find(([k,v])=>[v.tag,v.title,v.function,v.process,v.impact,v.obs].filter(Boolean).join(" ").toLowerCase().includes(q));if(hit){const h=document.querySelector(`.hotspot[data-key="${hit[0]}"]`);filterCategory("all");selectItem(hit[0],h);toast(`Encontrado: ${hit[1].tag}`)}else toast("Nenhum ponto encontrado para essa busca")}
 function openVideo(){const url=$("#videoUrl").value.trim();if(!url)return toast("Informe uma URL de vídeo");window.open(url,"_blank","noopener")}
+
+// =========================================================
+// V2.1 — Armazenamento local de vídeos e arquivos (IndexedDB)
+// =========================================================
+const MEDIA_DB_NAME='catcoolerConceptMediaDB';
+const MEDIA_DB_VERSION=1;
+const MEDIA_STORE='media';
+let mediaObjectUrls=[];
+
+function openMediaDB(){
+  return new Promise((resolve,reject)=>{
+    if(!('indexedDB' in window)){reject(new Error('IndexedDB indisponível'));return}
+    const req=indexedDB.open(MEDIA_DB_NAME,MEDIA_DB_VERSION);
+    req.onupgradeneeded=()=>{
+      const db=req.result;
+      if(!db.objectStoreNames.contains(MEDIA_STORE)){
+        const store=db.createObjectStore(MEDIA_STORE,{keyPath:'id',autoIncrement:true});
+        store.createIndex('equipmentKey','equipmentKey',{unique:false});
+        store.createIndex('kind','kind',{unique:false});
+      }
+    };
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+function mediaTx(mode='readonly'){
+  return openMediaDB().then(db=>{
+    const tx=db.transaction(MEDIA_STORE,mode);
+    return {db,tx,store:tx.objectStore(MEDIA_STORE)};
+  });
+}
+async function addMediaRecord(record){
+  const {db,tx,store}=await mediaTx('readwrite');
+  return new Promise((resolve,reject)=>{
+    const req=store.add(record);
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+    tx.oncomplete=()=>db.close();
+  });
+}
+async function getMediaByEquipment(key){
+  const {db,tx,store}=await mediaTx('readonly');
+  return new Promise((resolve,reject)=>{
+    const idx=store.index('equipmentKey');
+    const req=idx.getAll(IDBKeyRange.only(key));
+    req.onsuccess=()=>resolve(req.result||[]);
+    req.onerror=()=>reject(req.error);
+    tx.oncomplete=()=>db.close();
+  });
+}
+async function getMediaRecord(id){
+  const {db,tx,store}=await mediaTx('readonly');
+  return new Promise((resolve,reject)=>{
+    const req=store.get(Number(id));
+    req.onsuccess=()=>resolve(req.result||null);
+    req.onerror=()=>reject(req.error);
+    tx.oncomplete=()=>db.close();
+  });
+}
+async function deleteMediaRecord(id){
+  const {db,tx,store}=await mediaTx('readwrite');
+  return new Promise((resolve,reject)=>{
+    const req=store.delete(Number(id));
+    req.onsuccess=()=>resolve();
+    req.onerror=()=>reject(req.error);
+    tx.oncomplete=()=>db.close();
+  });
+}
+function formatBytes(bytes){
+  if(!Number.isFinite(bytes)||bytes<=0)return '0 B';
+  const units=['B','KB','MB','GB'];let i=0,n=bytes;
+  while(n>=1024&&i<units.length-1){n/=1024;i++}
+  return `${n>=10||i===0?n.toFixed(0):n.toFixed(1)} ${units[i]}`;
+}
+function escapeMediaHtml(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function clearMediaObjectUrls(){
+  mediaObjectUrls.forEach(u=>{try{URL.revokeObjectURL(u)}catch(e){}});
+  mediaObjectUrls=[];
+}
+async function saveMediaFiles(ev,kind){
+  if(!currentKey){toast('Selecione primeiro uma lâmpada/equipamento');ev.target.value='';return}
+  const files=[...(ev.target.files||[])];
+  if(!files.length)return;
+  let saved=0,skipped=0;
+  for(const file of files){
+    const max=kind==='video'?250*1024*1024:100*1024*1024;
+    if(file.size>max){skipped++;continue}
+    await addMediaRecord({
+      equipmentKey:currentKey,kind,name:file.name,type:file.type||'application/octet-stream',
+      size:file.size,addedAt:new Date().toISOString(),blob:file
+    });
+    saved++;
+  }
+  ev.target.value='';
+  await renderEquipmentMedia();
+  if(saved)toast(`${saved} ${kind==='video'?'vídeo(s)':'arquivo(s)'} adicionado(s)`);
+  if(skipped)alert(`${skipped} item(ns) não foram salvos porque excedem o limite local (${kind==='video'?'250 MB por vídeo':'100 MB por arquivo'}).`);
+}
+async function renderEquipmentMedia(){
+  const videoList=document.getElementById('videoFileList');
+  const fileList=document.getElementById('attachmentList');
+  const preview=document.getElementById('videoPreview');
+  if(!videoList||!fileList||!preview)return;
+  clearMediaObjectUrls();
+  preview.innerHTML='';preview.classList.add('hidden');
+  if(!currentKey){videoList.innerHTML='';fileList.innerHTML='';return}
+  try{
+    const all=await getMediaByEquipment(currentKey);
+    const videos=all.filter(x=>x.kind==='video').sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
+    const files=all.filter(x=>x.kind==='file').sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
+    videoList.innerHTML=videos.length?videos.map(mediaCardHtml).join(''):'<div class="media-local-note">Nenhum vídeo local adicionado neste ponto.</div>';
+    fileList.innerHTML=files.length?files.map(mediaCardHtml).join(''):'<div class="media-local-note">Nenhum arquivo local adicionado neste ponto.</div>';
+  }catch(err){
+    videoList.innerHTML='<div class="media-local-note">Armazenamento local indisponível neste navegador.</div>';
+    fileList.innerHTML='<div class="media-local-note">Armazenamento local indisponível neste navegador.</div>';
+  }
+}
+function mediaCardHtml(item){
+  const date=item.addedAt?new Date(item.addedAt).toLocaleString('pt-BR'):'';
+  const openLabel=item.kind==='video'?'▶ Reproduzir':'Abrir';
+  return `<div class="media-file-card">
+    <div class="media-file-main"><span class="media-file-name">${escapeMediaHtml(item.name)}</span>
+    <div class="media-file-meta">${escapeMediaHtml(item.type||'arquivo')} • ${formatBytes(item.size)} • ${escapeMediaHtml(date)}</div></div>
+    <div class="media-file-actions">
+      <button class="media-mini-btn" onclick="openStoredMedia(${item.id})">${openLabel}</button>
+      <button class="media-mini-btn" onclick="downloadStoredMedia(${item.id})">Baixar</button>
+      <button class="media-mini-btn delete" onclick="removeStoredMedia(${item.id})">Excluir</button>
+    </div></div>`;
+}
+async function openStoredMedia(id){
+  const item=await getMediaRecord(id);if(!item)return;
+  const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
+  if(item.kind==='video'){
+    const p=document.getElementById('videoPreview');
+    p.innerHTML=`<div class="video-preview-head"><span>${escapeMediaHtml(item.name)}</span><button class="media-mini-btn" onclick="closeVideoPreview()">Fechar</button></div><video controls playsinline src="${url}"></video>`;
+    p.classList.remove('hidden');p.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }else{
+    window.open(url,'_blank','noopener');
+  }
+}
+function closeVideoPreview(){
+  const p=document.getElementById('videoPreview');if(p){p.innerHTML='';p.classList.add('hidden')}
+}
+async function downloadStoredMedia(id){
+  const item=await getMediaRecord(id);if(!item)return;
+  const url=URL.createObjectURL(item.blob);
+  const a=document.createElement('a');a.href=url;a.download=item.name||'arquivo';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2500);
+}
+async function removeStoredMedia(id){
+  const item=await getMediaRecord(id);
+  if(!item)return;
+  if(!confirm(`Excluir "${item.name}" deste dispositivo?`))return;
+  await deleteMediaRecord(id);await renderEquipmentMedia();toast('Arquivo removido');
+}
+async function showStorageEstimate(){
+  if(!navigator.storage?.estimate)return;
+  const est=await navigator.storage.estimate();
+  const pct=est.quota?Math.min(100,Math.round((est.usage||0)/est.quota*100)):0;
+  const el=document.getElementById('mediaStorageEstimate');
+  if(el)el.innerHTML=`Uso local aproximado: ${formatBytes(est.usage||0)} de ${formatBytes(est.quota||0)}<div class="storage-meter"><span style="width:${pct}%"></span></div>`;
+}
+
 const quiz=[
 {
 q:"Durante a operação do sistema Catcooler, qual descrição representa melhor a função do F-3982?",

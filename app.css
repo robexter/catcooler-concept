@@ -73,3 +73,53 @@ button,input{font:inherit} .hidden{display:none!important}
 .drum-visual{display:grid;grid-template-columns:160px 1fr;gap:15px;align-items:center}.drum-vessel{height:180px;border:3px solid #60798d;border-radius:70px 70px 34px 34px;position:relative;overflow:hidden;background:#08131d}.drum-water{position:absolute;left:0;right:0;bottom:0;height:52%;background:linear-gradient(#377e9e,#17455f);transition:.8s ease}.drum-water.swell{height:72%;animation:levelPulse 1.6s ease-in-out infinite alternate}.drum-water.shrink{height:35%;animation:levelPulse 1.6s ease-in-out infinite alternate}@keyframes levelPulse{from{filter:brightness(.85)}to{filter:brightness(1.2)}}
 .causal-chain{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.causal-chain span{padding:7px 9px;border-radius:10px;border:1px solid #31516a;background:#0b1b28;font-size:11px}.causal-chain b{color:#ffc858}.locate-banner{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:170;background:#0a2030;border:1px solid #5a8bb1;color:#fff;padding:11px 15px;border-radius:999px;box-shadow:0 12px 28px rgba(0,0,0,.45);font-weight:900}.history-table{width:100%;border-collapse:collapse;font-size:11px}.history-table th,.history-table td{padding:8px;border-bottom:1px solid #20384c;text-align:left}.history-table th{color:#a9c5d8}.shift-check label{display:block;padding:8px;margin:5px 0;border:1px solid #29465d;border-radius:10px;background:#0a1722}.video-placeholder{border:1px dashed #4d6d84;border-radius:14px;padding:14px;color:#a8bdcc}.train-question{border:1px solid #29465d;background:#0a1722;border-radius:14px;padding:12px;margin-bottom:10px}.train-question label{display:block;padding:8px;margin:5px 0;border:1px solid #29465d;border-radius:9px;cursor:pointer}.train-question label:hover{background:#102638}.train-question label.correct{border-color:#4f8d45;background:#102414}.train-question label.wrong{border-color:#8b4545;background:#2b1515}.train-feedback{font-size:11px;margin-top:7px;color:#b9d0df}
 @media(max-width:820px){.training-body{grid-template-columns:1fr}.training-nav{display:flex;gap:6px;border-right:0;border-bottom:1px solid #20384c;overflow:auto}.training-nav button{width:auto;white-space:nowrap;margin:0}.training-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr}.skill-row{grid-template-columns:110px 1fr 44px}.drum-visual{grid-template-columns:1fr}.drum-vessel{width:170px;margin:auto}}
+
+
+/* =========================================================
+   V2.1 — Vídeos e arquivos por equipamento
+   HMI e coordenadas das lâmpadas permanecem congelados.
+   ========================================================= */
+.media-section{display:grid;gap:10px}
+.media-upload-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.media-add-btn{display:inline-flex;align-items:center;justify-content:center}
+.media-local-note{font-size:10px;color:#9fb7c8}
+.media-storage-warning{
+  padding:9px 10px;border-radius:10px;background:#241f0c;border:1px solid #675b22;
+  color:#e6d996;font-size:10px;line-height:1.4
+}
+.media-file-list{display:grid;gap:8px}
+.media-file-card{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;
+  background:#081721;border:1px solid #29465d;border-radius:12px;padding:9px 10px
+}
+.media-file-main{min-width:0}
+.media-file-name{
+  display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:12px;font-weight:800;color:#e8f5ff
+}
+.media-file-meta{font-size:9px;color:#8faabc;margin-top:3px}
+.media-file-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.media-mini-btn{
+  border:1px solid #355873;background:#122638;color:#fff;border-radius:8px;
+  padding:6px 8px;font-size:10px;font-weight:800;cursor:pointer
+}
+.media-mini-btn:hover{filter:brightness(1.1)}
+.media-mini-btn.delete{border-color:#824040;background:#351717;color:#ffc1c1}
+.video-preview{
+  background:#050b10;border:1px solid #29465d;border-radius:12px;padding:8px
+}
+.video-preview video{display:block;width:100%;max-height:300px;border-radius:8px;background:#000}
+.video-preview-head{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  margin-bottom:7px;font-size:10px;color:#a9c0d0
+}
+.storage-meter{
+  height:6px;border-radius:999px;background:#071018;border:1px solid #20384c;
+  overflow:hidden;margin-top:5px
+}
+.storage-meter span{display:block;height:100%;background:#5d9fca}
+@media(max-width:620px){
+  .media-row{grid-template-columns:1fr!important}
+  .media-file-card{grid-template-columns:1fr}
+  .media-file-actions{justify-content:flex-start}
+}

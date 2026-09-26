@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css">
 <title>Catcooler Concept U-39</title></head>
 <body>
-<!-- LAYOUT_CONGELADO_V2.0: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
+<!-- LAYOUT_CONGELADO_V2.1: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
 <header class="topbar">
   <div class="brand"><img src="icon-192.png" alt=""><div><h1>Catcooler Concept U-39</h1><small>Treinamento interativo — Catcooler / tubulão</small></div></div>
   <div class="actions">
@@ -83,18 +83,42 @@
         <button class="btn" onclick="quizCurrentItem()">🎯 Testar este ponto</button>
       </div>
       <div class="local-note">💾 <strong>Alterações salvas somente neste dispositivo.</strong> Use “Exportar” no topo para gerar uma cópia dos dados editados.</div>
+      <div class="local-note" id="mediaStorageEstimate">Vídeos e arquivos locais usam o armazenamento do navegador deste aparelho.</div>
       <div class="section"><h3>Função / objetivo</h3><div class="editable" id="fieldFunction"></div></div>
       <div class="section"><h3>Como funciona no processo</h3><div class="editable" id="fieldProcess"></div></div>
       <div class="section"><h3>Impacto / atenção operacional</h3><div class="editable" id="fieldImpact"></div></div>
       <div class="section"><h3>Fórmulas / relações químicas</h3><div class="editable formula" id="fieldFormula"></div></div>
       <div class="section"><h3>Observações / o que acompanhar no CIC</h3><div class="editable" id="fieldObs"></div></div>
-      <div class="section"><h3>Vídeo / material complementar</h3><div class="media-row"><input id="videoUrl" placeholder="Cole aqui a URL do vídeo"><button class="btn" onclick="openVideo()">Abrir</button></div></div>
+      <div class="section media-section">
+        <h3>🎬 Vídeos</h3>
+        <div class="media-row">
+          <input id="videoUrl" placeholder="Cole aqui a URL do vídeo (YouTube, Drive, SharePoint etc.)">
+          <button class="btn" onclick="openVideo()">Abrir link</button>
+        </div>
+        <div class="media-upload-row">
+          <label class="btn media-add-btn" for="videoFileInput">＋ Adicionar vídeo do aparelho</label>
+          <input id="videoFileInput" type="file" accept="video/*" multiple class="hidden" onchange="saveMediaFiles(event,'video')">
+          <span class="media-local-note">Salvo somente neste dispositivo.</span>
+        </div>
+        <div id="videoPreview" class="video-preview hidden"></div>
+        <div id="videoFileList" class="media-file-list"></div>
+      </div>
+      <div class="section media-section">
+        <h3>📎 Arquivos / documentos</h3>
+        <div class="media-upload-row">
+          <label class="btn media-add-btn" for="attachmentFiles">＋ Adicionar arquivos</label>
+          <input id="attachmentFiles" type="file" multiple class="hidden" onchange="saveMediaFiles(event,'file')">
+          <span class="media-local-note">PDF, Word, Excel, imagens, apresentações, ZIP e outros formatos.</span>
+        </div>
+        <div class="media-storage-warning">Os arquivos ficam armazenados localmente no navegador deste aparelho e não ficam visíveis automaticamente para outros usuários do GitHub Pages.</div>
+        <div id="attachmentList" class="media-file-list"></div>
+      </div>
       <div class="section note">Material de treinamento. Para manobras reais, prevalecem procedimentos, permissivos, intertravamentos, limites de projeto e orientações operacionais vigentes da unidade.</div>
     </div>
   </section>
 </aside>
 
-<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.0</span></small></div></footer>
+<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.1</span></small></div></footer>
 </main>
 
 <aside class="drawer" id="quizDrawer"><div class="drawer-head"><strong>Quiz rápido — Catcooler</strong><button class="btn" onclick="document.getElementById('quizDrawer').classList.remove('open')">Fechar</button></div><div class="drawer-body"><div id="quizBody"></div><button class="btn primary" onclick="gradeQuiz()">Corrigir quiz</button><div class="qresult hidden" id="quizResult"></div></div></aside>

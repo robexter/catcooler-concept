@@ -54,3 +54,14 @@ Para operação real, prevalecem procedimentos e lógicas oficiais da unidade.
 
 ## V2.0 — Training Suite
 Layout do HMI e hotspots permanecem congelados. Inclui 6 cenários encadeados, diagnóstico de tendências, simulador shrink/swell, comparação A/B, trip GV-3901, modo localize, quiz por equipamento, banco de 48 questões em 3 níveis, pontuação por habilidade, passagem de turno, ações que pioram, animações e histórico local de desempenho.
+
+
+## V2.1 — Vídeos e arquivos por ponto
+
+Cada lâmpada/equipamento possui agora duas áreas separadas:
+- Vídeos: link de vídeo já existente + upload de vídeos do aparelho com reprodução dentro do app.
+- Arquivos/documentos: upload de múltiplos arquivos, com Abrir, Baixar e Excluir.
+
+Os uploads locais são armazenados em IndexedDB no navegador e ficam somente naquele dispositivo/perfil.
+Eles não são enviados automaticamente ao GitHub Pages e não ficam visíveis para outros usuários.
+Para conteúdo compartilhado entre todos, use links publicados ou inclua os arquivos no repositório/servidor.
