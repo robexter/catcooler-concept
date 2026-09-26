@@ -120,62 +120,164 @@ async function saveMediaFiles(ev,kind){
   if(saved)toast(`${saved} ${kind==='video'?'vídeo(s)':'arquivo(s)'} adicionado(s)`);
   if(skipped)alert(`${skipped} item(ns) não foram salvos porque excedem o limite local (${kind==='video'?'250 MB por vídeo':'100 MB por arquivo'}).`);
 }
+
 async function renderEquipmentMedia(){
   const videoList=document.getElementById('videoFileList');
   const fileList=document.getElementById('attachmentList');
   const preview=document.getElementById('videoPreview');
   if(!videoList||!fileList||!preview)return;
+
   clearMediaObjectUrls();
-  preview.innerHTML='';preview.classList.add('hidden');
-  if(!currentKey){videoList.innerHTML='';fileList.innerHTML='';return}
+  preview.innerHTML='';
+  preview.classList.add('hidden');
+
+  if(!currentKey){
+    videoList.innerHTML='';
+    fileList.innerHTML='';
+    return;
+  }
+
   try{
     const all=await getMediaByEquipment(currentKey);
     const videos=all.filter(x=>x.kind==='video').sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
     const files=all.filter(x=>x.kind==='file').sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));
-    videoList.innerHTML=videos.length?videos.map(mediaCardHtml).join(''):'<div class="media-local-note">Nenhum vídeo local adicionado neste ponto.</div>';
-    fileList.innerHTML=files.length?files.map(mediaCardHtml).join(''):'<div class="media-local-note">Nenhum arquivo local adicionado neste ponto.</div>';
+
+    videoList.innerHTML = videos.length
+      ? '<div class="inline-media-grid">'+videos.map(inlineVideoHtml).join('')+'</div>'
+      : '<div class="media-local-note">Nenhum vídeo local adicionado neste ponto.</div>';
+
+    fileList.innerHTML = files.length
+      ? '<div class="inline-media-stack">'+files.map(inlineFileHtml).join('')+'</div>'
+      : '<div class="media-local-note">Nenhum arquivo local adicionado neste ponto.</div>';
+
+    for(const item of videos) await hydrateInlineMedia(item);
+    for(const item of files) await hydrateInlineMedia(item);
+
   }catch(err){
     videoList.innerHTML='<div class="media-local-note">Armazenamento local indisponível neste navegador.</div>';
     fileList.innerHTML='<div class="media-local-note">Armazenamento local indisponível neste navegador.</div>';
   }
 }
-function mediaCardHtml(item){
+
+function inlineVideoHtml(item){
   const date=item.addedAt?new Date(item.addedAt).toLocaleString('pt-BR'):'';
-  const openLabel=item.kind==='video'?'▶ Reproduzir':'Abrir';
-  return `<div class="media-file-card">
-    <div class="media-file-main"><span class="media-file-name">${escapeMediaHtml(item.name)}</span>
-    <div class="media-file-meta">${escapeMediaHtml(item.type||'arquivo')} • ${formatBytes(item.size)} • ${escapeMediaHtml(date)}</div></div>
-    <div class="media-file-actions">
-      <button class="media-mini-btn" onclick="openStoredMedia(${item.id})">${openLabel}</button>
-      <button class="media-mini-btn" onclick="downloadStoredMedia(${item.id})">Baixar</button>
-      <button class="media-mini-btn delete" onclick="removeStoredMedia(${item.id})">Excluir</button>
-    </div></div>`;
+  return `<article class="inline-media-card" id="media-${item.id}">
+    <div class="inline-media-head">
+      <div class="media-file-main">
+        <span class="media-file-name">${escapeMediaHtml(item.name)}</span>
+        <div class="media-file-meta">${escapeMediaHtml(item.type||'vídeo')} • ${formatBytes(item.size)} • ${escapeMediaHtml(date)}</div>
+      </div>
+      <div class="media-file-actions">
+        <button class="media-mini-btn" onclick="downloadStoredMedia(${item.id})">Baixar</button>
+        <button class="media-mini-btn delete" onclick="removeStoredMedia(${item.id})">Excluir</button>
+      </div>
+    </div>
+    <div class="inline-preview" id="media-preview-${item.id}">
+      <div class="media-loading">Carregando vídeo…</div>
+    </div>
+  </article>`;
 }
-async function openStoredMedia(id){
-  const item=await getMediaRecord(id);if(!item)return;
-  const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
-  if(item.kind==='video'){
-    const p=document.getElementById('videoPreview');
-    p.innerHTML=`<div class="video-preview-head"><span>${escapeMediaHtml(item.name)}</span><button class="media-mini-btn" onclick="closeVideoPreview()">Fechar</button></div><video controls playsinline src="${url}"></video>`;
-    p.classList.remove('hidden');p.scrollIntoView({behavior:'smooth',block:'nearest'});
-  }else{
-    window.open(url,'_blank','noopener');
+
+function inlineFileHtml(item){
+  const date=item.addedAt?new Date(item.addedAt).toLocaleString('pt-BR'):'';
+  return `<article class="inline-media-card" id="media-${item.id}">
+    <div class="inline-media-head">
+      <div class="media-file-main">
+        <span class="media-file-name">${escapeMediaHtml(item.name)}</span>
+        <div class="media-file-meta">${escapeMediaHtml(item.type||'arquivo')} • ${formatBytes(item.size)} • ${escapeMediaHtml(date)}</div>
+      </div>
+      <div class="media-file-actions">
+        <button class="media-mini-btn" onclick="downloadStoredMedia(${item.id})">Baixar</button>
+        <button class="media-mini-btn delete" onclick="removeStoredMedia(${item.id})">Excluir</button>
+      </div>
+    </div>
+    <div class="inline-preview" id="media-preview-${item.id}">
+      <div class="media-loading">Preparando visualização…</div>
+    </div>
+  </article>`;
+}
+
+async function hydrateInlineMedia(item){
+  const target=document.getElementById(`media-preview-${item.id}`);
+  if(!target)return;
+
+  const type=(item.type||'').toLowerCase();
+  const name=(item.name||'').toLowerCase();
+
+  if(item.kind==='video' || type.startsWith('video/')){
+    const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
+    target.innerHTML=`<video class="inline-video" controls playsinline preload="metadata" src="${url}"></video>`;
+    return;
   }
+
+  if(type.startsWith('image/') || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(name)){
+    const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
+    target.innerHTML=`<img class="inline-image" src="${url}" alt="${escapeMediaHtml(item.name)}">`;
+    return;
+  }
+
+  if(type==='application/pdf' || name.endsWith('.pdf')){
+    const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
+    target.innerHTML=`<iframe class="inline-pdf" src="${url}#toolbar=1&navpanes=0" title="${escapeMediaHtml(item.name)}"></iframe>`;
+    return;
+  }
+
+  if(type.startsWith('audio/') || /\.(mp3|wav|ogg|m4a|aac)$/i.test(name)){
+    const url=URL.createObjectURL(item.blob);mediaObjectUrls.push(url);
+    target.innerHTML=`<audio class="inline-audio" controls preload="metadata" src="${url}"></audio>`;
+    return;
+  }
+
+  if(type.startsWith('text/') || /(json|csv|xml|javascript)/.test(type) || /\.(txt|csv|json|md|log|xml|js|css|html)$/i.test(name)){
+    try{
+      const text=await item.blob.text();
+      const limited=text.length>25000?text.slice(0,25000)+'\\n\\n[prévia limitada aos primeiros 25.000 caracteres]':text;
+      target.innerHTML=`<pre class="inline-text">${escapeMediaHtml(limited)}</pre>`;
+    }catch(e){
+      target.innerHTML=`<div class="unsupported-preview">Não foi possível gerar a prévia deste texto.</div>`;
+    }
+    return;
+  }
+
+  const office = /\.(docx?|xlsx?|pptx?|xlsm|ods|odt|odp)$/i.test(name);
+  if(office){
+    target.innerHTML=`<div class="office-preview">
+      <div class="office-preview-icon">📄</div>
+      <div><strong>${escapeMediaHtml(item.name)}</strong><br>
+      <span>Arquivo Office anexado. O navegador não consegue renderizar este formato localmente dentro do painel.</span></div>
+    </div>`;
+    return;
+  }
+
+  target.innerHTML=`<div class="unsupported-preview">
+    📎 ${escapeMediaHtml(item.name)} já está anexado a este ponto. Prévia interna não disponível para este formato.
+  </div>`;
 }
+
+async function openStoredMedia(id){
+  const el=document.getElementById(`media-${id}`);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
 function closeVideoPreview(){
-  const p=document.getElementById('videoPreview');if(p){p.innerHTML='';p.classList.add('hidden')}
+  const p=document.getElementById('videoPreview');
+  if(p){p.innerHTML='';p.classList.add('hidden')}
 }
+
 async function downloadStoredMedia(id){
   const item=await getMediaRecord(id);if(!item)return;
   const url=URL.createObjectURL(item.blob);
   const a=document.createElement('a');a.href=url;a.download=item.name||'arquivo';document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(url),2500);
 }
+
 async function removeStoredMedia(id){
   const item=await getMediaRecord(id);
   if(!item)return;
   if(!confirm(`Excluir "${item.name}" deste dispositivo?`))return;
-  await deleteMediaRecord(id);await renderEquipmentMedia();toast('Arquivo removido');
+  await deleteMediaRecord(id);
+  await renderEquipmentMedia();
+  toast('Arquivo removido');
 }
 async function showStorageEstimate(){
   if(!navigator.storage?.estimate)return;

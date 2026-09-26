@@ -1,0 +1,19 @@
+CATCOOLER CONCEPT — V2.5 MÍDIA DIRETA NO PAINEL
+
+Agora:
+- vídeos locais aparecem diretamente com player;
+- imagens aparecem diretamente;
+- PDFs ficam embutidos no painel;
+- texto/CSV/JSON têm prévia;
+- áudios têm player;
+- Word/Excel/PowerPoint aparecem anexados no próprio painel, mas sem renderização interna nativa do navegador;
+- Baixar e Excluir continuam disponíveis.
+
+LAYOUT PRINCIPAL E HOTSPOTS: preservados.
+
+Substituir:
+1. app.js
+2. app.css
+3. index.html
+4. Catcooler_onepage_interativo_editavel.html
+5. sw.js

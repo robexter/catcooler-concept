@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="catcooler concept">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css?v=24">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css?v=25">
 <title>Catcooler Concept U-39</title>
 <style id="panel-scroll-v24">
 html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!important}
@@ -22,7 +22,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
 
 </head>
 <body>
-<!-- LAYOUT_CONGELADO_V2.4: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
+<!-- LAYOUT_CONGELADO_V2.5: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
 <header class="topbar">
   <div class="brand"><img src="icon-192.png" alt=""><div><h1>Catcooler Concept U-39</h1><small>Treinamento interativo — Catcooler / tubulão</small></div></div>
   <div class="actions">
@@ -102,7 +102,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
       <div class="section"><h3>Fórmulas / relações químicas</h3><div class="editable formula" id="fieldFormula"></div></div>
       <div class="section"><h3>Observações / o que acompanhar no CIC</h3><div class="editable" id="fieldObs"></div></div>
       <div class="section media-section">
-        <h3>🎬 Vídeos</h3>
+        <h3>🎬 Vídeos — reprodução direta no painel</h3>
         <div class="media-row">
           <input id="videoUrl" placeholder="Cole aqui a URL do vídeo (YouTube, Drive, SharePoint etc.)">
           <button class="btn" onclick="openVideo()">Abrir link</button>
@@ -116,7 +116,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
         <div id="videoFileList" class="media-file-list"></div>
       </div>
       <div class="section media-section">
-        <h3>📎 Arquivos / documentos</h3>
+        <h3>📎 Arquivos / documentos — visualização direta</h3>
         <div class="media-upload-row">
           <label class="btn media-add-btn" for="attachmentFiles">＋ Adicionar arquivos</label>
           <input id="attachmentFiles" type="file" multiple class="hidden" onchange="saveMediaFiles(event,'file')">
@@ -130,7 +130,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
   </section>
 </aside>
 
-<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.4</span></small></div></footer>
+<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.5</span></small></div></footer>
 </main>
 
 <aside class="drawer" id="quizDrawer"><div class="drawer-head"><strong>Quiz rápido — Catcooler</strong><button class="btn" onclick="document.getElementById('quizDrawer').classList.remove('open')">Fechar</button></div><div class="drawer-body"><div id="quizBody"></div><button class="btn primary" onclick="gradeQuiz()">Corrigir quiz</button><div class="qresult hidden" id="quizResult"></div></div></aside>
@@ -144,5 +144,5 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
 </aside>
 
 <div class="toast" id="toast"></div>
-<script src="app.js?v=24"></script>
+<script src="app.js?v=25"></script>
 </body></html>
