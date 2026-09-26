@@ -10,11 +10,13 @@
 <link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css">
 <title>Catcooler Concept U-39</title></head>
 <body>
+<!-- LAYOUT_CONGELADO_V2.0: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
 <header class="topbar">
   <div class="brand"><img src="icon-192.png" alt=""><div><h1>Catcooler Concept U-39</h1><small>Treinamento interativo — Catcooler / tubulão</small></div></div>
   <div class="actions">
     <button class="btn primary hidden" id="installBtn" onclick="installApp()">📲 Instalar App</button>
     <button class="btn" onclick="openQuiz()">Quiz rápido</button>
+    <button class="btn" onclick="openTraining()">🎓 Treinamento</button>
     <button class="btn" onclick="exportJSON()">Exportar</button>
     <label class="btn" for="importFile">Importar</label>
     <input id="importFile" type="file" accept="application/json" class="hidden" onchange="importJSON(event)">
@@ -34,14 +36,15 @@
 <section class="card">
   <div class="cardhead"><h2>Catcooler — clique nas lâmpadas para abrir as explicações</h2><button class="btn" onclick="document.documentElement.requestFullscreen?.()">Tela cheia</button></div>
   <div class="mapwrap"><div class="stage"><img src="catcooler_u39.png" alt="Tela do catcooler">
-<button class="hotspot" data-key="xv808" data-category="safety" style="left:22.6%;top:13.0%"><span class="bulb">💡</span><span class="lamp-label">XV-808</span></button>
-<button class="hotspot" data-key="f3982" data-category="equip" style="left:58.8%;top:15.2%"><span class="bulb">💡</span><span class="lamp-label">F-3982</span></button>
-<button class="hotspot" data-key="hbflevel" data-category="control" style="left:48.0%;top:24.2%"><span class="bulb">💡</span><span class="lamp-label">Nível HBF → F-3982</span></button>
-<button class="hotspot" data-key="c3901ab" data-category="equip" style="left:46.5%;top:41.7%"><span class="bulb">💡</span><span class="lamp-label">C-3901A/B</span></button>
-<button class="hotspot" data-key="tic39031" data-category="control" style="left:57.5%;top:88.5%"><span class="bulb">💡</span><span class="lamp-label">TIC-39031</span></button>
-<button class="hotspot" data-key="arj3901" data-category="air" style="left:12.4%;top:68.8%"><span class="bulb">💡</span><span class="lamp-label">AR J-3901</span></button>
-<button class="hotspot" data-key="arj3982" data-category="air" style="left:13.1%;top:79.6%"><span class="bulb">💡</span><span class="lamp-label">AR J-3982</span></button>
-<button class="hotspot" data-key="v12emerg" data-category="steam" style="left:12.6%;top:76.0%"><span class="bulb">💡</span><span class="lamp-label">V-12 EMERG.</span></button>
+<button class="hotspot" data-key="xv808" data-category="safety" style="left:16.5%;top:8.7%"><span class="bulb">💡</span><span class="lamp-label">XV-808</span></button>
+<button class="hotspot" data-key="f3982" data-category="equip" style="left:57.4%;top:15.8%"><span class="bulb">💡</span><span class="lamp-label">F-3982</span></button>
+<button class="hotspot" data-key="hbflevel" data-category="control" style="left:32.9%;top:26.8%"><span class="bulb">💡</span><span class="lamp-label">Nível HBF → F-3982</span></button>
+<button class="hotspot" data-key="c3901ab" data-category="equip" style="left:43.8%;top:41.5%"><span class="bulb">💡</span><span class="lamp-label">C-3901A</span></button>
+<button class="hotspot" data-key="c3901ab" data-category="equip" style="left:69.2%;top:41.3%"><span class="bulb">💡</span><span class="lamp-label">C-3901B</span></button>
+<button class="hotspot" data-key="tic39031" data-category="control" style="left:55.8%;top:94.1%"><span class="bulb">💡</span><span class="lamp-label">TIC-39031</span></button>
+<button class="hotspot" data-key="arj3901" data-category="air" style="left:9.2%;top:52.8%"><span class="bulb">💡</span><span class="lamp-label">AR J-3901</span></button>
+<button class="hotspot" data-key="v12emerg" data-category="steam" style="left:9.2%;top:63.6%"><span class="bulb">💡</span><span class="lamp-label">V-12 EMERG.</span></button>
+<button class="hotspot" data-key="arj3982" data-category="air" style="left:9.2%;top:73.3%"><span class="bulb">💡</span><span class="lamp-label">AR J-3982</span></button>
 </div></div>
   <div class="toolbar">
     <input class="search" id="search" placeholder="Buscar por TAG ou termo: F-3982, drum, HBF, J-3901, V-12...">
@@ -77,6 +80,7 @@
         <button class="btn green" onclick="saveCurrentAndExit()">💾 Salvar</button>
         <button class="btn" onclick="cancelEdit()">Cancelar</button>
         <button class="btn danger" onclick="restoreCurrent()">Restaurar este item</button>
+        <button class="btn" onclick="quizCurrentItem()">🎯 Testar este ponto</button>
       </div>
       <div class="local-note">💾 <strong>Alterações salvas somente neste dispositivo.</strong> Use “Exportar” no topo para gerar uma cópia dos dados editados.</div>
       <div class="section"><h3>Função / objetivo</h3><div class="editable" id="fieldFunction"></div></div>
@@ -90,10 +94,19 @@
   </section>
 </aside>
 
-<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V1.1</span></small></div></footer>
+<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.0</span></small></div></footer>
 </main>
 
 <aside class="drawer" id="quizDrawer"><div class="drawer-head"><strong>Quiz rápido — Catcooler</strong><button class="btn" onclick="document.getElementById('quizDrawer').classList.remove('open')">Fechar</button></div><div class="drawer-body"><div id="quizBody"></div><button class="btn primary" onclick="gradeQuiz()">Corrigir quiz</button><div class="qresult hidden" id="quizResult"></div></div></aside>
+
+<aside class="training-drawer" id="trainingDrawer">
+  <div class="drawer-head training-head">
+    <div><strong>Centro de Treinamento — Catcooler</strong><small id="trainingBreadcrumb">Visão geral</small></div>
+    <button class="btn" onclick="closeTraining()">Fechar</button>
+  </div>
+  <div class="training-body"><div class="training-nav" id="trainingNav"></div><div class="training-content" id="trainingContent"></div></div>
+</aside>
+
 <div class="toast" id="toast"></div>
 <script src="app.js"></script>
 </body></html>

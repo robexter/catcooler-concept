@@ -1,0 +1,98 @@
+[
+  {
+    "title": "TIC pedindo mais, vapor caindo",
+    "prompt": "PV TIC-39031 ↑ acima do SP; MV ↑; vapor gerado ↓; T do D-3904 ↑.",
+    "options": [
+      "Limitação de remoção de calor/circulação",
+      "Remoção de calor excessiva",
+      "Swell como causa única",
+      "XV-808 necessariamente fechada"
+    ],
+    "c": 0,
+    "fb": "A ação cresce enquanto o efeito térmico cai: investigar capacidade física."
+  },
+  {
+    "title": "Swell provável",
+    "prompt": "Vapor ↑ rapidamente; nível F-3982 ↑; Δ(HBF−vapor) < 0.",
+    "options": [
+      "Swell com possível perda real de inventário",
+      "Acumulação certa de massa",
+      "Shrink",
+      "Falha certa do LT"
+    ],
+    "c": 0,
+    "fb": "Nível aparente pode subir mesmo com balanço de massa negativo."
+  },
+  {
+    "title": "Shrink provável",
+    "prompt": "Vapor ↓ rapidamente; nível F-3982 ↓; HBF permanece próximo.",
+    "options": [
+      "Shrink",
+      "Swell",
+      "XV-808 fechando",
+      "Excesso de HBF"
+    ],
+    "c": 0,
+    "fb": "Menor ebulição pode colapsar bolhas e reduzir nível aparente."
+  },
+  {
+    "title": "Assimetria de ramo",
+    "prompt": "C-3901A estável; C-3901B com menor ΔT e menor contribuição térmica.",
+    "options": [
+      "Investigar ramo B: aeração/circulação/instrumentação",
+      "Alterar apenas SP geral",
+      "Assumir nível alto do drum",
+      "Aumentar V-12 nos dois lados"
+    ],
+    "c": 0,
+    "fb": "A diferença localizada deve ser investigada no ramo que divergiu."
+  },
+  {
+    "title": "Perda do ar principal",
+    "prompt": "AR J-3901 ↓; temperaturas A/B divergem; vapor ↓.",
+    "options": [
+      "Possível perda de circulação por aeração insuficiente",
+      "Maior eficiência térmica",
+      "Problema apenas de nível",
+      "Trip obrigatório da GV"
+    ],
+    "c": 0,
+    "fb": "A aeração pode afetar mobilidade do catalisador e troca térmica."
+  },
+  {
+    "title": "Isolamento não confirmado",
+    "prompt": "Trip total GV; comando XV-808 fechar; posição sem confirmação; pressão não cai.",
+    "options": [
+      "Possível falha de isolamento",
+      "Evento encerrado",
+      "Apenas falha de nível",
+      "Ajustar TIC-39031"
+    ],
+    "c": 0,
+    "fb": "Comando, posição e resposta de processo precisam ser coerentes."
+  },
+  {
+    "title": "Inventário subindo",
+    "prompt": "Δ(HBF−vapor) positivo sustentado; nível sobe lentamente.",
+    "options": [
+      "Acumulação real de inventário",
+      "Shrink",
+      "Perda de massa",
+      "Falha obrigatória do vapor"
+    ],
+    "c": 0,
+    "fb": "Balanço positivo sustentado leva a acumulação."
+  },
+  {
+    "title": "Controle saturado",
+    "prompt": "PV > SP por longo período; MV no limite; ramos respondem pouco.",
+    "options": [
+      "Limitação física/saturação de capacidade",
+      "Erro zero",
+      "SP necessariamente errado",
+      "V-12 deve assumir controle"
+    ],
+    "c": 0,
+    "fb": "MV no limite sem corrigir PV indica possível limitação de capacidade."
+  }
+]

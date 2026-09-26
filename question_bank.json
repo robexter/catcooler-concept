@@ -1,0 +1,770 @@
+[
+  {
+    "id": "q01",
+    "level": "basico",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "F-3982",
+    "q": "Qual é a função central do F-3982?",
+    "a": [
+      "Substituir o V-12 de emergência",
+      "Controlar sozinho a temperatura do regenerador",
+      "Separar água e vapor e manter inventário do circuito",
+      "Regular diretamente a circulação de catalisador"
+    ],
+    "c": 2,
+    "explanation": "O F-3982 é o steam drum: separa a mistura água-vapor e mantém o inventário necessário ao circuito."
+  },
+  {
+    "id": "q02",
+    "level": "operacional",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "F-3982",
+    "q": "Durante operação estável, qual descrição melhor explica por que o F-3982 é essencial ao circuito?",
+    "a": [
+      "Controlar sozinho a temperatura do regenerador",
+      "Separar água e vapor e manter inventário do circuito",
+      "Regular diretamente a circulação de catalisador",
+      "Substituir o V-12 de emergência"
+    ],
+    "c": 1,
+    "explanation": "O F-3982 é o steam drum: separa a mistura água-vapor e mantém o inventário necessário ao circuito."
+  },
+  {
+    "id": "q03",
+    "level": "avancado",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "F-3982",
+    "q": "Ao analisar simultaneamente geração de vapor e estabilidade de inventário, qual papel do F-3982 conecta esses dois comportamentos?",
+    "a": [
+      "Separar água e vapor e manter inventário do circuito",
+      "Regular diretamente a circulação de catalisador",
+      "Substituir o V-12 de emergência",
+      "Controlar sozinho a temperatura do regenerador"
+    ],
+    "c": 0,
+    "explanation": "O F-3982 é o steam drum: separa a mistura água-vapor e mantém o inventário necessário ao circuito."
+  },
+  {
+    "id": "q04",
+    "level": "basico",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível alto",
+    "q": "Qual é um risco típico de nível alto no F-3982?",
+    "a": [
+      "Fechamento obrigatório da XV-808",
+      "Maior risco de arraste de água para a linha de vapor",
+      "Maior garantia de vapor seco",
+      "Perda automática do AR J-3901"
+    ],
+    "c": 1,
+    "explanation": "Nível alto reduz o espaço de separação e favorece carryover de gotículas."
+  },
+  {
+    "id": "q05",
+    "level": "operacional",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível alto",
+    "q": "O nível permanece alto e estável. Qual consequência operacional merece maior atenção?",
+    "a": [
+      "Maior risco de arraste de água para a linha de vapor",
+      "Maior garantia de vapor seco",
+      "Perda automática do AR J-3901",
+      "Fechamento obrigatório da XV-808"
+    ],
+    "c": 0,
+    "explanation": "Nível alto reduz o espaço de separação e favorece carryover de gotículas."
+  },
+  {
+    "id": "q06",
+    "level": "avancado",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível alto",
+    "q": "Se o nível do drum sobe e o espaço de separação diminui, qual mecanismo de risco se torna mais relevante?",
+    "a": [
+      "Maior garantia de vapor seco",
+      "Perda automática do AR J-3901",
+      "Fechamento obrigatório da XV-808",
+      "Maior risco de arraste de água para a linha de vapor"
+    ],
+    "c": 3,
+    "explanation": "Nível alto reduz o espaço de separação e favorece carryover de gotículas."
+  },
+  {
+    "id": "q07",
+    "level": "basico",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível baixo",
+    "q": "Qual é uma consequência importante de nível baixo no F-3982?",
+    "a": [
+      "Redução da reserva hidráulica do circuito",
+      "Aumento garantido da geração de vapor",
+      "Melhora automática da separação",
+      "Aumento automático do ar J-3982"
+    ],
+    "c": 0,
+    "explanation": "Menor inventário reduz a margem hidráulica e pode comprometer a condição térmica do circuito."
+  },
+  {
+    "id": "q08",
+    "level": "operacional",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível baixo",
+    "q": "Com nível baixo persistente, qual preocupação deve entrar na avaliação do operador?",
+    "a": [
+      "Aumento garantido da geração de vapor",
+      "Melhora automática da separação",
+      "Aumento automático do ar J-3982",
+      "Redução da reserva hidráulica do circuito"
+    ],
+    "c": 3,
+    "explanation": "Menor inventário reduz a margem hidráulica e pode comprometer a condição térmica do circuito."
+  },
+  {
+    "id": "q09",
+    "level": "avancado",
+    "skill": "Processo térmico",
+    "equipment": "f3982",
+    "topic": "Nível baixo",
+    "q": "Se o inventário real do drum cai apesar de nível aparente oscilante, qual risco básico aumenta?",
+    "a": [
+      "Melhora automática da separação",
+      "Aumento automático do ar J-3982",
+      "Redução da reserva hidráulica do circuito",
+      "Aumento garantido da geração de vapor"
+    ],
+    "c": 2,
+    "explanation": "Menor inventário reduz a margem hidráulica e pode comprometer a condição térmica do circuito."
+  },
+  {
+    "id": "q10",
+    "level": "basico",
+    "skill": "Controle",
+    "equipment": "hbflevel",
+    "topic": "Balanço HBF-vapor",
+    "q": "Se HBF for maior que vapor + purgas por tempo sustentado, o que tende a ocorrer?",
+    "a": [
+      "Inventário tende a cair",
+      "Inventário fica sempre constante",
+      "Depende somente do TIC-39031",
+      "Inventário tende a subir"
+    ],
+    "c": 3,
+    "explanation": "Entrada sustentada maior que saída produz acumulação de massa."
+  },
+  {
+    "id": "q11",
+    "level": "operacional",
+    "skill": "Controle",
+    "equipment": "hbflevel",
+    "topic": "Balanço HBF-vapor",
+    "q": "Δ(HBF−vapor) permanece positivo e o nível começa a responder lentamente. Qual leitura é coerente?",
+    "a": [
+      "Inventário fica sempre constante",
+      "Depende somente do TIC-39031",
+      "Inventário tende a subir",
+      "Inventário tende a cair"
+    ],
+    "c": 2,
+    "explanation": "Entrada sustentada maior que saída produz acumulação de massa."
+  },
+  {
+    "id": "q12",
+    "level": "avancado",
+    "skill": "Controle",
+    "equipment": "hbflevel",
+    "topic": "Balanço HBF-vapor",
+    "q": "Desconsiderando outras entradas/saídas, qual tendência de inventário decorre de balanço de massa positivo sustentado?",
+    "a": [
+      "Depende somente do TIC-39031",
+      "Inventário tende a subir",
+      "Inventário tende a cair",
+      "Inventário fica sempre constante"
+    ],
+    "c": 1,
+    "explanation": "Entrada sustentada maior que saída produz acumulação de massa."
+  },
+  {
+    "id": "q13",
+    "level": "basico",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Swell",
+    "q": "O que caracteriza o swell em um steam drum?",
+    "a": [
+      "Falha obrigatória do transmissor",
+      "Aumento de massa somente por HBF",
+      "Elevação aparente do nível por aumento de ebulição",
+      "Queda aparente do nível por redução de ebulição"
+    ],
+    "c": 2,
+    "explanation": "Swell é expansão de bolhas/volume bifásico, podendo elevar o nível indicado sem aumento equivalente de massa."
+  },
+  {
+    "id": "q14",
+    "level": "operacional",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Swell",
+    "q": "Vapor aumenta rapidamente e o nível sobe mesmo com balanço HBF-vapor negativo. Qual fenômeno deve ser considerado?",
+    "a": [
+      "Aumento de massa somente por HBF",
+      "Elevação aparente do nível por aumento de ebulição",
+      "Queda aparente do nível por redução de ebulição",
+      "Falha obrigatória do transmissor"
+    ],
+    "c": 1,
+    "explanation": "Swell é expansão de bolhas/volume bifásico, podendo elevar o nível indicado sem aumento equivalente de massa."
+  },
+  {
+    "id": "q15",
+    "level": "avancado",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Swell",
+    "q": "Qual fenômeno explica nível aparente crescente ao mesmo tempo em que o balanço de massa pode estar negativo?",
+    "a": [
+      "Elevação aparente do nível por aumento de ebulição",
+      "Queda aparente do nível por redução de ebulição",
+      "Falha obrigatória do transmissor",
+      "Aumento de massa somente por HBF"
+    ],
+    "c": 0,
+    "explanation": "Swell é expansão de bolhas/volume bifásico, podendo elevar o nível indicado sem aumento equivalente de massa."
+  },
+  {
+    "id": "q16",
+    "level": "basico",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Shrink",
+    "q": "O que caracteriza o shrink?",
+    "a": [
+      "Aumento obrigatório de HBF",
+      "Queda aparente do nível após redução de ebulição",
+      "Elevação aparente do nível por aumento de ebulição",
+      "Trip da GV-3901"
+    ],
+    "c": 1,
+    "explanation": "Shrink ocorre quando a redução de ebulição colapsa bolhas e reduz o volume aparente da fase líquida."
+  },
+  {
+    "id": "q17",
+    "level": "operacional",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Shrink",
+    "q": "Após queda rápida de vapor, o nível também cai. Qual fenômeno deve ser lembrado?",
+    "a": [
+      "Queda aparente do nível após redução de ebulição",
+      "Elevação aparente do nível por aumento de ebulição",
+      "Trip da GV-3901",
+      "Aumento obrigatório de HBF"
+    ],
+    "c": 0,
+    "explanation": "Shrink ocorre quando a redução de ebulição colapsa bolhas e reduz o volume aparente da fase líquida."
+  },
+  {
+    "id": "q18",
+    "level": "avancado",
+    "skill": "Diagnóstico",
+    "equipment": "hbflevel",
+    "topic": "Shrink",
+    "q": "Qual efeito dinâmico pode fazer o nível cair mais rápido que a mudança real de inventário?",
+    "a": [
+      "Elevação aparente do nível por aumento de ebulição",
+      "Trip da GV-3901",
+      "Aumento obrigatório de HBF",
+      "Queda aparente do nível após redução de ebulição"
+    ],
+    "c": 3,
+    "explanation": "Shrink ocorre quando a redução de ebulição colapsa bolhas e reduz o volume aparente da fase líquida."
+  },
+  {
+    "id": "q19",
+    "level": "basico",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Catcoolers",
+    "q": "Qual é a função dos C-3901A/B?",
+    "a": [
+      "Remover calor do catalisador e recuperar energia em vapor",
+      "Aquecer o catalisador antes do regenerador",
+      "Condensar o vapor do F-3982",
+      "Controlar diretamente a XV-808"
+    ],
+    "c": 0,
+    "explanation": "Os catcoolers retiram calor do catalisador e transferem essa energia ao circuito água-vapor."
+  },
+  {
+    "id": "q20",
+    "level": "operacional",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Catcoolers",
+    "q": "Em regime normal, qual contribuição dos catcoolers ajuda a controlar a temperatura do regenerador?",
+    "a": [
+      "Aquecer o catalisador antes do regenerador",
+      "Condensar o vapor do F-3982",
+      "Controlar diretamente a XV-808",
+      "Remover calor do catalisador e recuperar energia em vapor"
+    ],
+    "c": 3,
+    "explanation": "Os catcoolers retiram calor do catalisador e transferem essa energia ao circuito água-vapor."
+  },
+  {
+    "id": "q21",
+    "level": "avancado",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Catcoolers",
+    "q": "Qual mecanismo conecta o balanço térmico do D-3904 à geração de vapor do F-3982?",
+    "a": [
+      "Condensar o vapor do F-3982",
+      "Controlar diretamente a XV-808",
+      "Remover calor do catalisador e recuperar energia em vapor",
+      "Aquecer o catalisador antes do regenerador"
+    ],
+    "c": 2,
+    "explanation": "Os catcoolers retiram calor do catalisador e transferem essa energia ao circuito água-vapor."
+  },
+  {
+    "id": "q22",
+    "level": "basico",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Balanço térmico",
+    "q": "Qual relação representa conceitualmente o calor removido do catalisador?",
+    "a": [
+      "Q depende somente do nível do F-3982",
+      "Q independe de ΔT",
+      "Q é definido apenas pelo SP do TIC-39031",
+      "Q depende do produto vazão de catalisador × Cp × ΔT"
+    ],
+    "c": 3,
+    "explanation": "Q≈ṁ·Cp·ΔT; alterações opostas em ṁ e ΔT exigem avaliação quantitativa."
+  },
+  {
+    "id": "q23",
+    "level": "operacional",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Balanço térmico",
+    "q": "Mantendo Cp constante, quais grandezas do catalisador mais diretamente influenciam Q removido?",
+    "a": [
+      "Q independe de ΔT",
+      "Q é definido apenas pelo SP do TIC-39031",
+      "Q depende do produto vazão de catalisador × Cp × ΔT",
+      "Q depende somente do nível do F-3982"
+    ],
+    "c": 2,
+    "explanation": "Q≈ṁ·Cp·ΔT; alterações opostas em ṁ e ΔT exigem avaliação quantitativa."
+  },
+  {
+    "id": "q24",
+    "level": "avancado",
+    "skill": "Processo térmico",
+    "equipment": "c3901ab",
+    "topic": "Balanço térmico",
+    "q": "Se vazão de catalisador sobe e ΔT cai, por que não é possível afirmar o sentido de Q sem quantificar?",
+    "a": [
+      "Q é definido apenas pelo SP do TIC-39031",
+      "Q depende do produto vazão de catalisador × Cp × ΔT",
+      "Q depende somente do nível do F-3982",
+      "Q independe de ΔT"
+    ],
+    "c": 1,
+    "explanation": "Q≈ṁ·Cp·ΔT; alterações opostas em ṁ e ΔT exigem avaliação quantitativa."
+  },
+  {
+    "id": "q25",
+    "level": "basico",
+    "skill": "Diagnóstico",
+    "equipment": "c3901ab",
+    "topic": "Assimetria A/B",
+    "q": "Qual abordagem é mais útil diante de assimetria persistente A/B?",
+    "a": [
+      "Assumir que o F-3982 é a causa exclusiva",
+      "Aumentar V-12 nos dois lados sem diagnóstico",
+      "Comparar aeração, temperaturas, circulação e instrumentos dos dois ramos",
+      "Alterar apenas o SP geral"
+    ],
+    "c": 2,
+    "explanation": "Comparar ramos equivalentes ajuda a localizar instrumentação, aeração, circulação ou troca térmica."
+  },
+  {
+    "id": "q26",
+    "level": "operacional",
+    "skill": "Diagnóstico",
+    "equipment": "c3901ab",
+    "topic": "Assimetria A/B",
+    "q": "C-3901B perde desempenho e A permanece estável. Qual é a melhor estratégia de diagnóstico?",
+    "a": [
+      "Aumentar V-12 nos dois lados sem diagnóstico",
+      "Comparar aeração, temperaturas, circulação e instrumentos dos dois ramos",
+      "Alterar apenas o SP geral",
+      "Assumir que o F-3982 é a causa exclusiva"
+    ],
+    "c": 1,
+    "explanation": "Comparar ramos equivalentes ajuda a localizar instrumentação, aeração, circulação ou troca térmica."
+  },
+  {
+    "id": "q27",
+    "level": "avancado",
+    "skill": "Diagnóstico",
+    "equipment": "c3901ab",
+    "topic": "Assimetria A/B",
+    "q": "Com resposta desigual a comandos semelhantes, qual comparação reduz melhor a ambiguidade entre falha local e causa comum?",
+    "a": [
+      "Comparar aeração, temperaturas, circulação e instrumentos dos dois ramos",
+      "Alterar apenas o SP geral",
+      "Assumir que o F-3982 é a causa exclusiva",
+      "Aumentar V-12 nos dois lados sem diagnóstico"
+    ],
+    "c": 0,
+    "explanation": "Comparar ramos equivalentes ajuda a localizar instrumentação, aeração, circulação ou troca térmica."
+  },
+  {
+    "id": "q28",
+    "level": "basico",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "TIC-39031",
+    "q": "Qual ação conceitual é coerente quando a PV do TIC-39031 está acima do SP?",
+    "a": [
+      "HBF deve ir ao mínimo",
+      "PV acima do SP tende a exigir maior remoção de calor",
+      "PV acima do SP exige menor remoção de calor",
+      "A XV-808 deve abrir"
+    ],
+    "c": 1,
+    "explanation": "Se a temperatura está acima do alvo, o sistema deve buscar maior remoção de calor, respeitando limites e lógica real."
+  },
+  {
+    "id": "q29",
+    "level": "operacional",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "TIC-39031",
+    "q": "A temperatura controlada sobe acima do alvo. Qual direção de resposta térmica é esperada?",
+    "a": [
+      "PV acima do SP tende a exigir maior remoção de calor",
+      "PV acima do SP exige menor remoção de calor",
+      "A XV-808 deve abrir",
+      "HBF deve ir ao mínimo"
+    ],
+    "c": 0,
+    "explanation": "Se a temperatura está acima do alvo, o sistema deve buscar maior remoção de calor, respeitando limites e lógica real."
+  },
+  {
+    "id": "q30",
+    "level": "avancado",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "TIC-39031",
+    "q": "Considerando o erro PV−SP, qual resposta do processo deve ser solicitada para reduzir o desvio positivo de temperatura?",
+    "a": [
+      "PV acima do SP exige menor remoção de calor",
+      "A XV-808 deve abrir",
+      "HBF deve ir ao mínimo",
+      "PV acima do SP tende a exigir maior remoção de calor"
+    ],
+    "c": 3,
+    "explanation": "Se a temperatura está acima do alvo, o sistema deve buscar maior remoção de calor, respeitando limites e lógica real."
+  },
+  {
+    "id": "q31",
+    "level": "basico",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "Saturação da malha",
+    "q": "PV continua alta e MV já está no limite. O que isso pode indicar?",
+    "a": [
+      "Limitação física do processo/atuador deve ser investigada",
+      "A sintonia está obrigatoriamente errada",
+      "O SP está necessariamente incorreto",
+      "O nível do drum é a única causa possível"
+    ],
+    "c": 0,
+    "explanation": "MV no limite com erro persistente é assinatura de possível limitação de capacidade, não prova de sintonia ruim."
+  },
+  {
+    "id": "q32",
+    "level": "operacional",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "Saturação da malha",
+    "q": "TIC-39031 pede máxima atuação e o processo responde pouco. Qual hipótese deve ser priorizada?",
+    "a": [
+      "A sintonia está obrigatoriamente errada",
+      "O SP está necessariamente incorreto",
+      "O nível do drum é a única causa possível",
+      "Limitação física do processo/atuador deve ser investigada"
+    ],
+    "c": 3,
+    "explanation": "MV no limite com erro persistente é assinatura de possível limitação de capacidade, não prova de sintonia ruim."
+  },
+  {
+    "id": "q33",
+    "level": "avancado",
+    "skill": "Controle",
+    "equipment": "tic39031",
+    "topic": "Saturação da malha",
+    "q": "Quando o controlador satura sem eliminar o erro, qual conceito ajuda a separar problema de controle de limitação de capacidade?",
+    "a": [
+      "O SP está necessariamente incorreto",
+      "O nível do drum é a única causa possível",
+      "Limitação física do processo/atuador deve ser investigada",
+      "A sintonia está obrigatoriamente errada"
+    ],
+    "c": 2,
+    "explanation": "MV no limite com erro persistente é assinatura de possível limitação de capacidade, não prova de sintonia ruim."
+  },
+  {
+    "id": "q34",
+    "level": "basico",
+    "skill": "Utilidades",
+    "equipment": "arj3901",
+    "topic": "AR J-3901",
+    "q": "Qual é o papel principal do AR J-3901 no material de treinamento?",
+    "a": [
+      "Fonte exclusiva de HBF",
+      "Vapor de emergência",
+      "Válvula de isolamento",
+      "Fonte principal de aeração/fluidização do circuito"
+    ],
+    "c": 3,
+    "explanation": "Menor aeração pode prejudicar mobilidade/circulação do catalisador e reduzir troca térmica."
+  },
+  {
+    "id": "q35",
+    "level": "operacional",
+    "skill": "Utilidades",
+    "equipment": "arj3901",
+    "topic": "AR J-3901",
+    "q": "Após queda do J-3901, qual função do sistema fica diretamente ameaçada?",
+    "a": [
+      "Vapor de emergência",
+      "Válvula de isolamento",
+      "Fonte principal de aeração/fluidização do circuito",
+      "Fonte exclusiva de HBF"
+    ],
+    "c": 2,
+    "explanation": "Menor aeração pode prejudicar mobilidade/circulação do catalisador e reduzir troca térmica."
+  },
+  {
+    "id": "q36",
+    "level": "avancado",
+    "skill": "Utilidades",
+    "equipment": "arj3901",
+    "topic": "AR J-3901",
+    "q": "Qual elo causal torna a perda do J-3901 capaz de reduzir a geração de vapor dos catcoolers?",
+    "a": [
+      "Válvula de isolamento",
+      "Fonte principal de aeração/fluidização do circuito",
+      "Fonte exclusiva de HBF",
+      "Vapor de emergência"
+    ],
+    "c": 1,
+    "explanation": "Menor aeração pode prejudicar mobilidade/circulação do catalisador e reduzir troca térmica."
+  },
+  {
+    "id": "q37",
+    "level": "basico",
+    "skill": "Utilidades",
+    "equipment": "arj3982",
+    "topic": "AR J-3982",
+    "q": "Como o AR J-3982 é classificado no treinamento?",
+    "a": [
+      "Proteção de trip total",
+      "Controle direto do nível",
+      "Fonte auxiliar/complementar de aeração",
+      "Fonte principal de HBF"
+    ],
+    "c": 2,
+    "explanation": "O J-3982 fornece flexibilidade de aeração auxiliar; seus limites devem seguir procedimento."
+  },
+  {
+    "id": "q38",
+    "level": "operacional",
+    "skill": "Utilidades",
+    "equipment": "arj3982",
+    "topic": "AR J-3982",
+    "q": "Se J-3982 fica indisponível, qual capacidade operacional é reduzida?",
+    "a": [
+      "Controle direto do nível",
+      "Fonte auxiliar/complementar de aeração",
+      "Fonte principal de HBF",
+      "Proteção de trip total"
+    ],
+    "c": 1,
+    "explanation": "O J-3982 fornece flexibilidade de aeração auxiliar; seus limites devem seguir procedimento."
+  },
+  {
+    "id": "q39",
+    "level": "avancado",
+    "skill": "Utilidades",
+    "equipment": "arj3982",
+    "topic": "AR J-3982",
+    "q": "Por que o J-3982 deve ser visto como margem de ajuste e não como substituto universal do J-3901?",
+    "a": [
+      "Fonte auxiliar/complementar de aeração",
+      "Fonte principal de HBF",
+      "Proteção de trip total",
+      "Controle direto do nível"
+    ],
+    "c": 0,
+    "explanation": "O J-3982 fornece flexibilidade de aeração auxiliar; seus limites devem seguir procedimento."
+  },
+  {
+    "id": "q40",
+    "level": "basico",
+    "skill": "Utilidades",
+    "equipment": "v12emerg",
+    "topic": "V-12 emergência",
+    "q": "Qual é a função conceitual do V-12 emergência?",
+    "a": [
+      "Controle normal do TIC-39031",
+      "Utilidade de contingência para suporte/purga",
+      "Substituto permanente do ar normal",
+      "Controle de nível do drum"
+    ],
+    "c": 1,
+    "explanation": "V-12 é contingência; uso indevido pode mascarar problemas e alterar balanços do sistema."
+  },
+  {
+    "id": "q41",
+    "level": "operacional",
+    "skill": "Utilidades",
+    "equipment": "v12emerg",
+    "topic": "V-12 emergência",
+    "q": "Em perda de utilidade normal, como o V-12 deve ser interpretado?",
+    "a": [
+      "Utilidade de contingência para suporte/purga",
+      "Substituto permanente do ar normal",
+      "Controle de nível do drum",
+      "Controle normal do TIC-39031"
+    ],
+    "c": 0,
+    "explanation": "V-12 é contingência; uso indevido pode mascarar problemas e alterar balanços do sistema."
+  },
+  {
+    "id": "q42",
+    "level": "avancado",
+    "skill": "Utilidades",
+    "equipment": "v12emerg",
+    "topic": "V-12 emergência",
+    "q": "Qual risco existe ao usar V-12 rotineiramente para mascarar uma deficiência de aeração normal?",
+    "a": [
+      "Substituto permanente do ar normal",
+      "Controle de nível do drum",
+      "Controle normal do TIC-39031",
+      "Utilidade de contingência para suporte/purga"
+    ],
+    "c": 3,
+    "explanation": "V-12 é contingência; uso indevido pode mascarar problemas e alterar balanços do sistema."
+  },
+  {
+    "id": "q43",
+    "level": "basico",
+    "skill": "Segurança",
+    "equipment": "xv808",
+    "topic": "XV-808",
+    "q": "Qual é a função da XV-808 no trip total da GV-3901?",
+    "a": [
+      "Fechar no trip total e ter atuação confirmada",
+      "Abrir para aliviar em qualquer trip",
+      "Permanecer na última posição",
+      "Regular o HBF"
+    ],
+    "c": 0,
+    "explanation": "A XV-808 é uma barreira de isolamento; comando sem confirmação não garante atuação efetiva."
+  },
+  {
+    "id": "q44",
+    "level": "operacional",
+    "skill": "Segurança",
+    "equipment": "xv808",
+    "topic": "XV-808",
+    "q": "Comando de fechamento emitido e posição não confirmada: qual é a leitura correta?",
+    "a": [
+      "Abrir para aliviar em qualquer trip",
+      "Permanecer na última posição",
+      "Regular o HBF",
+      "Fechar no trip total e ter atuação confirmada"
+    ],
+    "c": 3,
+    "explanation": "A XV-808 é uma barreira de isolamento; comando sem confirmação não garante atuação efetiva."
+  },
+  {
+    "id": "q45",
+    "level": "avancado",
+    "skill": "Segurança",
+    "equipment": "xv808",
+    "topic": "XV-808",
+    "q": "Por que comando, indicação de posição e resposta de processo devem ser coerentes após um trip total?",
+    "a": [
+      "Permanecer na última posição",
+      "Regular o HBF",
+      "Fechar no trip total e ter atuação confirmada",
+      "Abrir para aliviar em qualquer trip"
+    ],
+    "c": 2,
+    "explanation": "A XV-808 é uma barreira de isolamento; comando sem confirmação não garante atuação efetiva."
+  },
+  {
+    "id": "q46",
+    "level": "basico",
+    "skill": "Comunicação",
+    "equipment": "geral",
+    "topic": "Passagem de turno",
+    "q": "O que torna uma passagem de turno útil para o catcooler?",
+    "a": [
+      "Informar apenas valores instantâneos",
+      "Informar apenas alarmes",
+      "Informar somente o SP do TIC",
+      "Transmitir tendências, limitações, riscos ativos, ações e pendências"
+    ],
+    "c": 3,
+    "explanation": "Uma boa passagem comunica dinâmica, causa provável, ações executadas, condição atual e pontos a vigiar."
+  },
+  {
+    "id": "q47",
+    "level": "operacional",
+    "skill": "Comunicação",
+    "equipment": "geral",
+    "topic": "Passagem de turno",
+    "q": "Após instabilidade recente, qual informação é mais valiosa ao próximo operador?",
+    "a": [
+      "Informar apenas alarmes",
+      "Informar somente o SP do TIC",
+      "Transmitir tendências, limitações, riscos ativos, ações e pendências",
+      "Informar apenas valores instantâneos"
+    ],
+    "c": 2,
+    "explanation": "Uma boa passagem comunica dinâmica, causa provável, ações executadas, condição atual e pontos a vigiar."
+  },
+  {
+    "id": "q48",
+    "level": "avancado",
+    "skill": "Comunicação",
+    "equipment": "geral",
+    "topic": "Passagem de turno",
+    "q": "Qual conteúdo preserva melhor o raciocínio diagnóstico e reduz risco de recorrência no turno seguinte?",
+    "a": [
+      "Informar somente o SP do TIC",
+      "Transmitir tendências, limitações, riscos ativos, ações e pendências",
+      "Informar apenas valores instantâneos",
+      "Informar apenas alarmes"
+    ],
+    "c": 1,
+    "explanation": "Uma boa passagem comunica dinâmica, causa provável, ações executadas, condição atual e pontos a vigiar."
+  }
+]

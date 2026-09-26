@@ -1,0 +1,9 @@
+CATCOOLER CONCEPT — ATUALIZAÇÃO DO ÍCONE
+
+Substitua estes arquivos no projeto:
+1. icon-source-catcooler.png
+2. icon-512.png
+3. icon-192.png
+4. apple-touch-icon.png
+
+O ícone já foi trocado no pacote completo também.

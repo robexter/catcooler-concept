@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Turno após instabilidade térmica",
+    "facts": [
+      "T do D-3904 subiu e estabilizou",
+      "C-3901B ficou abaixo do A",
+      "AR J-3901 normalizou",
+      "TIC-39031 ainda com MV mais alta"
+    ],
+    "critical": [
+      "Assimetria A/B ainda existente",
+      "MV do TIC permanece elevada",
+      "Confirmar estabilidade de AR J-3901",
+      "Tendência de vapor gerado"
+    ],
+    "non": [
+      "Cor do fundo da tela",
+      "Ordem dos botões do app"
+    ]
+  },
+  {
+    "title": "Turno após swell no F-3982",
+    "facts": [
+      "Vapor subiu rapidamente",
+      "Nível subiu com ΔHBF−vapor negativo",
+      "Nível retornou sem grande correção",
+      "Balanço atual próximo de zero"
+    ],
+    "critical": [
+      "Registrar ocorrência de swell",
+      "Informar balanço HBF/vapor atual",
+      "Tendência do nível",
+      "Ações realizadas/evitadas"
+    ],
+    "non": [
+      "Tamanho do ícone",
+      "Quantidade de perguntas do quiz"
+    ]
+  },
+  {
+    "title": "Turno após trip da GV-3901",
+    "facts": [
+      "Trip total ocorreu",
+      "XV-808 recebeu comando fechar",
+      "Posição foi confirmada",
+      "Recomposição ainda não autorizada"
+    ],
+    "critical": [
+      "Causa do trip ainda em análise",
+      "XV-808 confirmada fechada",
+      "Condição atual de pressão/fluxo",
+      "Permissivos pendentes"
+    ],
+    "non": [
+      "Tema visual da página",
+      "Nota do último quiz"
+    ]
+  }
+]

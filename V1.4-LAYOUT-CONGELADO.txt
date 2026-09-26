@@ -1,0 +1,19 @@
+CATCOOLER CONCEPT — V1.4 LAYOUT CONGELADO
+
+Esta versão consolida:
+- quiz refinado;
+- ícone CATCOOLER;
+- nome instalado: catcooler concept;
+- ajuste ultrafino das lâmpadas;
+- PWA;
+- edição local;
+- painel Entenda Melhor.
+
+A partir daqui, o layout deve permanecer congelado.
+Próximas evoluções devem priorizar conteúdo técnico e treinamento.
+
+Para atualizar uma instalação existente, substitua:
+1. index.html
+2. Catcooler_onepage_interativo_editavel.html
+3. sw.js
+4. README.md

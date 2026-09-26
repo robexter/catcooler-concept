@@ -1,0 +1,68 @@
+[
+  {
+    "q": "Nível sobe com aumento rápido de vapor. Qual ação pode piorar?",
+    "options": [
+      "Reduzir HBF agressivamente sem avaliar swell",
+      "Comparar HBF e vapor",
+      "Observar tendência curta",
+      "Correlacionar carga térmica"
+    ],
+    "c": 0,
+    "fb": "Redução agressiva pode converter swell em perda real de inventário."
+  },
+  {
+    "q": "PV alta e MV saturada. Qual ação pode mascarar a causa?",
+    "options": [
+      "Elevar o SP apenas para eliminar o desvio",
+      "Verificar capacidade A/B",
+      "Checar aeração",
+      "Comparar vapor gerado"
+    ],
+    "c": 0,
+    "fb": "Mudar o objetivo não trata a limitação."
+  },
+  {
+    "q": "XV-808 não confirmou fechamento. Qual ação é mais arriscada?",
+    "options": [
+      "Reabrir para testar curso durante o trip",
+      "Confirmar posição por campo/processo",
+      "Verificar pressão/fluxo",
+      "Seguir contingência"
+    ],
+    "c": 0,
+    "fb": "Reabrir pode recolocar energia antes de condição segura."
+  },
+  {
+    "q": "C-3901B diverge do A. Qual ação dificulta o diagnóstico?",
+    "options": [
+      "Alterar vários ajustes ao mesmo tempo",
+      "Comparar A/B",
+      "Verificar instrumento do B",
+      "Checar aeração"
+    ],
+    "c": 0,
+    "fb": "Múltiplas mudanças eliminam rastreabilidade."
+  },
+  {
+    "q": "Perda do J-3901. Qual suposição é perigosa?",
+    "options": [
+      "Assumir que J-3982 substitui integralmente sem limites",
+      "Monitorar resposta térmica",
+      "Seguir procedimento",
+      "Verificar vapor e temperaturas"
+    ],
+    "c": 0,
+    "fb": "O ar auxiliar pode ter limites diferentes."
+  },
+  {
+    "q": "Oscilação de nível após mudança de vapor. O que pode amplificar?",
+    "options": [
+      "Correções manuais grandes e alternadas",
+      "Observar tendência de balanço",
+      "Verificar shrink/swell",
+      "Revisar ação do controlador"
+    ],
+    "c": 0,
+    "fb": "Ações alternadas grandes podem alimentar a oscilação."
+  }
+]

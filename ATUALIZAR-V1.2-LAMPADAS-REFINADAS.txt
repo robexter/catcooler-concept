@@ -1,0 +1,17 @@
+CATCOOLER CONCEPT — V1.2 REFINAMENTO FINO DAS LÂMPADAS
+
+Substituir:
+1. index.html
+2. Catcooler_onepage_interativo_editavel.html
+3. sw.js
+
+Refinamentos realizados:
+- reposicionamento fino das lâmpadas para coincidir melhor com os TAGs/equipamentos;
+- ajuste da XV-808 para a região do HS / comando superior esquerdo;
+- ajuste do F-3982 para o eixo do tubulão;
+- ajuste do ponto de nível HBF → F-3982 para a região do controle associado;
+- desdobramento do C-3901A/B em duas lâmpadas visuais (uma em cada catcooler), abrindo o mesmo conteúdo técnico;
+- ajuste fino dos pontos de AR J-3901, V-12 emergência e AR J-3982 nas linhas utilitárias da lateral esquerda;
+- ajuste do TIC-39031 para a região do tag no rodapé;
+- versão identificada como V1.2;
+- cache do PWA atualizado.

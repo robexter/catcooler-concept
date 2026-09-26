@@ -1,0 +1,602 @@
+[
+  {
+    "id": "s1",
+    "title": "Perda do AR J-3901",
+    "skill": "Utilidades / Diagnóstico",
+    "intro": "O AR J-3901 sofre queda acentuada. Preserve a circulação do catalisador e identifique a consequência térmica.",
+    "steps": [
+      {
+        "q": "Qual é a primeira leitura que mais ajuda a dimensionar o impacto real?",
+        "choices": [
+          {
+            "t": "Correlacionar ar, temperaturas A/B e vapor gerado.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Confirma se a perda de ar já afetou circulação/troca térmica."
+          },
+          {
+            "t": "Atuar imediatamente no SP do TIC-39031.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Mudar o SP pode mascarar o efeito sem tratar a perda de aeração."
+          },
+          {
+            "t": "Observar somente o F-3982.",
+            "score": 0,
+            "risk": 2,
+            "fb": "O impacto inicial pode aparecer nos catcoolers."
+          }
+        ]
+      },
+      {
+        "q": "A geração de vapor começa a cair. Qual hipótese ganha força?",
+        "choices": [
+          {
+            "t": "A perda de aeração reduziu circulação e remoção de calor.",
+            "score": 2,
+            "risk": 0,
+            "fb": "A cadeia é coerente com a função do ar principal."
+          },
+          {
+            "t": "O F-3982 necessariamente está com nível alto.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Nível alto não é a única explicação."
+          },
+          {
+            "t": "A XV-808 fechou automaticamente.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Não há relação automática entre perda de ar e trip total."
+          }
+        ]
+      },
+      {
+        "q": "O J-3982 está disponível. Como usar essa informação?",
+        "choices": [
+          {
+            "t": "Avaliar suporte auxiliar conforme procedimento e confirmar recuperação pela resposta térmica.",
+            "score": 2,
+            "risk": 0,
+            "fb": "O ar auxiliar pode recuperar margem, mas precisa ser validado pelo processo."
+          },
+          {
+            "t": "Assumir substituição integral sem acompanhamento.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Não se deve assumir equivalência total."
+          },
+          {
+            "t": "Aumentar V-12 e J-3982 simultaneamente sem diagnóstico.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Ações simultâneas dificultam identificar causa e efeito."
+          }
+        ]
+      },
+      {
+        "q": "Qual indicador melhor confirma recuperação?",
+        "choices": [
+          {
+            "t": "Estabilização de A/B e recuperação coerente do vapor gerado.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Mostra recuperação de remoção térmica."
+          },
+          {
+            "t": "Somente a vazão do J-3982.",
+            "score": 0,
+            "risk": 1,
+            "fb": "A utilidade sozinha não prova resposta de processo."
+          },
+          {
+            "t": "Somente o nível instantâneo do F-3982.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Nível isolado não confirma recuperação térmica."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s2",
+    "title": "Assimetria C-3901A × C-3901B",
+    "skill": "Diagnóstico",
+    "intro": "O C-3901B passa a remover menos calor que o A.",
+    "steps": [
+      {
+        "q": "Qual comparação inicial é mais valiosa?",
+        "choices": [
+          {
+            "t": "Temperaturas, aeração e resposta térmica A versus B.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Comparar ramos equivalentes ajuda a localizar a origem."
+          },
+          {
+            "t": "Somente nível do F-3982.",
+            "score": 0,
+            "risk": 1,
+            "fb": "O drum é comum aos dois ramos."
+          },
+          {
+            "t": "Alterar o SP geral.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Isso pode mascarar a assimetria."
+          }
+        ]
+      },
+      {
+        "q": "A aeração indicada é semelhante, mas B continua pior. Próximo foco?",
+        "choices": [
+          {
+            "t": "Verificar instrumentos, circulação aparente e troca térmica do ramo B.",
+            "score": 2,
+            "risk": 0,
+            "fb": "A diferença pode estar em medição, circulação ou troca local."
+          },
+          {
+            "t": "Aumentar ar nos dois lados igualmente.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Pode aumentar consumo sem localizar a causa."
+          },
+          {
+            "t": "Assumir que A está errado.",
+            "score": 0,
+            "risk": 1,
+            "fb": "É preciso evidência antes de escolher qual lado está incorreto."
+          }
+        ]
+      },
+      {
+        "q": "TIC-39031 pede mais remoção, mas B quase não responde. Isso sugere:",
+        "choices": [
+          {
+            "t": "Limitação local no ramo B ou seu elemento de atuação.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Resposta desigual ao comando comum aponta para limitação localizada."
+          },
+          {
+            "t": "Erro obrigatório de sintonia geral.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Sintonia comum não explica facilmente apenas um ramo."
+          },
+          {
+            "t": "Swell no F-3982 como causa direta.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Swell afeta nível aparente, não explica sozinho assimetria térmica."
+          }
+        ]
+      },
+      {
+        "q": "Qual critério indica diagnóstico bem sucedido?",
+        "choices": [
+          {
+            "t": "Causa localizada e tendências A/B coerentes após correção.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Conecta causa, ação e resposta."
+          },
+          {
+            "t": "Temperaturas iguais porque o SP foi alterado.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Pode mascarar a causa."
+          },
+          {
+            "t": "Desaparecimento temporário de alarme.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Alarme ausente não prova desempenho normal."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s3",
+    "title": "Queda de vapor + aumento da T do D-3904",
+    "skill": "Processo térmico",
+    "intro": "Com carga semelhante, vapor cai e temperatura do regenerador sobe.",
+    "steps": [
+      {
+        "q": "Qual interpretação inicial é mais coerente?",
+        "choices": [
+          {
+            "t": "A remoção de calor pode estar diminuindo.",
+            "score": 2,
+            "risk": 0,
+            "fb": "As tendências combinam com perda de capacidade térmica."
+          },
+          {
+            "t": "Os catcoolers removem calor demais.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Isso tenderia a reduzir a temperatura."
+          },
+          {
+            "t": "É apenas variação de nível.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Nível não explica sozinho as tendências térmicas."
+          }
+        ]
+      },
+      {
+        "q": "Qual conjunto deve ser correlacionado?",
+        "choices": [
+          {
+            "t": "TIC-39031, A/B, aeração, vapor e temperaturas.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Diferencia malha, ramo e utilidade."
+          },
+          {
+            "t": "Somente TIC-39031.",
+            "score": 0,
+            "risk": 1,
+            "fb": "A malha não mostra sozinha a capacidade real."
+          },
+          {
+            "t": "Somente V-12.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é a variável normal do balanço térmico."
+          }
+        ]
+      },
+      {
+        "q": "MV está alta, mas vapor continua caindo. O que indica?",
+        "choices": [
+          {
+            "t": "O controle pede mais, mas o processo pode estar limitado.",
+            "score": 2,
+            "risk": 0,
+            "fb": "É assinatura de possível limitação física."
+          },
+          {
+            "t": "O TIC certamente está mal sintonizado.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Pode ser limitação física."
+          },
+          {
+            "t": "O F-3982 está necessariamente vazio.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é conclusão direta."
+          }
+        ]
+      },
+      {
+        "q": "Qual resultado demonstra recuperação?",
+        "choices": [
+          {
+            "t": "Vapor recupera e T do regenerador estabiliza.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Balanço térmico voltou a responder."
+          },
+          {
+            "t": "Somente MV volta a 50%.",
+            "score": 0,
+            "risk": 1,
+            "fb": "MV isolada não prova recuperação."
+          },
+          {
+            "t": "O nível oscila menos por alguns segundos.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não comprova recuperação térmica."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s4",
+    "title": "Swell / Shrink no F-3982",
+    "skill": "Controle de nível",
+    "intro": "O drum passa por mudança rápida de carga térmica.",
+    "steps": [
+      {
+        "q": "Aumento rápido de vapor e subida de nível: principal hipótese?",
+        "choices": [
+          {
+            "t": "Swell.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Aumento de ebulição pode expandir bolhas e elevar nível aparente."
+          },
+          {
+            "t": "Shrink.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Shrink está associado à redução de ebulição."
+          },
+          {
+            "t": "Falha certa do LT.",
+            "score": 0,
+            "risk": 1,
+            "fb": "O fenômeno pode ser real de processo."
+          }
+        ]
+      },
+      {
+        "q": "Δ(HBF−vapor) está negativo. O que isso acrescenta?",
+        "choices": [
+          {
+            "t": "O inventário pode estar diminuindo apesar do nível alto.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Balanço negativo pode coexistir com swell."
+          },
+          {
+            "t": "Confirma excesso de massa.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Diferença negativa indica mais saída que entrada."
+          },
+          {
+            "t": "Não tem utilidade em transientes.",
+            "score": 0,
+            "risk": 1,
+            "fb": "É útil quando interpretado junto com a dinâmica."
+          }
+        ]
+      },
+      {
+        "q": "Qual ação tem maior risco de amplificar a instabilidade?",
+        "choices": [
+          {
+            "t": "Reduzir HBF agressivamente só porque o nível subiu.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Pode transformar swell em perda real de inventário."
+          },
+          {
+            "t": "Correlacionar vapor e HBF.",
+            "score": 0,
+            "risk": 0,
+            "fb": "É uma ação diagnóstica adequada."
+          },
+          {
+            "t": "Observar tendência curta com vigilância.",
+            "score": 0,
+            "risk": 0,
+            "fb": "Pode ser apropriado em condição controlada."
+          }
+        ]
+      },
+      {
+        "q": "Na redução brusca de vapor, o nível cai. Como interpretar?",
+        "choices": [
+          {
+            "t": "Pode ser shrink e deve ser correlacionado com balanço de massa.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Colapso de bolhas reduz nível aparente."
+          },
+          {
+            "t": "É prova de vazamento.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Não é prova suficiente."
+          },
+          {
+            "t": "É sempre falta de HBF.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Pode ocorrer mesmo com HBF normal."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s5",
+    "title": "Trip total da GV-3901 / XV-808",
+    "skill": "Segurança",
+    "intro": "O intertravamento total da GV-3901 é acionado.",
+    "steps": [
+      {
+        "q": "Qual resposta da XV-808 é esperada?",
+        "choices": [
+          {
+            "t": "Fechamento para isolamento.",
+            "score": 2,
+            "risk": 0,
+            "fb": "É a função de segurança descrita."
+          },
+          {
+            "t": "Abertura para aliviar.",
+            "score": 0,
+            "risk": 2,
+            "fb": "O papel descrito é de isolamento."
+          },
+          {
+            "t": "Manter última posição.",
+            "score": 0,
+            "risk": 2,
+            "fb": "O trip comanda a posição segura."
+          }
+        ]
+      },
+      {
+        "q": "Comando emitido, mas posição não confirma. Qual tratamento?",
+        "choices": [
+          {
+            "t": "Considerar possível falha da barreira e confirmar por campo/processo.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Comando sem confirmação não garante isolamento."
+          },
+          {
+            "t": "Assumir fechamento porque a lógica atuou.",
+            "score": 0,
+            "risk": 2,
+            "fb": "A barreira precisa de confirmação."
+          },
+          {
+            "t": "Reabrir para testar curso.",
+            "score": 0,
+            "risk": 3,
+            "fb": "Pode recolocar energia durante condição insegura."
+          }
+        ]
+      },
+      {
+        "q": "Pressão/fluxo a jusante não respondem como esperado. O que sugere?",
+        "choices": [
+          {
+            "t": "Verificar estanqueidade/caminhos alternativos e isolamento real.",
+            "score": 2,
+            "risk": 0,
+            "fb": "A resposta de processo confirma a barreira."
+          },
+          {
+            "t": "Elevar nível do F-3982.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não resolve a dúvida de isolamento."
+          },
+          {
+            "t": "Alterar SP do TIC.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é a prioridade do trip."
+          }
+        ]
+      },
+      {
+        "q": "Quando pensar em recomposição?",
+        "choices": [
+          {
+            "t": "Após causa controlada, condição segura e permissivos/procedimento atendidos.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Recomposição deve respeitar critérios de segurança."
+          },
+          {
+            "t": "Assim que o nível normalizar.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Nível não é critério único."
+          },
+          {
+            "t": "Após tempo fixo independente do evento.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Não se deve inventar temporização universal."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s6",
+    "title": "Instabilidade de nível HBF / F-3982",
+    "skill": "Controle",
+    "intro": "O nível oscila e é preciso separar dinâmica de processo de atuação excessiva.",
+    "steps": [
+      {
+        "q": "Qual variável deve ser correlacionada imediatamente ao nível?",
+        "choices": [
+          {
+            "t": "HBF e vapor gerado.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Eles definem o balanço de massa principal."
+          },
+          {
+            "t": "Somente ar J-3982.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Ar não substitui o balanço de água/vapor."
+          },
+          {
+            "t": "Somente XV-808.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é variável primária de nível."
+          }
+        ]
+      },
+      {
+        "q": "Oscilação começa após grande mudança de vapor. O que considerar?",
+        "choices": [
+          {
+            "t": "Shrink/swell.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Mudanças de ebulição alteram o nível aparente."
+          },
+          {
+            "t": "Falha certa do LIC.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Primeiro considere a dinâmica real."
+          },
+          {
+            "t": "Trip obrigatório da GV-3901.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é consequência automática."
+          }
+        ]
+      },
+      {
+        "q": "A malha corrige demais e o nível cruza o SP repetidamente. O que investigar?",
+        "choices": [
+          {
+            "t": "Ação do controlador, dinâmica do drum e feedforward de vazões.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Oscilação pode ser interação controle-processo."
+          },
+          {
+            "t": "Aumentar HBF manualmente.",
+            "score": 0,
+            "risk": 2,
+            "fb": "Pode piorar a oscilação."
+          },
+          {
+            "t": "Alterar TIC-39031 sem relação.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Não é a primeira correlação."
+          }
+        ]
+      },
+      {
+        "q": "Qual condição indica estabilização real?",
+        "choices": [
+          {
+            "t": "Nível estável com balanço HBF/vapor coerente e sem correções extremas.",
+            "score": 2,
+            "risk": 0,
+            "fb": "Combina inventário e fluxo coerentes."
+          },
+          {
+            "t": "Nível no SP por poucos segundos com HBF saturado.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Pode ser equilíbrio temporário."
+          },
+          {
+            "t": "Ausência de alarmes apesar de oscilação.",
+            "score": 0,
+            "risk": 1,
+            "fb": "Alarmes não substituem tendência."
+          }
+        ]
+      }
+    ]
+  }
+]

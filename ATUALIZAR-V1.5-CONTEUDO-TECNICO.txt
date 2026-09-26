@@ -1,0 +1,22 @@
+CATCOOLER CONCEPT — V1.5 CONTEÚDO TÉCNICO AVANÇADO
+
+LAYOUT: congelado — nenhuma coordenada, tamanho de lâmpada ou enquadramento foi alterado.
+
+Substituir:
+1. app.js
+2. data.json
+3. index.html
+4. Catcooler_onepage_interativo_editavel.html
+5. sw.js
+6. README.md
+
+Evoluções:
+- conteúdo técnico aprofundado dos 8 pontos;
+- alertas operacionais;
+- sinais para acompanhamento no CIC;
+- balanço de massa e energia;
+- shrink/swell e interpretação dinâmica do nível do F-3982;
+- explicação conceitual de controle com HBF e vapor gerado;
+- diagnóstico de perda de troca térmica/aeração;
+- confirmação de atuação da XV-808;
+- quiz ampliado de 10 para 15 questões, com 5 novos cenários operacionais.

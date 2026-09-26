@@ -1,0 +1,52 @@
+[
+  {
+    "prompt": "B remove menos calor, ar indicado semelhante nos dois lados.",
+    "options": [
+      "Comparar instrumentos, circulação e temperaturas do B",
+      "Mudar SP geral",
+      "Aumentar ar nos dois sem comparar",
+      "Ignorar se o drum estiver normal"
+    ],
+    "c": 0
+  },
+  {
+    "prompt": "A e B recebem comando semelhante; A responde, B quase não muda.",
+    "options": [
+      "Investigar elemento final/ramo B",
+      "Reajustar apenas o LIC",
+      "Assumir erro do SP",
+      "Abrir XV-808"
+    ],
+    "c": 0
+  },
+  {
+    "prompt": "Ambos perdem desempenho após queda de AR J-3901.",
+    "options": [
+      "Causa comum de aeração é plausível",
+      "Dois instrumentos falharam juntos",
+      "Problema exclusivo do B",
+      "Nível alto é a única causa"
+    ],
+    "c": 0
+  },
+  {
+    "prompt": "B mostra ΔT normal, mas contribuição térmica atribuída cai.",
+    "options": [
+      "Verificar medição/balanço térmico do ramo",
+      "Concluir circulação ruim sem checagens",
+      "Alterar SP do TIC",
+      "Aumentar V-12 automaticamente"
+    ],
+    "c": 0
+  },
+  {
+    "prompt": "Após correção de aeração, A/B voltam a tendências próximas.",
+    "options": [
+      "Resposta apoia hipótese de problema de aeração",
+      "Prova nível alto",
+      "Prova falha do TIC",
+      "Não fornece informação"
+    ],
+    "c": 0
+  }
+]
