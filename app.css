@@ -454,3 +454,113 @@ body:has(#detailPanel.open){
   .inline-media-head{display:grid;grid-template-columns:1fr}
   .inline-pdf{height:58dvh;min-height:340px}
 }
+
+
+/* =========================================================
+   V2.6 — Fundamentos de Engenharia
+   ========================================================= */
+.engineering-feature{
+  border-color:#486d86!important;
+  background:linear-gradient(180deg,#123049,#0a1d2c)!important;
+}
+.eng-summary{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+  margin:10px 0 14px;
+}
+.eng-summary-card{
+  border:1px solid #31516a;
+  background:#091a27;
+  border-radius:13px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.eng-summary-card b{font-size:18px;color:#dff4ff}
+.eng-summary-card span{font-size:10px;color:#91adbf}
+.eng-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.eng-topic-card{
+  border:1px solid #2e4e66;
+  background:#0a1824;
+  color:#eaf6ff;
+  border-radius:13px;
+  padding:11px;
+  display:grid;
+  grid-template-columns:38px 1fr;
+  gap:9px;
+  align-items:start;
+  text-align:left;
+  cursor:pointer;
+}
+.eng-topic-card:hover{
+  border-color:#66a0c6;
+  background:#0d2232;
+}
+.eng-topic-card .eng-index{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#16344a;
+  color:#aee2ff;
+  font-weight:900;
+  font-size:11px;
+}
+.eng-topic-card strong{
+  display:block;
+  font-size:12px;
+  margin-bottom:4px;
+}
+.eng-topic-card small{
+  display:block;
+  color:#8faabb;
+  line-height:1.35;
+  font-size:9px;
+}
+.eng-detail-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.eng-detail-grid{
+  display:grid;
+  gap:10px;
+}
+.eng-detail-grid p{
+  margin:0;
+  line-height:1.6;
+  color:#d5e6f1;
+  font-size:12px;
+}
+.eng-formula{
+  border-color:#315a3b!important;
+  background:#07180d!important;
+}
+.eng-formula pre{
+  margin:0;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;
+  color:#bfe9a3;
+}
+.eng-warning{
+  border-color:#6f5d25!important;
+  background:#211c0c!important;
+}
+.engineering-caveat{
+  margin-top:12px;
+  border-color:#42627a!important;
+}
+@media(max-width:720px){
+  .eng-grid{grid-template-columns:1fr}
+  .eng-summary{grid-template-columns:1fr}
+}

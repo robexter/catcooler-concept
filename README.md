@@ -65,3 +65,40 @@ Cada lâmpada/equipamento possui agora duas áreas separadas:
 Os uploads locais são armazenados em IndexedDB no navegador e ficam somente naquele dispositivo/perfil.
 Eles não são enviados automaticamente ao GitHub Pages e não ficam visíveis para outros usuários.
 Para conteúdo compartilhado entre todos, use links publicados ou inclua os arquivos no repositório/servidor.
+
+
+## V2.6 — Fundamentos de Engenharia
+
+Foram adicionados dois módulos completos no Centro de Treinamento:
+
+### Operações Unitárias
+- transferência de calor;
+- ebulição/vaporização;
+- separação líquido-vapor;
+- circulação água-vapor;
+- fluidização/aeração;
+- transporte de sólidos;
+- contato gás-sólido;
+- controle de inventário;
+- recuperação de energia;
+- dissipação de energia em válvulas/restrições.
+
+### Mecânica dos Fluidos
+- continuidade;
+- Bernoulli;
+- perdas de carga;
+- Reynolds;
+- escoamento bifásico;
+- circulação natural/termossifão (condicional ao projeto);
+- swell e shrink;
+- separação de gotas/Souders-Brown;
+- velocidade mínima de fluidização;
+- Ergun e ΔP de leito;
+- pressão hidrostática do catalisador aerado;
+- escoamento compressível/choked flow;
+- válvulas/Cv;
+- cavitação/flashing;
+- transitórios/golpe de aríete.
+
+Cada tópico inclui onde ocorre, conceito, equações, consequência operacional, diagnóstico no CIC e limite de interpretação.
+Também foram adicionadas 20 questões específicas de engenharia ao banco de treinamento.

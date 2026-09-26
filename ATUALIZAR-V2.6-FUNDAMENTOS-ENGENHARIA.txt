@@ -1,0 +1,37 @@
+CATCOOLER CONCEPT — V2.6 FUNDAMENTOS DE ENGENHARIA
+
+Novos módulos no botão TREINAMENTO:
+
+1. OPERAÇÕES UNITÁRIAS
+   - 10 tópicos detalhados
+   - equações
+   - aplicação no processo
+   - consequência para o operador
+   - diagnóstico no CIC
+   - limites de interpretação
+
+2. MECÂNICA DOS FLUIDOS
+   - 17 tópicos detalhados
+   - continuidade, Bernoulli, perda de carga, Reynolds
+   - bifásico, swell/shrink
+   - fluidização, Ergun, ΔP
+   - transporte de catalisador
+   - choked flow, Cv
+   - cavitação/flashing
+   - golpe de aríete
+
+3. QUIZ DE ENGENHARIA
+   - 20 novas questões
+   - Operações Unitárias
+   - Mecânica dos Fluidos
+   - Integração de Engenharia
+
+LAYOUT PRINCIPAL E 9 HOTSPOTS: preservados.
+
+Substituir no GitHub:
+- app.js
+- app.css
+- index.html
+- Catcooler_onepage_interativo_editavel.html
+- sw.js
+- README.md (opcional)
