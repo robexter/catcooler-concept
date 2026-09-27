@@ -1,0 +1,32 @@
+[
+  {
+    "id": "q01",
+    "level": "basico",
+    "skill": "Processo",
+    "equipment": "equip1",
+    "q": "Qual é a função principal do Equipamento A?",
+    "a": [
+      "Alternativa incorreta 1",
+      "Função configurada no conteúdo técnico",
+      "Alternativa incorreta 2",
+      "Alternativa incorreta 3"
+    ],
+    "c": 1,
+    "explanation": "Substitua esta questão pelo conteúdo real do equipamento."
+  },
+  {
+    "id": "q02",
+    "level": "operacional",
+    "skill": "Controle",
+    "equipment": "control1",
+    "q": "Ao analisar uma malha, quais variáveis devem ser correlacionadas?",
+    "a": [
+      "Somente SP",
+      "PV, SP, MV e resposta física do processo",
+      "Somente MV",
+      "Somente o alarme"
+    ],
+    "c": 1,
+    "explanation": "A interpretação operacional deve considerar a malha e a resposta real do processo."
+  }
+]

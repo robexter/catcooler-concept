@@ -1,0 +1,32 @@
+{
+  "equip1": {
+    "title": "Equipamento A — exemplo",
+    "tag": "EQ-0001",
+    "category": "equip",
+    "function": "Descreva aqui a função principal do equipamento.",
+    "process": "Explique como o equipamento participa do processo e quais correntes entram/saem.",
+    "impact": "Descreva consequências operacionais de desvios, perda de desempenho ou indisponibilidade.",
+    "formula": "Inclua equações relevantes, por exemplo:\\nQ = ṁ · Cp · ΔT",
+    "obs": "Liste o que o operador deve acompanhar no CIC e quais tendências confirmam o diagnóstico."
+  },
+  "control1": {
+    "title": "Malha de controle — exemplo",
+    "tag": "TIC/FIC/LIC-0001",
+    "category": "control",
+    "function": "Descreva o objetivo da malha e a variável controlada.",
+    "process": "Explique PV, SP, MV, elemento final e lógica de atuação.",
+    "impact": "Descreva saturação, falha de instrumento, manual/automático e consequências.",
+    "formula": "e(t) = SP − PV",
+    "obs": "Indique como interpretar a resposta da malha no CIC."
+  },
+  "utility1": {
+    "title": "Utilidade — exemplo",
+    "tag": "UTIL-0001",
+    "category": "utility",
+    "function": "Descreva a função da utilidade.",
+    "process": "Explique de onde vem, onde entra e qual fenômeno físico sustenta.",
+    "impact": "Descreva consequências de baixa pressão/vazão ou indisponibilidade.",
+    "formula": "ṁ = ρ · A · V",
+    "obs": "Indique variáveis de confirmação e contingências."
+  }
+}

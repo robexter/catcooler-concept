@@ -1,0 +1,26 @@
+{
+  "effects": [
+    {
+      "id": "effect1",
+      "label": "EFEITO 1",
+      "tag": "XV-0001"
+    },
+    {
+      "id": "effect2",
+      "label": "EFEITO 2",
+      "tag": "L-0001"
+    }
+  ],
+  "rows": [
+    {
+      "id": "r1",
+      "cause": "CAUSA DE EXEMPLO",
+      "tag": "LSLL-0001",
+      "set": "50%",
+      "effects": [
+        "effect1",
+        "effect2"
+      ]
+    }
+  ]
+}

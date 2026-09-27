@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#102436"/>
+    <stop offset="1" stop-color="#07111b"/>
+  </linearGradient>
+</defs>
+<rect width="1280" height="820" fill="url(#g)"/>
+<rect x="40" y="40" width="1200" height="740" rx="28" fill="none" stroke="#355873" stroke-width="4" stroke-dasharray="14 14"/>
+<text x="640" y="335" text-anchor="middle" fill="#dff4ff" font-family="Arial" font-size="54" font-weight="700">CONCEPT TEMPLATE</text>
+<text x="640" y="410" text-anchor="middle" fill="#93abc0" font-family="Arial" font-size="28">Substitua esta imagem pela tela do processo</text>
+<text x="640" y="462" text-anchor="middle" fill="#75d64c" font-family="Arial" font-size="24">config/app.json → processImage</text>
+<text x="640" y="540" text-anchor="middle" fill="#93abc0" font-family="Arial" font-size="20">Hotspots são definidos em config/hotspots.json</text>
+</svg>

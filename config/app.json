@@ -1,0 +1,16 @@
+{
+  "appName": "Concept Template",
+  "shortName": "Concept Template",
+  "title": "Concept Template",
+  "subtitle": "Template reutilizável para treinamento operacional",
+  "kicker": "CONCEPT TEMPLATE",
+  "heroTitle": "Treinamento interativo configurável",
+  "heroDescription": "Substitua a imagem do processo, hotspots e arquivos JSON de configuração para criar uma nova aplicação sem alterar o núcleo validado.",
+  "processTitle": "Tela do processo — clique nas lâmpadas para abrir as explicações",
+  "processImage": "assets/process-placeholder.svg",
+  "version": "T1.0",
+  "storageKey": "conceptTemplate_data",
+  "mediaDbName": "conceptTemplateMediaDB",
+  "themeColor": "#07111b",
+  "engineeringDisclaimer": "Material de treinamento. Para manobras reais, prevalecem procedimentos, permissivos, intertravamentos, limites de projeto e orientações operacionais vigentes."
+}

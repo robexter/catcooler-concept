@@ -1,0 +1,24 @@
+{
+  "unitOperations": [
+    {
+      "title": "Operação unitária de exemplo",
+      "where": "Defina onde ocorre.",
+      "concept": "Explique o fenômeno.",
+      "equations": "Q = ṁ · Cp · ΔT",
+      "operator": "Conecte o fenômeno à consequência operacional.",
+      "diagnostic": "Indique como diagnosticar no CIC.",
+      "warning": "Declare limitações e hipóteses."
+    }
+  ],
+  "fluidMechanics": [
+    {
+      "title": "Mecânica dos Fluidos — exemplo",
+      "where": "Defina a linha/equipamento.",
+      "concept": "Explique pressão, vazão, velocidade ou ΔP.",
+      "equations": "ṁ = ρ · A · V",
+      "operator": "Conecte o fenômeno ao comportamento do processo.",
+      "diagnostic": "Indique variáveis de confirmação.",
+      "warning": "Use dados reais antes de aplicação quantitativa."
+    }
+  ]
+}

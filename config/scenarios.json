@@ -1,0 +1,25 @@
+[
+  {
+    "id": "s01",
+    "title": "Cenário de exemplo",
+    "intro": "Substitua por um cenário operacional real.",
+    "skill": "Diagnóstico",
+    "steps": [
+      {
+        "prompt": "Qual seria a primeira ação de diagnóstico?",
+        "choices": [
+          {
+            "text": "Correlacionar variáveis e confirmar o desvio",
+            "score": 2,
+            "feedback": "Boa prática de diagnóstico."
+          },
+          {
+            "text": "Atuar sem confirmar tendência",
+            "score": 0,
+            "feedback": "Evite ação sem diagnóstico."
+          }
+        ]
+      }
+    ]
+  }
+]

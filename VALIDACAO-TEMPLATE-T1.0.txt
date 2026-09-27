@@ -1,0 +1,19 @@
+CONCEPT TEMPLATE — VALIDAÇÃO T1.0
+
+OK - Sintaxe JavaScript
+OK - JSON interlocks.json
+OK - JSON quiz.json
+OK - JSON app.json
+OK - JSON engineering.json
+OK - JSON scenarios.json
+OK - JSON equipment.json
+OK - JSON hotspots.json
+OK - Nome Concept Template
+OK - Painel flutuante
+OK - Treinamento
+OK - Mídia inline
+OK - Config externa
+OK - PWA
+OK - Assets do SW
+
+Resultado: 15/15 verificações aprovadas.
