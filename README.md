@@ -119,3 +119,18 @@ Demais módulos, conteúdo técnico, mídias, arquivos, quiz e layout do HMI for
 
 Removido o botão **Restaurar padrão** da barra principal.
 As demais funções e o layout foram preservados.
+
+
+## V2.9 — Lógica de Intertravamento
+
+Novo módulo no Centro de Treinamento baseado na matriz causa × efeito do Catcooler:
+- Causa → Efeito;
+- Efeito → Causa;
+- Montar lógica;
+- Completar matriz;
+- Cenários;
+- Modo prova;
+- matriz original disponível como referência;
+- registro de desempenho por habilidade.
+
+A transcrição preserva as linhas e pontos verdes visíveis na matriz fornecida. Para operação real prevalece a documentação oficial vigente.

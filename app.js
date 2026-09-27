@@ -580,12 +580,267 @@ function startEngineeringQuiz(kind){
   renderTrainQuiz();
 }
 
-const TRAIN_MODULES=[['home','Visão geral'],['unitops','Operações Unitárias'],['fluidmech','Mecânica dos Fluidos'],['scenarios','Cenários encadeados'],['trends','Diagnóstico de tendências'],['drum','Shrink / Swell'],['ab','Comparação A × B'],['trip','Trip GV-3901'],['equipmentQuiz','Quiz por equipamento'],['causal','Causa × consequência'],['shift','Passagem de turno'],['badActions','Ações que pioram'],['animation','Animações'],['history','Histórico / desempenho']];
+
+// =========================================================
+// V2.9 — TESTE DE LÓGICA: INTERTRAVAMENTO CAT-COOLER
+// Matriz transcrita da imagem fornecida pelo usuário.
+// =========================================================
+const INTERLOCK_EFFECTS=[{"id": "trip1", "label": "TRIP 1º EVENTO", "tag": ""}, {"id": "instfail", "label": "INSTRUMENTO EM FALHA", "tag": ""}, {"id": "slideA", "label": "FECHA SLIDE C-3901A", "tag": "L3926-A"}, {"id": "slideB", "label": "FECHA SLIDE C-3901B", "tag": "L3926-B"}, {"id": "v12fluidA", "label": "ABRE V12 FLUIDIZAÇÃO P/ C-3901A", "tag": "XV-2302"}, {"id": "v12fluidB", "label": "ABRE V12 FLUIDIZAÇÃO P/ C-3901B", "tag": "XV-2311"}, {"id": "v12aerA", "label": "ABRE V12 AERAÇÃO E ELEVAÇÃO P/ C-3901A", "tag": "HV-2301"}, {"id": "v12aerB", "label": "ABRE V12 AERAÇÃO E ELEVAÇÃO P/ C-3901B", "tag": "HV-2310"}, {"id": "closeXV808", "label": "FECHA V42 DO F-3982 P/ GV-3901", "tag": "XV-808"}, {"id": "sealpots", "label": "DESVIA POTES SELAGEM", "tag": ""}];
+const INTERLOCK_ROWS=[{"id": "r1", "cause": "NÍVEL BAIXO F-3982", "tag": "LSLL-2322", "set": "50%", "effects": ["instfail", "slideA", "slideB"]}, {"id": "r2", "cause": "NÍVEL BAIXO F-3982 E HS-2320 = C-3901A", "tag": "LSLL-2323", "set": "50%", "effects": ["instfail", "slideA"]}, {"id": "r3", "cause": "NÍVEL BAIXO F-3982 E HS-2320 = C-3901B", "tag": "LSLL-2323", "set": "50%", "effects": ["instfail", "slideB"]}, {"id": "r4", "cause": "AR FLUIDIZAÇÃO C-3901A", "tag": "FSLL-2311", "set": "", "effects": ["instfail", "v12fluidA"]}, {"id": "r5", "cause": "AR FLUIDIZAÇÃO C-3901B", "tag": "FSLL-2338", "set": "", "effects": ["instfail", "v12fluidB"]}, {"id": "r6", "cause": "AR P/ REGENERADOR", "tag": "FSLL-003", "set": "2836", "effects": ["instfail", "v12aerA", "v12aerB"]}, {"id": "r7", "cause": "TRIP DO J-3901", "tag": "XSJ3901", "set": "", "effects": ["trip1", "v12aerA", "v12aerB"]}, {"id": "r8", "cause": "TRIP MANUAL J-3901", "tag": "HS-010", "set": "", "effects": ["trip1", "v12aerA", "v12aerB"]}, {"id": "r9", "cause": "TRIP MANUAL SDCD", "tag": "HS-022", "set": "", "effects": ["trip1", "slideA", "slideB", "closeXV808"]}, {"id": "r10", "cause": "TRIP GERAL CONSOLE", "tag": "HS-PB2", "set": "", "effects": ["trip1", "slideA", "slideB", "closeXV808"]}, {"id": "r11", "cause": "VAPOR DA GV-3901", "tag": "FAI392231", "set": "FIC2230 < 40 t/h", "effects": ["closeXV808", "sealpots"]}];
+const INTERLOCK_SCENARIOS=[{"title": "Perda de ar de fluidização no C-3901A", "text": "O FSLL-2311 atua. Selecione os efeitos esperados conforme a matriz.", "row": "r4", "process": "A lógica procura preservar a condição do ramo por meio da atuação associada ao V12 de fluidização. No diagnóstico, correlacione aeração, mobilidade do catalisador, geração de vapor e resposta térmica."}, {"title": "Trip do J-3901", "text": "O XSJ3901 indica trip do J-3901. Monte a assinatura lógica esperada.", "row": "r7", "process": "A perda da fonte normal de ar exige atenção à sustentação da aeração/elevação. Aeração ↓ pode levar a mobilidade/circulação ↓, remoção de calor ↓, vapor ↓ e tendência de T do D-3904 ↑."}, {"title": "Trip manual pelo SDCD", "text": "O HS-022 é acionado. Quais efeitos devem aparecer na lógica?", "row": "r9", "process": "Este cenário produz uma assinatura mais ampla que uma simples perda de ar: há trip de 1º evento, fechamento dos dois slides e fechamento da XV-808."}, {"title": "Nível baixo do F-3982", "text": "O LSLL-2322 atinge a condição de 50%. Identifique a resposta da matriz.", "row": "r1", "process": "Além do alarme/condição de instrumento em falha indicada na matriz, os dois slides são fechados. Relacione a ação com a proteção do circuito de geração de vapor e inventário do drum."}, {"title": "Baixa vazão de vapor da GV-3901", "text": "FAI392231 / FIC2230 fica abaixo de 40 t/h. Quais efeitos aparecem?", "row": "r11", "process": "A assinatura dessa condição é diferente dos trips gerais: fechamento da XV-808 e desvio dos potes de selagem."}];
+
+let interlockState={mode:'home',row:null,selected:new Set(),score:0,total:0,exam:[],examIndex:0,examResults:[]};
+
+function effectById(id){return INTERLOCK_EFFECTS.find(e=>e.id===id)}
+function rowById(id){return INTERLOCK_ROWS.find(r=>r.id===id)}
+function sameSet(a,b){return a.length===b.length&&a.every(x=>b.includes(x))}
+
+function renderInterlockModule(c){
+  interlockState.mode='home';
+  c.innerHTML=`<h2 class="training-title">🧩 Lógica de Intertravamento — Catcooler</h2>
+  <p class="training-sub">Treine a leitura da matriz causa × efeito como se estivesse acompanhando a lógica no SDCD. Os pontos verdes da matriz fornecida foram transcritos para os exercícios.</p>
+  <div class="interlock-mode-grid">
+    <button class="module-card" onclick="startCauseEffect()"><h3>Causa → Efeito</h3><p>Receba uma causa e marque todos os efeitos associados.</p></button>
+    <button class="module-card" onclick="startEffectCause()"><h3>Efeito → Causa</h3><p>Reconheça a causa a partir da assinatura lógica observada.</p></button>
+    <button class="module-card" onclick="startBuildLogic()"><h3>Montar lógica</h3><p>Construa a sequência correta selecionando os blocos de efeito.</p></button>
+    <button class="module-card" onclick="startMatrixPractice()"><h3>Completar matriz</h3><p>Reponha os pontos verdes apagados de uma linha.</p></button>
+    <button class="module-card" onclick="startInterlockScenarios()"><h3>Cenários</h3><p>Integre lógica, diagnóstico e consequência de processo.</p></button>
+    <button class="module-card engineering-feature" onclick="startInterlockExam()"><h3>Modo prova</h3><p>10 rodadas aleatórias sem mostrar a matriz.</p></button>
+  </div>
+  <div class="training-box" style="margin-top:12px">
+    <h3>Matriz original de referência</h3>
+    <p class="training-sub">Use somente para estudo/validação. Em operação real prevalecem a matriz oficial vigente, P&IDs, permissivos, procedimentos e intertravamentos aprovados.</p>
+    <button class="btn" onclick="toggleInterlockReference()">Mostrar / ocultar matriz</button>
+    <div id="interlockReference" class="interlock-reference hidden"><img src="intertravamento_catcooler.png" alt="Matriz de intertravamento Catcooler"></div>
+  </div>
+  <div class="training-box">
+    <h3>Como o desempenho será avaliado</h3>
+    <div class="interlock-skill-pills">
+      <span>Leitura da matriz</span><span>Memorização</span><span>Diagnóstico</span><span>Compreensão de processo</span>
+    </div>
+  </div>`;
+}
+
+function toggleInterlockReference(){
+  document.getElementById('interlockReference')?.classList.toggle('hidden');
+}
+
+function renderEffectsChecklist(containerId,selected=[]) {
+  const s=new Set(selected);
+  const el=document.getElementById(containerId); if(!el)return;
+  el.innerHTML=INTERLOCK_EFFECTS.map(e=>`
+    <button class="interlock-effect ${s.has(e.id)?'selected':''}" data-effect="${e.id}" onclick="toggleInterlockEffect(this,'${e.id}')">
+      <span class="effect-check">${s.has(e.id)?'✓':'○'}</span>
+      <span><strong>${e.label}</strong>${e.tag?`<small>${e.tag}</small>`:''}</span>
+    </button>`).join('');
+  interlockState.selected=new Set(selected);
+}
+
+function toggleInterlockEffect(btn,id){
+  if(interlockState.selected.has(id))interlockState.selected.delete(id);else interlockState.selected.add(id);
+  btn.classList.toggle('selected',interlockState.selected.has(id));
+  const mark=btn.querySelector('.effect-check'); if(mark)mark.textContent=interlockState.selected.has(id)?'✓':'○';
+}
+
+function randomInterlockRow(){
+  return INTERLOCK_ROWS[Math.floor(Math.random()*INTERLOCK_ROWS.length)];
+}
+
+function causeCard(r){
+  return `<div class="interlock-cause-card"><span>CAUSA</span><h3>${r.cause}</h3><div class="interlock-meta"><b>${r.tag}</b>${r.set?`<b>SET: ${r.set}</b>`:''}</div></div>`;
+}
+
+function startCauseEffect(rowId=null){
+  const c=$('#trainingContent'),r=rowId?rowById(rowId):randomInterlockRow();
+  interlockState={...interlockState,mode:'causeEffect',row:r,selected:new Set()};
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">← Menu da lógica</button></div>
+  <h2 class="training-title">Causa → Efeito</h2>${causeCard(r)}
+  <p class="training-sub">Marque <strong>todos</strong> os efeitos que pertencem a esta causa.</p>
+  <div id="interlockEffects" class="interlock-effects"></div>
+  <div class="training-actions"><button class="btn primary" onclick="validateCauseEffect()">Validar lógica</button><button class="btn" onclick="startCauseEffect()">Nova causa</button></div>
+  <div id="interlockFeedback"></div>`;
+  renderEffectsChecklist('interlockEffects');
+}
+
+function validateCauseEffect(){
+  const r=interlockState.row, chosen=[...interlockState.selected], ok=sameSet(chosen,r.effects);
+  const fb=$('#interlockFeedback');
+  const missed=r.effects.filter(x=>!chosen.includes(x)),extra=chosen.filter(x=>!r.effects.includes(x));
+  document.querySelectorAll('#interlockEffects .interlock-effect').forEach(btn=>{
+    const id=btn.dataset.effect;
+    btn.classList.remove('logic-correct','logic-wrong','logic-missed');
+    if(r.effects.includes(id))btn.classList.add(chosen.includes(id)?'logic-correct':'logic-missed');
+    else if(chosen.includes(id))btn.classList.add('logic-wrong');
+  });
+  fb.innerHTML=`<div class="feedback-box ${ok?'logic-ok':'logic-attention'}"><strong>${ok?'✓ Lógica correta':'Revise a assinatura lógica'}</strong>
+    ${missed.length?`<p><b>Faltou:</b> ${missed.map(id=>effectById(id).label).join(' • ')}</p>`:''}
+    ${extra.length?`<p><b>Selecionado indevidamente:</b> ${extra.map(id=>effectById(id).label).join(' • ')}</p>`:''}
+    <p><b>Resposta da matriz:</b> ${r.effects.map(id=>effectById(id).label).join(' → ')}</p></div>`;
+  recordTraining('interlock','Causa → Efeito',ok?1:0,1,{'Leitura da matriz':{score:ok?1:0,max:1}},ok?[]:[r.id]);
+}
+
+function signatureHtml(r){
+  return `<div class="interlock-signature">${r.effects.map(id=>`<span>${effectById(id).label}</span>`).join('')}</div>`;
+}
+
+function startEffectCause(){
+  const c=$('#trainingContent'),r=randomInterlockRow();
+  const wrong=shuffle(INTERLOCK_ROWS.filter(x=>x.id!==r.id)).slice(0,3);
+  const opts=shuffle([r,...wrong]);
+  interlockState={...interlockState,mode:'effectCause',row:r};
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">← Menu da lógica</button></div>
+  <h2 class="training-title">Efeito → Causa</h2>
+  <p class="training-sub">A seguinte assinatura apareceu na lógica. Qual causa é compatível?</p>
+  ${signatureHtml(r)}
+  <div class="interlock-answer-list">${opts.map(o=>`<button class="choice-btn" onclick="answerEffectCause('${o.id}',this)"><strong>${o.cause}</strong><br><small>${o.tag}${o.set?' • '+o.set:''}</small></button>`).join('')}</div>
+  <div id="interlockFeedback"></div>`;
+}
+
+function answerEffectCause(id,btn){
+  const ok=id===interlockState.row.id;
+  document.querySelectorAll('.interlock-answer-list .choice-btn').forEach(b=>b.disabled=true);
+  btn.classList.add(ok?'logic-choice-correct':'logic-choice-wrong');
+  if(!ok){
+    [...document.querySelectorAll('.interlock-answer-list .choice-btn')].find(b=>b.textContent.includes(interlockState.row.tag))?.classList.add('logic-choice-correct');
+  }
+  $('#interlockFeedback').innerHTML=`<div class="feedback-box"><strong>${ok?'✓ Correto':'Resposta incorreta'}</strong><p>A assinatura corresponde a <b>${interlockState.row.cause} — ${interlockState.row.tag}</b>.</p></div>`;
+  recordTraining('interlock','Efeito → Causa',ok?1:0,1,{'Diagnóstico':{score:ok?1:0,max:1}},ok?[]:[interlockState.row.id]);
+}
+
+function startBuildLogic(){
+  const c=$('#trainingContent'),r=randomInterlockRow();
+  interlockState={...interlockState,mode:'build',row:r,selected:new Set()};
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">← Menu da lógica</button></div>
+  <h2 class="training-title">Montar lógica</h2>${causeCard(r)}
+  <p class="training-sub">Selecione os blocos que devem compor a saída lógica. No celular, toque nos blocos; no PC funciona da mesma forma.</p>
+  <div id="interlockEffects" class="interlock-effects build-logic"></div>
+  <div class="training-box"><h3>Lógica montada</h3><div id="builtLogic" class="built-logic"><span class="muted-inline">Nenhum efeito selecionado.</span></div></div>
+  <div class="training-actions"><button class="btn primary" onclick="validateBuildLogic()">VALIDAR LÓGICA</button><button class="btn" onclick="startBuildLogic()">Nova lógica</button></div>
+  <div id="interlockFeedback"></div>`;
+  renderEffectsChecklist('interlockEffects');
+  document.querySelectorAll('#interlockEffects .interlock-effect').forEach(btn=>btn.addEventListener('click',renderBuiltLogic));
+}
+
+function renderBuiltLogic(){
+  const box=$('#builtLogic'); if(!box)return;
+  const arr=[...interlockState.selected];
+  box.innerHTML=arr.length?arr.map(id=>`<span class="built-block">${effectById(id).label}</span>`).join('<span class="logic-arrow">→</span>'):'<span class="muted-inline">Nenhum efeito selecionado.</span>';
+}
+
+function validateBuildLogic(){
+  const r=interlockState.row,chosen=[...interlockState.selected],ok=sameSet(chosen,r.effects);
+  $('#interlockFeedback').innerHTML=`<div class="feedback-box"><strong>${ok?'✓ Lógica montada corretamente':'A lógica ainda não corresponde à matriz'}</strong>
+  <p>${r.effects.map(id=>effectById(id).label).join(' → ')}</p></div>`;
+  recordTraining('interlock','Montar lógica',ok?1:0,1,{'Memorização':{score:ok?1:0,max:1}},ok?[]:[r.id]);
+}
+
+function startMatrixPractice(){
+  const c=$('#trainingContent'),r=randomInterlockRow();
+  interlockState={...interlockState,mode:'matrix',row:r,selected:new Set()};
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">← Menu da lógica</button></div>
+  <h2 class="training-title">Completar matriz</h2>
+  <p class="training-sub">Os pontos verdes desta linha foram apagados. Clique nas células que deveriam estar marcadas.</p>
+  ${causeCard(r)}
+  <div class="matrix-practice-wrap"><table class="matrix-practice">
+    <thead><tr>${INTERLOCK_EFFECTS.map(e=>`<th><span>${e.label}</span>${e.tag?`<small>${e.tag}</small>`:''}</th>`).join('')}</tr></thead>
+    <tbody><tr>${INTERLOCK_EFFECTS.map(e=>`<td><button data-effect="${e.id}" onclick="toggleMatrixCell(this,'${e.id}')"></button></td>`).join('')}</tr></tbody>
+  </table></div>
+  <div class="training-actions"><button class="btn primary" onclick="validateMatrixPractice()">VALIDAR MATRIZ</button><button class="btn" onclick="startMatrixPractice()">Nova linha</button></div>
+  <div id="interlockFeedback"></div>`;
+}
+
+function toggleMatrixCell(btn,id){
+  if(interlockState.selected.has(id))interlockState.selected.delete(id);else interlockState.selected.add(id);
+  btn.classList.toggle('selected',interlockState.selected.has(id));
+}
+
+function validateMatrixPractice(){
+  const r=interlockState.row,chosen=[...interlockState.selected],ok=sameSet(chosen,r.effects);
+  document.querySelectorAll('.matrix-practice td button').forEach(btn=>{
+    const id=btn.dataset.effect;
+    btn.classList.remove('cell-correct','cell-wrong','cell-missed');
+    if(r.effects.includes(id))btn.classList.add(chosen.includes(id)?'cell-correct':'cell-missed');
+    else if(chosen.includes(id))btn.classList.add('cell-wrong');
+  });
+  $('#interlockFeedback').innerHTML=`<div class="feedback-box"><strong>${ok?'✓ 100% — matriz correta':'Compare as células destacadas'}</strong>
+  <p><span class="legend-dot green"></span> correto &nbsp; <span class="legend-dot red"></span> indevido &nbsp; <span class="legend-dot yellow"></span> faltou selecionar</p></div>`;
+  recordTraining('interlock','Completar matriz',ok?1:0,1,{'Leitura da matriz':{score:ok?1:0,max:1}},ok?[]:[r.id]);
+}
+
+function startInterlockScenarios(){
+  const c=$('#trainingContent');
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">← Menu da lógica</button></div>
+  <h2 class="training-title">Cenários de intertravamento</h2>
+  <p class="training-sub">Escolha um cenário e relacione a lógica automática com a consequência de processo.</p>
+  <div class="training-grid">${INTERLOCK_SCENARIOS.map((s,i)=>`<div class="module-card" onclick="openInterlockScenario(${i})"><h3>${s.title}</h3><p>${s.text}</p></div>`).join('')}</div>`;
+}
+
+function openInterlockScenario(i){
+  const s=INTERLOCK_SCENARIOS[i],r=rowById(s.row),c=$('#trainingContent');
+  interlockState={...interlockState,mode:'scenario',row:r,selected:new Set(),scenario:i};
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="startInterlockScenarios()">← Cenários</button></div>
+  <h2 class="training-title">${s.title}</h2>
+  <div class="training-box"><p>${s.text}</p></div>
+  ${causeCard(r)}
+  <div id="interlockEffects" class="interlock-effects"></div>
+  <div class="training-actions"><button class="btn primary" onclick="validateInterlockScenario()">Confirmar resposta</button></div>
+  <div id="interlockFeedback"></div>`;
+  renderEffectsChecklist('interlockEffects');
+}
+
+function validateInterlockScenario(){
+  const s=INTERLOCK_SCENARIOS[interlockState.scenario],r=interlockState.row,chosen=[...interlockState.selected],ok=sameSet(chosen,r.effects);
+  $('#interlockFeedback').innerHTML=`<div class="feedback-box"><strong>${ok?'✓ Assinatura lógica correta':'Assinatura lógica incompleta/incorreta'}</strong>
+  <p><b>Efeitos:</b> ${r.effects.map(id=>effectById(id).label).join(' → ')}</p>
+  <p><b>Integração com o processo:</b> ${s.process}</p></div>`;
+  recordTraining('interlock','Cenário de intertravamento',ok?1:0,1,{'Compreensão de processo':{score:ok?1:0,max:1}},ok?[]:[r.id]);
+}
+
+function startInterlockExam(){
+  const pool=shuffle([...INTERLOCK_ROWS,...INTERLOCK_ROWS]).slice(0,10);
+  interlockState={...interlockState,mode:'exam',exam:pool,examIndex:0,examResults:[],selected:new Set()};
+  renderInterlockExamQuestion();
+}
+
+function renderInterlockExamQuestion(){
+  const c=$('#trainingContent'),i=interlockState.examIndex,r=interlockState.exam[i];
+  if(!r)return finishInterlockExam();
+  interlockState.row=r;interlockState.selected=new Set();
+  c.innerHTML=`<div class="training-actions"><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">Sair da prova</button></div>
+  <h2 class="training-title">Modo prova — ${i+1} / ${interlockState.exam.length}</h2>
+  <div class="progressbar"><span style="width:${Math.round((i/interlockState.exam.length)*100)}%"></span></div>
+  ${causeCard(r)}
+  <p class="training-sub">Marque todos os efeitos. A resposta só será mostrada ao final da prova.</p>
+  <div id="interlockEffects" class="interlock-effects"></div>
+  <div class="training-actions"><button class="btn primary" onclick="submitInterlockExamAnswer()">Confirmar e avançar</button></div>`;
+  renderEffectsChecklist('interlockEffects');
+}
+
+function submitInterlockExamAnswer(){
+  const r=interlockState.row,chosen=[...interlockState.selected],ok=sameSet(chosen,r.effects);
+  interlockState.examResults.push({row:r.id,ok,chosen});
+  interlockState.examIndex++;
+  renderInterlockExamQuestion();
+}
+
+function finishInterlockExam(){
+  const c=$('#trainingContent'),res=interlockState.examResults,score=res.filter(x=>x.ok).length,pct=Math.round(score/res.length*100);
+  const weak=res.filter(x=>!x.ok).map(x=>rowById(x.row));
+  c.innerHTML=`<h2 class="training-title">Resultado — Lógica de Intertravamento</h2>
+  <div class="metric-grid"><div class="metric"><b>${score}/${res.length}</b><small>Acertos</small></div><div class="metric"><b>${pct}%</b><small>Resultado</small></div><div class="metric"><b>${weak.length}</b><small>Pontos a revisar</small></div></div>
+  <div class="training-box"><h3>Diagnóstico</h3>
+    ${weak.length?weak.map(r=>`<p><b>${r.cause} — ${r.tag}</b><br>${r.effects.map(id=>effectById(id).label).join(' • ')}</p>`).join(''):'<p>Excelente: todas as assinaturas foram reconhecidas.</p>'}
+  </div>
+  <div class="training-actions"><button class="btn primary" onclick="startInterlockExam()">Refazer prova</button><button class="btn" onclick="renderInterlockModule($('#trainingContent'))">Voltar ao módulo</button></div>`;
+  recordTraining('interlock','Prova de intertravamento',score,res.length,{'Memorização':{score,max:res.length}},weak.map(r=>r.id));
+}
+
+const TRAIN_MODULES=[['home','Visão geral'],['interlock','🧩 Lógica de Intertravamento'],['unitops','Operações Unitárias'],['fluidmech','Mecânica dos Fluidos'],['scenarios','Cenários encadeados'],['trends','Diagnóstico de tendências'],['drum','Shrink / Swell'],['ab','Comparação A × B'],['trip','Trip GV-3901'],['equipmentQuiz','Quiz por equipamento'],['causal','Causa × consequência'],['shift','Passagem de turno'],['badActions','Ações que pioram'],['animation','Animações'],['history','Histórico / desempenho']];
 function openTraining(m='home'){$('#trainingDrawer').classList.add('open');openTrainingModule(m)}
 function closeTraining(){$('#trainingDrawer').classList.remove('open')}
-function openTrainingModule(id){renderTrainingNav(id);setLastModule(TRAIN_MODULES.find(x=>x[0]===id)?.[1]||id);$('#trainingBreadcrumb').textContent=TRAIN_MODULES.find(x=>x[0]===id)?.[1]||id;const c=$('#trainingContent');const fn={home:renderTrainingHome,unitops:renderUnitOpsModule,fluidmech:renderFluidMechModule,scenarios:renderScenarioHome,trends:renderTrendModule,drum:renderDrumModule,ab:renderABModule,trip:renderTripModule,equipmentQuiz:renderEquipmentQuiz,causal:renderCausalModule,shift:renderShiftModule,badActions:renderBadActions,animation:renderAnimationModule,history:renderHistoryModule}[id];if(fn)fn(c)}
+function openTrainingModule(id){renderTrainingNav(id);setLastModule(TRAIN_MODULES.find(x=>x[0]===id)?.[1]||id);$('#trainingBreadcrumb').textContent=TRAIN_MODULES.find(x=>x[0]===id)?.[1]||id;const c=$('#trainingContent');const fn={home:renderTrainingHome,interlock:renderInterlockModule,unitops:renderUnitOpsModule,fluidmech:renderFluidMechModule,scenarios:renderScenarioHome,trends:renderTrendModule,drum:renderDrumModule,ab:renderABModule,trip:renderTripModule,equipmentQuiz:renderEquipmentQuiz,causal:renderCausalModule,shift:renderShiftModule,badActions:renderBadActions,animation:renderAnimationModule,history:renderHistoryModule}[id];if(fn)fn(c)}
 function renderTrainingNav(active){$('#trainingNav').innerHTML=TRAIN_MODULES.map(([id,l])=>`<button class="${id===active?'active':''}" onclick="openTrainingModule('${id}')">${l}</button>`).join('')}
-function renderTrainingHome(c){const h=loadTrainHistory();c.innerHTML=`<h2 class="training-title">Centro de Treinamento</h2><p class="training-sub">Layout do HMI congelado. Aqui ficam os módulos de prática, diagnóstico e avaliação. ${h.lastModule?`Último módulo: <strong>${h.lastModule}</strong>`:''}</p><div class="training-grid"><div class="module-card engineering-feature" onclick="openTrainingModule('unitops')"><h3>⚙️ Operações Unitárias</h3><p>Transferência de calor, vaporização, separação, fluidização e transporte de sólidos.</p></div><div class="module-card engineering-feature" onclick="openTrainingModule('fluidmech')"><h3>🌊 Mecânica dos Fluidos</h3><p>Vazão, perda de carga, bifásico, swell/shrink, fluidização, cavitação e transitórios.</p></div><div class="module-card" onclick="openTrainingModule('scenarios')"><h3>Cenários encadeados</h3><p>6 cenários × 4 decisões com risco acumulado.</p></div><div class="module-card" onclick="openTrainingModule('trends')"><h3>Diagnóstico de tendências</h3><p>PV, MV, vapor, nível, aeração e temperatura.</p></div><div class="module-card" onclick="openTrainingModule('drum')"><h3>Shrink / Swell</h3><p>Simulador visual do drum.</p></div><div class="module-card" onclick="openTrainingModule('ab')"><h3>C-3901A × B</h3><p>Diagnóstico de assimetria.</p></div><div class="module-card" onclick="openTrainingModule('history')"><h3>Relatório</h3><p>Histórico, habilidades e erros recorrentes.</p></div></div><div class="training-box" style="margin-top:12px"><h3>Quiz por nível</h3><div class="training-actions"><button class="btn" onclick="startTrainQuiz('basico',12,null)">Básico</button><button class="btn" onclick="startTrainQuiz('operacional',12,null)">Operacional</button><button class="btn primary" onclick="startTrainQuiz('avancado',12,null)">Avançado</button><button class="btn green" onclick="startTrainQuiz('misto',15,null)">Misto</button></div></div>`}
+function renderTrainingHome(c){const h=loadTrainHistory();c.innerHTML=`<h2 class="training-title">Centro de Treinamento</h2><p class="training-sub">Layout do HMI congelado. Aqui ficam os módulos de prática, diagnóstico e avaliação. ${h.lastModule?`Último módulo: <strong>${h.lastModule}</strong>`:''}</p><div class="training-grid"><div class="module-card interlock-feature" onclick="openTrainingModule('interlock')"><h3>🧩 Lógica de Intertravamento</h3><p>Causa → efeito, efeito → causa, completar matriz, cenários e prova.</p></div><div class="module-card engineering-feature" onclick="openTrainingModule('unitops')"><h3>⚙️ Operações Unitárias</h3><p>Transferência de calor, vaporização, separação, fluidização e transporte de sólidos.</p></div><div class="module-card engineering-feature" onclick="openTrainingModule('fluidmech')"><h3>🌊 Mecânica dos Fluidos</h3><p>Vazão, perda de carga, bifásico, swell/shrink, fluidização, cavitação e transitórios.</p></div><div class="module-card" onclick="openTrainingModule('scenarios')"><h3>Cenários encadeados</h3><p>6 cenários × 4 decisões com risco acumulado.</p></div><div class="module-card" onclick="openTrainingModule('trends')"><h3>Diagnóstico de tendências</h3><p>PV, MV, vapor, nível, aeração e temperatura.</p></div><div class="module-card" onclick="openTrainingModule('drum')"><h3>Shrink / Swell</h3><p>Simulador visual do drum.</p></div><div class="module-card" onclick="openTrainingModule('ab')"><h3>C-3901A × B</h3><p>Diagnóstico de assimetria.</p></div><div class="module-card" onclick="openTrainingModule('history')"><h3>Relatório</h3><p>Histórico, habilidades e erros recorrentes.</p></div></div><div class="training-box" style="margin-top:12px"><h3>Quiz por nível</h3><div class="training-actions"><button class="btn" onclick="startTrainQuiz('basico',12,null)">Básico</button><button class="btn" onclick="startTrainQuiz('operacional',12,null)">Operacional</button><button class="btn primary" onclick="startTrainQuiz('avancado',12,null)">Avançado</button><button class="btn green" onclick="startTrainQuiz('misto',15,null)">Misto</button></div></div>`}
 
 function startTrainQuiz(level='misto',count=12,equipment=null){let pool=TRAIN_QUESTION_BANK.filter(q=>(level==='misto'||q.level===level)&&(!equipment||q.equipment===equipment));if(pool.length<count&&equipment)pool=TRAIN_QUESTION_BANK.filter(q=>q.equipment===equipment);pool=shuffle(pool).slice(0,Math.min(count,pool.length));trainQuiz=pool.map(q=>({...q,shown:shuffle(q.a.map((t,i)=>({t,orig:i})))}));trainConfig={level,count,equipment};renderTrainQuiz()}
 function renderTrainQuiz(){const c=$('#trainingContent');c.innerHTML=`<h2 class="training-title">Quiz ${trainConfig.equipment?'por equipamento':'por nível'}</h2><p class="training-sub">Alternativas embaralhadas. Corrija ao final para ver desempenho por habilidade.</p><div id="trainQuizBox">${trainQuiz.map((q,i)=>`<div class="train-question" data-i="${i}"><h4>${i+1}. ${q.q}</h4>${q.shown.map((o,j)=>`<label><input type="radio" name="tq${i}" value="${o.orig}"> ${String.fromCharCode(65+j)}. ${o.t}</label>`).join('')}<div class="train-feedback" id="tqfb${i}"></div></div>`).join('')}</div><button class="btn primary" onclick="gradeTrainQuiz()">Corrigir</button><div id="trainQuizResult"></div>`}

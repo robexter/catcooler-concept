@@ -1,0 +1,33 @@
+CATCOOLER CONCEPT — V2.9 LÓGICA DE INTERTRAVAMENTO
+
+NOVO MÓDULO: 🧩 Lógica de Intertravamento
+
+Modos:
+1. Causa → Efeito
+2. Efeito → Causa
+3. Montar lógica
+4. Completar matriz
+5. Cenários
+6. Modo prova
+
+Inclui:
+- 11 condições da matriz causa × efeito;
+- 10 efeitos lógicos usados no treinamento;
+- 5 cenários integrados com processo;
+- matriz original como referência;
+- feedback visual de acerto/erro/faltante;
+- histórico usando o sistema de desempenho já existente.
+
+Importante:
+A lógica foi transcrita da imagem fornecida. Em operação real, prevalecem a matriz oficial vigente, P&IDs, procedimentos, permissivos e intertravamentos aprovados.
+
+LAYOUT PRINCIPAL E 9 HOTSPOTS: PRESERVADOS.
+
+Substituir:
+- app.js
+- app.css
+- index.html
+- Catcooler_onepage_interativo_editavel.html
+- sw.js
+- intertravamento_catcooler.png
+- README.md (opcional)

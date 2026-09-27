@@ -564,3 +564,56 @@ body:has(#detailPanel.open){
   .eng-grid{grid-template-columns:1fr}
   .eng-summary{grid-template-columns:1fr}
 }
+
+
+/* =========================================================
+   V2.9 — Lógica de Intertravamento Catcooler
+   ========================================================= */
+.interlock-feature{border-color:#7a6630!important;background:linear-gradient(180deg,#2b2813,#141d24)!important}
+.interlock-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.interlock-reference{margin-top:12px;border:1px solid #36556d;border-radius:12px;overflow:auto;background:#d8e8f4;padding:5px}
+.interlock-reference img{display:block;max-width:none;width:max(100%,712px);height:auto}
+.interlock-cause-card{border:1px solid #42647c;background:linear-gradient(180deg,#10283b,#091924);border-radius:15px;padding:14px;margin:10px 0}
+.interlock-cause-card>span{font-size:9px;letter-spacing:.15em;color:#86bad9;font-weight:900}
+.interlock-cause-card h3{margin:7px 0;font-size:16px}
+.interlock-meta{display:flex;gap:7px;flex-wrap:wrap}
+.interlock-meta b{padding:5px 8px;border-radius:999px;border:1px solid #456880;background:#071520;color:#bee6ff;font-size:10px}
+.interlock-effects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.interlock-effect{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;text-align:left;border:1px solid #31516a;background:#0a1925;color:#eaf6ff;border-radius:11px;padding:10px;cursor:pointer}
+.interlock-effect:hover{border-color:#6f9bb7}
+.interlock-effect.selected{border-color:#69a94c;background:#132a16}
+.effect-check{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1px solid #52728b;font-weight:900}
+.interlock-effect strong{display:block;font-size:11px;line-height:1.3}
+.interlock-effect small{display:block;font-size:9px;color:#91b2c7;margin-top:3px}
+.interlock-effect.logic-correct{border-color:#57a54a;background:#102813}
+.interlock-effect.logic-wrong{border-color:#b65454;background:#2c1212}
+.interlock-effect.logic-missed{border-color:#c19e38;background:#2a230d}
+.interlock-signature{display:flex;flex-wrap:wrap;gap:7px;padding:12px;border:1px solid #315a78;background:#081925;border-radius:13px;margin:10px 0 14px}
+.interlock-signature span,.built-block{display:inline-flex;padding:7px 9px;border-radius:9px;border:1px solid #4c7895;background:#102a3c;color:#dff4ff;font-size:10px;font-weight:800}
+.interlock-answer-list{display:grid;gap:8px}
+.logic-choice-correct{border-color:#5b9d4d!important;background:#132b16!important}
+.logic-choice-wrong{border-color:#a84a4a!important;background:#2b1313!important}
+.built-logic{display:flex;align-items:center;flex-wrap:wrap;gap:5px;min-height:42px}
+.logic-arrow{color:#7aa5bf;font-weight:900}
+.muted-inline{color:#8099aa;font-size:11px}
+.matrix-practice-wrap{overflow:auto;margin:12px 0;border:1px solid #2c4a60;border-radius:12px;background:#07131c}
+.matrix-practice{border-collapse:collapse;min-width:900px;width:100%}
+.matrix-practice th,.matrix-practice td{border:1px solid #29465d;text-align:center}
+.matrix-practice th{padding:7px;background:#0c2030;vertical-align:bottom;width:90px}
+.matrix-practice th span{display:block;font-size:9px;line-height:1.2}
+.matrix-practice th small{display:block;font-size:8px;color:#92b1c5;margin-top:4px}
+.matrix-practice td{height:62px;background:#02070b}
+.matrix-practice td button{width:34px;height:34px;border-radius:50%;border:1px solid #385269;background:#07121b;cursor:pointer}
+.matrix-practice td button.selected{background:#00e79b;border-color:#4affc7;box-shadow:0 0 12px #00e79b66}
+.matrix-practice td button.cell-correct{background:#00d990!important;border-color:#6bffd0!important}
+.matrix-practice td button.cell-wrong{background:#c73c3c!important;border-color:#ff7575!important}
+.matrix-practice td button.cell-missed{background:#d5aa28!important;border-color:#ffe26c!important}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%}.legend-dot.green{background:#00d990}.legend-dot.red{background:#c73c3c}.legend-dot.yellow{background:#d5aa28}
+.interlock-skill-pills{display:flex;gap:7px;flex-wrap:wrap}
+.interlock-skill-pills span{padding:6px 9px;border:1px solid #36566d;background:#0a1a26;border-radius:999px;font-size:10px;color:#cce6f6}
+.logic-ok{border-color:#538c45!important;background:#102414!important}
+.logic-attention{border-color:#806820!important;background:#2a2513!important}
+@media(max-width:720px){
+  .interlock-mode-grid,.interlock-effects{grid-template-columns:1fr}
+  .interlock-reference img{width:712px}
+}
