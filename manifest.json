@@ -1,6 +1,6 @@
 {
-  "name": "Concept Template",
-  "short_name": "Concept Template",
+  "name": "catcooler concept",
+  "short_name": "catcooler concept",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -8,12 +8,12 @@
   "theme_color": "#07111b",
   "icons": [
     {
-      "src": "assets/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "assets/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

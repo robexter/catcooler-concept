@@ -617,9 +617,3 @@ body:has(#detailPanel.open){
   .interlock-mode-grid,.interlock-effects{grid-template-columns:1fr}
   .interlock-reference img{width:712px}
 }
-
-/* Concept Template T1.0 */
-#hotspotLayer{position:absolute;inset:0;z-index:20}
-#hotspotLayer .hotspot{z-index:30}
-.config-error{padding:16px;border:1px solid #824040;background:#351717;color:#ffd1d1;border-radius:14px}
-.template-help{border-color:#456880!important;background:#0a1b28!important}
