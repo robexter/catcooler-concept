@@ -102,3 +102,14 @@ Foram adicionados dois módulos completos no Centro de Treinamento:
 
 Cada tópico inclui onde ocorre, conceito, equações, consequência operacional, diagnóstico no CIC e limite de interpretação.
 Também foram adicionadas 20 questões específicas de engenharia ao banco de treinamento.
+
+
+## V2.7 — Interface simplificada
+
+Removidos da interface:
+- Localize na tela;
+- Exportar;
+- Importar;
+- Tela cheia.
+
+Demais módulos, conteúdo técnico, mídias, arquivos, quiz e layout do HMI foram preservados.

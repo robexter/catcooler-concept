@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="catcooler concept">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css?v=26">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="stylesheet" href="app.css?v=27">
 <title>Catcooler Concept U-39</title>
 <style id="panel-scroll-v24">
 html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!important}
@@ -22,16 +22,13 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
 
 </head>
 <body>
-<!-- LAYOUT_CONGELADO_V2.6: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
+<!-- LAYOUT_CONGELADO_V2.7: não alterar enquadramento, aspect-ratio ou coordenadas dos hotspots sem nova validação visual. -->
 <header class="topbar">
   <div class="brand"><img src="icon-192.png" alt=""><div><h1>Catcooler Concept U-39</h1><small>Treinamento interativo — Catcooler / tubulão</small></div></div>
   <div class="actions">
     <button class="btn primary hidden" id="installBtn" onclick="installApp()">📲 Instalar App</button>
     <button class="btn" onclick="openQuiz()">Quiz rápido</button>
     <button class="btn" onclick="openTraining()">🎓 Treinamento</button>
-    <button class="btn" onclick="exportJSON()">Exportar</button>
-    <label class="btn" for="importFile">Importar</label>
-    <input id="importFile" type="file" accept="application/json" class="hidden" onchange="importJSON(event)">
   </div>
 </header>
 
@@ -46,7 +43,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
 </section>
 
 <section class="card">
-  <div class="cardhead"><h2>Catcooler — clique nas lâmpadas para abrir as explicações</h2><button class="btn" onclick="document.documentElement.requestFullscreen?.()">Tela cheia</button></div>
+  <div class="cardhead"><h2>Catcooler — clique nas lâmpadas para abrir as explicações</h2></div>
   <div class="mapwrap"><div class="stage"><img src="catcooler_u39.png" alt="Tela do catcooler">
 <button class="hotspot" data-key="xv808" data-category="safety" style="left:16.5%;top:8.7%"><span class="bulb">💡</span><span class="lamp-label">XV-808</span></button>
 <button class="hotspot" data-key="f3982" data-category="equip" style="left:57.4%;top:15.8%"><span class="bulb">💡</span><span class="lamp-label">F-3982</span></button>
@@ -94,7 +91,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
         <button class="btn danger" onclick="restoreCurrent()">Restaurar este item</button>
         <button class="btn" onclick="quizCurrentItem()">🎯 Testar este ponto</button>
       </div>
-      <div class="local-note">💾 <strong>Alterações salvas somente neste dispositivo.</strong> Use “Exportar” no topo para gerar uma cópia dos dados editados.</div>
+      <div class="local-note">💾 <strong>Alterações salvas somente neste dispositivo.</strong></div>
       <div class="local-note" id="mediaStorageEstimate">Vídeos e arquivos locais usam o armazenamento do navegador deste aparelho.</div>
       <div class="section"><h3>Função / objetivo</h3><div class="editable" id="fieldFunction"></div></div>
       <div class="section"><h3>Como funciona no processo</h3><div class="editable" id="fieldProcess"></div></div>
@@ -130,7 +127,7 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
   </section>
 </aside>
 
-<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.6</span></small></div></footer>
+<footer class="footer"><img src="icon-192.png" alt=""><div><b>Catcooler Concept U-39</b><br><small>Treinamento interativo e consulta operacional — U-39 <span class="version">V2.7</span></small></div></footer>
 </main>
 
 <aside class="drawer" id="quizDrawer"><div class="drawer-head"><strong>Quiz rápido — Catcooler</strong><button class="btn" onclick="document.getElementById('quizDrawer').classList.remove('open')">Fechar</button></div><div class="drawer-body"><div id="quizBody"></div><button class="btn primary" onclick="gradeQuiz()">Corrigir quiz</button><div class="qresult hidden" id="quizResult"></div></div></aside>
@@ -144,5 +141,5 @@ html:has(#detailPanel.open),body:has(#detailPanel.open){overflow:hidden!importan
 </aside>
 
 <div class="toast" id="toast"></div>
-<script src="app.js?v=26"></script>
+<script src="app.js?v=27"></script>
 </body></html>

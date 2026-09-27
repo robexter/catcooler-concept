@@ -1,0 +1,25 @@
+CATCOOLER CONCEPT — V2.7 INTERFACE SIMPLIFICADA
+
+Removidos:
+- botão Exportar;
+- botão Importar;
+- campo/input de importação;
+- botão Tela cheia;
+- módulo/campo "Localize na tela" do Centro de Treinamento.
+
+Mantidos:
+- 9 hotspots/lâmpadas;
+- layout do HMI;
+- painel flutuante responsivo;
+- vídeos e arquivos inline;
+- Operações Unitárias;
+- Mecânica dos Fluidos;
+- quizzes e demais módulos de treinamento;
+- PWA.
+
+Substituir no GitHub:
+1. index.html
+2. Catcooler_onepage_interativo_editavel.html
+3. app.js
+4. sw.js
+5. README.md (opcional)
