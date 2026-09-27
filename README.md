@@ -134,3 +134,12 @@ Novo módulo no Centro de Treinamento baseado na matriz causa × efeito do Catco
 - registro de desempenho por habilidade.
 
 A transcrição preserva as linhas e pontos verdes visíveis na matriz fornecida. Para operação real prevalece a documentação oficial vigente.
+
+
+## V2.9.1 — Validação final
+
+Rodada de validação concluída. Corrigidos:
+- identificação visual da resposta correta no modo Efeito → Causa para TAGs repetidos;
+- repetição de causas no modo prova.
+
+Status: candidata a congelamento, condicionada apenas à confrontação documental da matriz com a revisão oficial vigente da unidade.

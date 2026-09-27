@@ -692,7 +692,7 @@ function startEffectCause(){
   <h2 class="training-title">Efeito → Causa</h2>
   <p class="training-sub">A seguinte assinatura apareceu na lógica. Qual causa é compatível?</p>
   ${signatureHtml(r)}
-  <div class="interlock-answer-list">${opts.map(o=>`<button class="choice-btn" onclick="answerEffectCause('${o.id}',this)"><strong>${o.cause}</strong><br><small>${o.tag}${o.set?' • '+o.set:''}</small></button>`).join('')}</div>
+  <div class="interlock-answer-list">${opts.map(o=>`<button class="choice-btn" data-row="${o.id}" onclick="answerEffectCause('${o.id}',this)"><strong>${o.cause}</strong><br><small>${o.tag}${o.set?' • '+o.set:''}</small></button>`).join('')}</div>
   <div id="interlockFeedback"></div>`;
 }
 
@@ -701,7 +701,7 @@ function answerEffectCause(id,btn){
   document.querySelectorAll('.interlock-answer-list .choice-btn').forEach(b=>b.disabled=true);
   btn.classList.add(ok?'logic-choice-correct':'logic-choice-wrong');
   if(!ok){
-    [...document.querySelectorAll('.interlock-answer-list .choice-btn')].find(b=>b.textContent.includes(interlockState.row.tag))?.classList.add('logic-choice-correct');
+    document.querySelector(`.interlock-answer-list .choice-btn[data-row="${interlockState.row.id}"]`)?.classList.add('logic-choice-correct');
   }
   $('#interlockFeedback').innerHTML=`<div class="feedback-box"><strong>${ok?'✓ Correto':'Resposta incorreta'}</strong><p>A assinatura corresponde a <b>${interlockState.row.cause} — ${interlockState.row.tag}</b>.</p></div>`;
   recordTraining('interlock','Efeito → Causa',ok?1:0,1,{'Diagnóstico':{score:ok?1:0,max:1}},ok?[]:[interlockState.row.id]);
@@ -797,7 +797,7 @@ function validateInterlockScenario(){
 }
 
 function startInterlockExam(){
-  const pool=shuffle([...INTERLOCK_ROWS,...INTERLOCK_ROWS]).slice(0,10);
+  const pool=shuffle(INTERLOCK_ROWS).slice(0,Math.min(10,INTERLOCK_ROWS.length));
   interlockState={...interlockState,mode:'exam',exam:pool,examIndex:0,examResults:[],selected:new Set()};
   renderInterlockExamQuestion();
 }

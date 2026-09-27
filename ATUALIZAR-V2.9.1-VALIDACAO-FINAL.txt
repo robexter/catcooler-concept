@@ -1,0 +1,39 @@
+CATCOOLER CONCEPT — V2.9.1 CANDIDATA A CONGELAMENTO
+
+RODADA DE VALIDAÇÃO EXECUTADA.
+
+RESULTADO: 48/48 verificações automatizadas aprovadas.
+
+Correções realizadas:
+1. Efeito → Causa:
+   corrigido destaque da alternativa correta quando duas linhas usam o mesmo TAG LSLL-2323.
+2. Modo prova:
+   agora seleciona 10 causas únicas entre as 11 disponíveis, sem repetir uma causa na mesma prova.
+
+Validações:
+- sintaxe JavaScript;
+- todos os JSONs;
+- 9 hotspots e coordenadas congeladas;
+- interface simplificada;
+- scroll do painel;
+- PWA/cache/assets;
+- ícones;
+- mídia inline;
+- Operações Unitárias;
+- Mecânica dos Fluidos;
+- banco de perguntas;
+- 11 linhas da matriz de intertravamento;
+- 6 modos de treinamento de lógica;
+- funções onclick.
+
+IMPORTANTE:
+A matriz foi validada contra a imagem enviada pelo usuário.
+Antes da denominação V3.0 ESTÁVEL, recomenda-se apenas confrontar a transcrição
+com a revisão oficial vigente da matriz causa × efeito da unidade.
+
+Arquivos principais para atualização:
+- app.js
+- index.html
+- Catcooler_onepage_interativo_editavel.html
+- sw.js
+- RELATORIO-VALIDACAO-V2.9.1.md
