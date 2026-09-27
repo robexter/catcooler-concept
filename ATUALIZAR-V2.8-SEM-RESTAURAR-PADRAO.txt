@@ -1,0 +1,22 @@
+CATCOOLER CONCEPT — V2.8
+
+Alteração:
+- removido o botão "Restaurar padrão" da barra principal.
+
+Mantidos:
+- 9 hotspots/lâmpadas;
+- layout do HMI;
+- painel flutuante;
+- edição por item;
+- botão "Restaurar este item" dentro do painel;
+- vídeos e arquivos inline;
+- Operações Unitárias;
+- Mecânica dos Fluidos;
+- quizzes e treinamento;
+- PWA.
+
+Substituir no GitHub:
+1. index.html
+2. Catcooler_onepage_interativo_editavel.html
+3. sw.js
+4. README.md (opcional)

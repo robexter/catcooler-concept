@@ -113,3 +113,9 @@ Removidos da interface:
 - Tela cheia.
 
 Demais módulos, conteúdo técnico, mídias, arquivos, quiz e layout do HMI foram preservados.
+
+
+## V2.8 — Interface sem Restaurar padrão
+
+Removido o botão **Restaurar padrão** da barra principal.
+As demais funções e o layout foram preservados.
